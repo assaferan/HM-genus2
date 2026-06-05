@@ -1,0 +1,84 @@
+# HM-genus2
+
+Reconstruct a genus-2 curve from a point parametrizing an abelian surface via the
+**Horrocks–Mumford (HM) bundle**, using [Magma](http://magma.maths.usyd.edu.au/).
+
+Given `x ∈ P³` (a section of the HM bundle), the pipeline recovers a genus-2 curve
+`C/ℚ` whose Jacobian is linked to the HM surface `A_x` by a **rational cyclic
+5-isogeny**:
+
+```
+x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-polarized)
+        ──x_to_tau──►    period matrix τ ∈ H₂   (numeric inversion of the theta map)
+        ──Genus2Curve──► genus-2 curve C/ℚ  with a rational 5-isogeny on Jac(C)
+```
+
+## Mathematical sketch
+
+- The **Horrocks–Mumford bundle** `F` on `P⁴` has `h⁰(F)=4`; a section
+  `s = Σ xᵢ·secᵢ` (`x ∈ P³`) cuts out a `(1,5)`-polarized abelian surface
+  `A_x ⊂ P⁴` of degree 10.
+- `A_τ = ℂ²/(τℤ² + diag(1,5)ℤ²)` embeds in `P⁴` by the five `(1,5)` theta
+  functions. The forward map is transcendental with no closed form, so `x → τ`
+  is solved **numerically**: a point `z ∈ A_τ` maps to a point that must satisfy
+  the defining quintics of `A_x`, giving a residual `q(Θ(z))` minimized over the
+  three entries of `τ`.
+- The principally polarized `[τ | I]` is `5`-isogenous to `A_x`; its Jacobian is
+  the reconstructed curve. The curve is recovered from its (rational) **absolute
+  Igusa invariants**.
+
+## Files
+
+| File              | Role |
+|-------------------|------|
+| `HMsurface.m`     | HM bundle and the surface `A_x = HMSurface(F, x)`; the `(1,5)` theta embedding. |
+| `Inversion.m`     | Reference inverse `x_to_tau` (finite-difference Gauss–Newton) + `verify_tau`. |
+| `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
+| `Genus2Curve.m`   | Top-level driver `Genus2Curve(x)`: `x → τ → curve/ℚ` via rational Igusa invariants. |
+| `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
+
+## Dependencies
+
+- **Magma** (commercial CAS) — provides the HM bundle, theta sums, scheme/ideal
+  machinery, and curve/Jacobian arithmetic.
+- **[CHIMP](https://github.com/edgarcosta/CHIMP)** — must be checked out as a
+  sibling directory `../CHIMP` (so that `AttachSpec("../CHIMP/CHIMP.spec")`
+  resolves). Provides `ComplexFieldExtra`, `ReduceSmallPeriodMatrix`,
+  `ThetaDerivatives`, etc. CHIMP is **not** redistributed here.
+
+Expected layout:
+
+```
+parent/
+├── HM-genus2/      ← this repo
+└── CHIMP/          ← https://github.com/edgarcosta/CHIMP
+```
+
+## Usage
+
+```magma
+// Build the curve from a P^3 point:
+magma
+> load "Genus2Curve.m";
+> C := Genus2Curve([1,2,3,4]);
+> C;
+Hyperelliptic Curve defined by y^2 = 12*x^6 + 4*x^5 + 36*x^4 + 12*x^3 + 39*x^2 + 8*x + 16 over Rational Field
+
+// Run the 5-isogeny test:
+magma Genus2Curve.m test.m
+```
+
+## Notes
+
+- The numeric inversion uses random restarts (only ~10% of starts land in the
+  true basin), so a run does several short low-precision searches before a single
+  full-precision polish. `Genus2Curve(x : Prec := 300)` controls the working
+  precision.
+- The test checks a **rational 5-isogeny** (a Galois-stable order-5 subgroup of
+  `J[5]`), *not* a rational 5-torsion point — the latter is strictly stronger and
+  need not hold. Concretely: at every prime `p` of good reduction (`p ≠ 5`), the
+  mod-5 reduction of the `L`-polynomial of `C/𝔽ₚ` must have a root in `𝔽₅`.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

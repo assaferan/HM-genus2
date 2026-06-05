@@ -1,0 +1,11 @@
+# Magma attach caches (auto-generated)
+*.sig
+
+# scratch / diagnostic scripts
+_*.m
+
+# editor / OS
+.DS_Store
+
+# Claude Code harness state
+.claude/
