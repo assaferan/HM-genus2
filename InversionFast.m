@@ -275,25 +275,50 @@ function x_to_tau_fast(x, CC : K := Rationals(), Embedding := 0, trials := 100,
     zs := [ [CCs| (Random(-50,50)+iis*Random(10,40))/100,
                   (Random(-50,50)+iis*Random(10,40))/100 ] : kk in [1..6] ];
     Nscore := Max(14, Ceiling(Sqrt(sp/4)));       // truncation for scoring
-    best := []; bestR := Infinity(); chosen := embset[1];
-    for trial in [1..trials] do
-        j := ((trial-1) mod #embset) + 1;          // round-robin over candidate embeddings
-        qsS := coercedS[j][1]; dqsS := coercedS[j][2];
-        // Wide sampling box: the true tau routinely lies well outside a reduced
-        // box (e.g. for x=[1,2,3,4]: a=-1.26+0.24i, b=0.95-0.05i, c=-2.04+1.92i),
-        // so a narrow box rarely seeds the basin. This roughly doubles the hit rate.
+    // One random-restart trial against a coerced quintic set; returns <posdef, |R|, tau>.
+    // Wide sampling box: the true tau routinely lies well outside a reduced box (e.g.
+    // for x=[1,2,3,4]: a=-1.26+0.24i, b=0.95-0.05i, c=-2.04+1.92i), so a narrow box
+    // rarely seeds the basin -- this roughly doubles the hit rate.
+    runtrial := function(qsS, dqsS)
         tau0 := [ (Random(-200,200)+iis*Random(10,120))/100,   // a
-                  (Random(-150,150)+iis*Random(-50,50))/100,   // b (now complex)
+                  (Random(-150,150)+iis*Random(-50,50))/100,   // b
                   (Random(-250,250)+iis*Random(10,250))/100 ]; // c
         ts, _ := FindTauFast(qsS, dqsS, tau0, zs, CCs : iters := 50, verbose := verbose);
-        // Accept only positive-definite Im(tau); keep the lowest-residual one.
-        posdef := Imaginary(ts[1]) gt 0 and
-                  Imaginary(ts[1])*Imaginary(ts[3]) - Imaginary(ts[2])^2 gt 0;
+        pd := Imaginary(ts[1]) gt 0 and Imaginary(ts[1])*Imaginary(ts[3]) - Imaginary(ts[2])^2 gt 0;
         r := Sqrt(&+[Abs(rv)^2 : rv in Residual(qsS, zs, ts[1], ts[2], ts[3], Nscore, CCs)]);
-        if verbose then printf "search trial %o (embedding %o): posdef=%o |R|=%o\n", trial, embset[j], posdef, RealField(6)!r; end if;
-        if posdef and r lt bestR then bestR := r; best := ts; chosen := embset[j]; end if;
-        if posdef and r lt basin_thresh then break; end if;  // basin found -> stop searching
+        return pd, r, ts;
+    end function;
+
+    best := []; bestR := Infinity(); chosenj := 1;
+    // PROBE: a few restarts per candidate embedding to find the working one. Over a
+    // number field, dead embeddings never approach a basin (their |R| stays O(1)),
+    // so the lowest-residual embedding is the live one. Stop early if a probe already
+    // lands in a basin. (For K = Q there is a single embedding and this is just the
+    // start of the search.)
+    probe := Max(6, trials div 12);
+    used := 0; hit := false;
+    for round in [1..probe] do
+        for j in [1..#embset] do
+            pd, r, ts := runtrial(coercedS[j][1], coercedS[j][2]); used +:= 1;
+            if pd and r lt bestR then bestR := r; best := ts; chosenj := j; end if;
+            if verbose then printf "probe %o (embedding %o): posdef=%o |R|=%o\n", used, embset[j], pd, RealField(6)!r; end if;
+            if pd and r lt basin_thresh then hit := true; break; end if;
+        end for;
+        if hit then break; end if;
     end for;
+
+    // FOCUS: spend the remaining trials on the most promising embedding (or, if the
+    // probe saw no positive-definite tau at all, fall back to round-robin).
+    if not hit then
+        for trial in [1..trials - used] do
+            j := #best eq 0 select ((trial-1) mod #embset) + 1 else chosenj;
+            pd, r, ts := runtrial(coercedS[j][1], coercedS[j][2]);
+            if pd and r lt bestR then bestR := r; best := ts; chosenj := j; end if;
+            if verbose then printf "focus %o (embedding %o): posdef=%o |R|=%o\n", trial, embset[j], pd, RealField(6)!r; end if;
+            if pd and r lt basin_thresh then break; end if;
+        end for;
+    end if;
+    chosen := embset[chosenj];
     error if #best eq 0, "x_to_tau_fast: no valid tau found; increase trials or check x/K";
     if bestR ge basin_thresh then
         printf "WARNING: best search residual %o exceeds basin_thresh %o; polish may not converge\n",
