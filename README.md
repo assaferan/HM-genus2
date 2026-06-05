@@ -35,6 +35,7 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `Inversion.m`     | Reference inverse `x_to_tau` (finite-difference Gauss–Newton) + `verify_tau`. |
 | `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
 | `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
+| `Reduction.m`     | Good-reduction-at-5 filter + conductor (over ℚ, and per-prime over a number field). |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 
@@ -93,6 +94,27 @@ or `magma Genus2Curve.m test_quadratic.m`. Notes:
   reduction does not support number fields, so reduction is applied only when `K = ℚ`.
 - The Igusa invariants always lie in `K` (the field of moduli); a *model* over `K`
   exists exactly when the Mestre conic has a `K`-rational point.
+
+### Good reduction at 5 and conductor
+
+`Reduction.m` provides:
+
+```magma
+import "Reduction.m": PotentialGoodReductionAt5, GoodReductionAt5, ReductionReport;
+PotentialGoodReductionAt5(QI, K);   // cheap, model-free filter from the Igusa invariants
+GoodReductionAt5(C);                // definitive (conductor exponent 0 at p | 5)
+ReductionReport(C);                 // status at 5 + conductor exponents per bad prime
+```
+
+- `PotentialGoodReductionAt5` uses the Igusa valuation criterion
+  (`v_p(J₁₀)/10 ≤ v_p(J_{2i})/2i`) on the invariants the pipeline already returns —
+  so you can **screen many `x` for good reduction at 5 without building the curve model**.
+- The actual conductor exponent comes from `Conductor(C, p)`, which over a number field
+  works at all **odd** primes (in particular `p | 5`) but is **not implemented at
+  `p | 2`** ("fibre blowups"). Over `ℚ` the full `Conductor(C)` is available (its
+  2-part uses Ogg's formula heuristically when `v₂(disc) ≥ 12`).
+- Note: by construction every curve from this family already has a rational 5-isogeny,
+  so the search is really over **good reduction at 5 + small conductor**.
 
 ## Notes
 
