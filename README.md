@@ -34,8 +34,7 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `HMsurface.m`     | HM bundle and the surface `A_x = HMSurface(F, x)`; the `(1,5)` theta embedding. |
 | `Inversion.m`     | Reference inverse `x_to_tau` (finite-difference Gauss–Newton) + `verify_tau`. |
 | `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
-| `Genus2Curve.m`   | Top-level driver `Genus2Curve(x)`: `x → τ → curve/ℚ` via rational Igusa invariants. |
-| `Genus2CurveQuadratic.m` | `Genus2CurveQuadratic(x, K)`: same pipeline for `x ∈ P³(K)` over a real quadratic field `K = ℚ(√d)`. |
+| `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 
@@ -70,24 +69,28 @@ Hyperelliptic Curve defined by y^2 = 12*x^6 + 4*x^5 + 36*x^4 + 12*x^3 + 39*x^2 +
 magma Genus2Curve.m test.m
 ```
 
-### Over a real quadratic field
+### Over a number field
 
-For `x ∈ P³(K)` with `K = ℚ(√d)`, build the surface over `K`, invert via a fixed
-real embedding `√d ↦ ±|√d|`, recognize the Igusa invariants in `K`, and descend
-the curve to `K` (Mestre's algorithm):
+The same driver handles `x ∈ P³(K)` for a number field `K`: pass `K := <field>` and
+`x` over `K`. The surface is built over `K`, inverted via a chosen complex embedding,
+the Igusa invariants are recognized in `K`, and the curve is descended to `K`
+(Mestre's algorithm):
 
 ```magma
-> load "Genus2CurveQuadratic.m";
+> load "Genus2Curve.m";
 > K<s2> := QuadraticField(2);
-> C := Genus2CurveQuadratic([K| 1, s2, 3, 4], K);   // EmbSign := 1 -> s2 |-> +1.41421...
+> C, QI := Genus2Curve([K| 1, s2, 3, 4] : K := K);   // Embedding := 1 -> s2 |-> +1.41421...
 > BaseRing(C);     // Q(sqrt2) -- the curve descends (no Mestre obstruction here)
 ```
 
-or `magma test_quadratic.m`. Notes:
-- `EmbSign := ±1` picks the embedding; the two choices give Galois-conjugate inputs
-  (hence conjugate curves).
+or `magma Genus2Curve.m test_quadratic.m`. Notes:
+- Over a number field only some embeddings yield a positive-definite period τ (which
+  ones is `x`-dependent). `Embedding := 0` (default) auto-tries the embeddings and
+  uses the first that works; `Embedding := i` forces the `i`-th (roots of `K`'s
+  defining polynomial, sorted canonically). Different working embeddings give
+  Galois-conjugate curves.
 - The descended model can have very large coefficients — Magma's genus-2 model
-  reduction does not support number fields, so no reduction is applied over `K`.
+  reduction does not support number fields, so reduction is applied only when `K = ℚ`.
 - The Igusa invariants always lie in `K` (the field of moduli); a *model* over `K`
   exists exactly when the Mestre conic has a `K`-rational point.
 

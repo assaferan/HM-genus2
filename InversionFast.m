@@ -205,7 +205,35 @@ function FindTauFast(qs, dqs, tau0, zs, CC : iters := 60, verbose := false,
     return [a,b,c], nrm;
 end function;
 
-// x in P^3 to tau such that A_tau = A_x.
+// Complex embedding K -> CC for the base field K (Rationals or a number field).
+// For Q it is the canonical inclusion; for a number field it is the Embedding-th
+// root of the defining polynomial, with roots sorted canonically (by real then
+// imaginary part) so the SAME embedding is chosen at every precision. Different
+// embeddings give Galois-conjugate inputs (hence conjugate curves).
+function ComplexEmbedding(K, idx, CC)
+    if Type(K) eq FldRat then return hom< K -> CC | >; end if;
+    rts := [ r[1] : r in Roots(ChangeRing(DefiningPolynomial(K), CC)) ];
+    Sort(~rts, func< a, b | Sign(Real(a) - Real(b)) ne 0
+                            select Sign(Real(a) - Real(b))
+                            else   Sign(Imaginary(a) - Imaginary(b)) >);
+    error if idx gt #rts, "ComplexEmbedding: Embedding index out of range; K has", #rts, "embeddings";
+    return hom< K -> CC | rts[idx] >;
+end function;
+
+// Coerce the K-quintics qs into CC via the embedding emb; also return their partials.
+function CoerceQuintics(qs, K, emb, CC)
+    P5K := Parent(qs[1]);
+    P5CC := PolynomialRing(CC, 5);
+    if Type(K) eq FldRat then
+        cm := hom< P5K -> P5CC | [P5CC.j : j in [1..5]] >;          // Q-coeffs coerce canonically
+    else
+        cm := hom< P5K -> P5CC | emb, [P5CC.j : j in [1..5]] >;      // via the chosen embedding
+    end if;
+    qsC := [ cm(q) : q in qs ];
+    return qsC, [ [ Derivative(q, l) : l in [1..5] ] : q in qsC ];
+end function;
+
+// x in P^3(K) to tau such that A_tau = A_x (over the chosen embedding of K).
 //
 // Two-phase strategy (the residual surface has many spurious local minima, so a
 // random start converges to the true basin only ~10% of the time):
@@ -214,70 +242,77 @@ end function;
 //       restarts cheaply, and stopping early, is the dominant speedup.
 //   (B) POLISH -- refine that single winner to full precision, then verify.
 //
-// Parameters (formerly hard-coded constants):
-//   trials       -- max number of low-precision restarts to try
-//   search_prec  -- working precision for phase A (0 => auto: ~40, capped by prec)
-//   basin_thresh -- score below which a start is deemed a TRUE zero. Must sit in
-//                   the gap between a converged trial (~1e-15) and a spurious
-//                   local minimum (~1e-3): too loose and spurious minima are
-//                   wrongly accepted (then the polish fails verify_tau).
-//   polish_iters -- max Newton iterations for the full-precision polish
+// K selects the base field (default Q). Over a number field only SOME complex
+// embeddings yield a positive-definite period tau, and which ones is x-dependent;
+// so Embedding := 0 (the default) tries all embeddings round-robin and keeps the
+// first that lands in a basin, while Embedding := i forces the i-th embedding. The
+// K-quintics are coerced to CC via the chosen embedding before the numeric search;
+// the winning embedding is returned so the caller can recognize invariants in K.
 //
 // Only ~10% of random starts land in the true basin, so trials is large; the
 // early break means we usually stop after ~10 (P(miss all 100) < 1e-4).
-function x_to_tau_fast(x, CC : trials := 100, search_prec := 0, verbose := false,
-                       basin_thresh := 1e-6, polish_iters := 40)
+function x_to_tau_fast(x, CC : K := Rationals(), Embedding := 0, trials := 100,
+                       search_prec := 0, verbose := false, basin_thresh := 1e-6, polish_iters := 40)
     prec := Precision(CC);
-    // Surface + defining quintics are exact and precision-independent: build once.
-    k := Rationals();                      // GF(p) with p prime is much faster;
-    P := ProjectiveSpace(k, 4);
+    // HM surface over K and its defining quintics (exact, precision-independent).
+    P := ProjectiveSpace(K, 4);
     F := HorrocksMumfordBundle(P);
     A := HMSurface(F, x);
-    basis := MinimalBasis(Ideal(A));
-    qs := [b : b in basis | Degree(b) eq 5];      // the 3 defining quintics
-    dqs := [ [ Derivative(q, l) : l in [1..5] ] : q in qs ];   // partials, once
+    qs := [b : b in MinimalBasis(Ideal(A)) | Degree(b) eq 5];   // the 3 defining quintics
     assert #qs eq 3;
 
     // ---- Phase A: locate the basin at reduced precision ----
     sp := search_prec gt 0 select search_prec else Max(30, Min(prec, 40));
     CCs := ComplexFieldExtra(sp); iis := CCs.1;
+    nemb := Type(K) eq FldRat select 1 else Degree(K);
+    embset := Embedding eq 0 select [1..nemb] else [Embedding];
+    // Pre-coerce the quintics once per candidate embedding (at search precision).
+    coercedS := [* *];
+    for e in embset do
+        qe, dqe := CoerceQuintics(qs, K, ComplexEmbedding(K, e, CCs), CCs);
+        Append(~coercedS, <qe, dqe>);
+    end for;
     zs := [ [CCs| (Random(-50,50)+iis*Random(10,40))/100,
                   (Random(-50,50)+iis*Random(10,40))/100 ] : kk in [1..6] ];
     Nscore := Max(14, Ceiling(Sqrt(sp/4)));       // truncation for scoring
-    best := []; bestR := Infinity();
+    best := []; bestR := Infinity(); chosen := embset[1];
     for trial in [1..trials] do
+        j := ((trial-1) mod #embset) + 1;          // round-robin over candidate embeddings
+        qsS := coercedS[j][1]; dqsS := coercedS[j][2];
         // Wide sampling box: the true tau routinely lies well outside a reduced
         // box (e.g. for x=[1,2,3,4]: a=-1.26+0.24i, b=0.95-0.05i, c=-2.04+1.92i),
         // so a narrow box rarely seeds the basin. This roughly doubles the hit rate.
         tau0 := [ (Random(-200,200)+iis*Random(10,120))/100,   // a
                   (Random(-150,150)+iis*Random(-50,50))/100,   // b (now complex)
                   (Random(-250,250)+iis*Random(10,250))/100 ]; // c
-        ts, _ := FindTauFast(qs, dqs, tau0, zs, CCs : iters := 50, verbose := verbose);
+        ts, _ := FindTauFast(qsS, dqsS, tau0, zs, CCs : iters := 50, verbose := verbose);
         // Accept only positive-definite Im(tau); keep the lowest-residual one.
         posdef := Imaginary(ts[1]) gt 0 and
                   Imaginary(ts[1])*Imaginary(ts[3]) - Imaginary(ts[2])^2 gt 0;
-        r := Sqrt(&+[Abs(rv)^2 : rv in Residual(qs, zs, ts[1], ts[2], ts[3], Nscore, CCs)]);
-        if verbose then printf "search trial %o: posdef=%o |R|=%o\n", trial, posdef, RealField(6)!r; end if;
-        if posdef and r lt bestR then bestR := r; best := ts; end if;
+        r := Sqrt(&+[Abs(rv)^2 : rv in Residual(qsS, zs, ts[1], ts[2], ts[3], Nscore, CCs)]);
+        if verbose then printf "search trial %o (embedding %o): posdef=%o |R|=%o\n", trial, embset[j], posdef, RealField(6)!r; end if;
+        if posdef and r lt bestR then bestR := r; best := ts; chosen := embset[j]; end if;
         if posdef and r lt basin_thresh then break; end if;  // basin found -> stop searching
     end for;
-    error if #best eq 0, "x_to_tau_fast: no valid tau found; increase trials or check x";
+    error if #best eq 0, "x_to_tau_fast: no valid tau found; increase trials or check x/K";
     if bestR ge basin_thresh then
         printf "WARNING: best search residual %o exceeds basin_thresh %o; polish may not converge\n",
                RealField(8)!bestR, RealField(8)!basin_thresh;
     end if;
 
-    // ---- Phase B: polish the winner at full precision ----
+    // ---- Phase B: polish the winner at full precision (using the winning embedding) ----
+    embH := ComplexEmbedding(K, chosen, CC);
+    qsH, dqsH := CoerceQuintics(qs, K, embH, CC);
     // Reconstruct the start in CC from real/imag parts (robust across prec levels).
     tau0_hi := [ CC!Real(t) + CC.1*(CC!Imaginary(t)) : t in best ];
     zs_hi := [ [CC| (Random(-50,50)+CC.1*Random(10,40))/100,
                     (Random(-50,50)+CC.1*Random(10,40))/100 ] : kk in [1..6] ];
     // coarse:=false -> full N from the start (we are in-basin and want full accuracy);
     // lm_floor:=0 -> never abandon the converged solution;
-    // tol_pow:=prec-10 -> converge to nearly full precision so ReconstructCurve's LLL succeeds.
-    tau_hi, rfinal := FindTauFast(qs, dqs, tau0_hi, zs_hi, CC : iters := polish_iters,
+    // tol_pow:=prec-10 -> converge to nearly full precision so recognition succeeds.
+    tau_hi, rfinal := FindTauFast(qsH, dqsH, tau0_hi, zs_hi, CC : iters := polish_iters,
                                   verbose := verbose, coarse := false, lm_floor := 0,
                                   tol_pow := prec - 10);
-    verify_tau(qs, tau_hi, CC);              // independent sanity check at full precision
-    return SymmetricMatrix(tau_hi), rfinal;  // [a,b,c] -> [[a,b],[b,c]]
+    verify_tau(qsH, tau_hi, CC);             // independent sanity check at full precision
+    return SymmetricMatrix(tau_hi), rfinal, embH;  // tau, residual, chosen embedding
 end function;
