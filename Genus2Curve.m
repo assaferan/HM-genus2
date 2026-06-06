@@ -116,3 +116,12 @@ function Genus2Invariants(x : K := Rationals(), Embedding := 0, Prec := 300,
                                  trials := Trials, verbose := Verbose);
     return IgusaInvariantsInK(tau, K, emb);
 end function;
+
+// Dimension over Q of the GEOMETRIC endomorphism algebra of [tau|I], via CHIMP. Equals
+// 1 iff End(J) = Z (J geometrically simple, no RM/CM, not isogenous to a product) -- a
+// twist-invariant "generic" test computed directly from the period matrix tau.
+function GeometricEndomorphismDimension(tau)
+    CC := BaseRing(tau);
+    P := HorizontalJoin(tau, IdentityMatrix(CC, 2));
+    return #GeometricEndomorphismRepresentationCC(P);
+end function;

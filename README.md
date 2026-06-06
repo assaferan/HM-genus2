@@ -35,7 +35,7 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `Inversion.m`     | Reference inverse `x_to_tau` (finite-difference Gauss–Newton) + `verify_tau`. |
 | `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
 | `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
-| `Reduction.m`     | Good-reduction-at-5 filter + conductor (over ℚ, and per-prime over a number field). |
+| `Reduction.m`     | Good-reduction-at-5 filter, conductor (per-prime over a number field), minimal quadratic twist, Frobenius polynomials. |
 | `Heights.m`       | Enumerate `P³(K)` points (`K` quadratic) by increasing Weil height. |
 | `search_quadratic.m` | Search driver: screen `ℚ(√2)`-points by increasing height for good reduction at 5, rank by conductor size. |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
@@ -128,13 +128,29 @@ conductor-size proxy (norm of the bad primes away from 2 and 5, found cheaply at
 primes). Results stream to `search_results.txt`. For the best survivors, build the model
 with `Genus2Curve` and read exact conductor exponents (odd primes) via `ReductionReport`.
 
+For each point the driver: computes `τ`; filters by **potential good reduction at 5**
+(invariant criterion) and by **`End(J)=ℤ`** (`GeometricEndomorphismDimension(τ)==1`,
+i.e. geometrically simple — both cheap and twist-invariant); and for survivors descends
+to the curve, applies the **minimal quadratic twist** (`MinimalTwist`: twist to good
+reduction at every prime of potential good reduction, so the conductor is as small as
+possible), and records the conductor exponents and the factored **Frobenius polynomial
+at 5**.
+
 Low height tends to give low conductor, so processing in height order surfaces the best
 candidates first. **Scale caveat:** `P³(K)` has ~`B⁸` points of height ≤ `B`, so an
 exhaustive height bound is infeasible beyond tiny `B`; the driver enumerates within a
 coordinate box (`BoxM`) and processes the lowest `MaxPts` points by height (both
-configurable). The per-point period computation is the cost; enumeration/screening are
-cheap. Many of the very lowest-height points are degenerate (the section leaves the
-abelian locus) and are skipped automatically.
+configurable). The per-point period computation is the cost; the filters are cheap and
+run before the (expensive) Mestre descent. Many of the very lowest-height points are
+degenerate (the section leaves the abelian locus) and are skipped automatically.
+
+**Twist subtleties.** The reconstructed curve is only determined up to quadratic twist,
+and good reduction at 5 / the conductor / the Frobenius polynomial at 5 are all
+twist-dependent (the 5-isogeny structure and `End=ℤ` are twist-invariant). `MinimalTwist`
+pins the model with smallest conductor. Worked example: `x = [0,-1,1,1]` (height 1) gives
+a **simple** Jacobian with a rational 5-isogeny whose minimal model has **good reduction
+away from 2** (in particular good at 5), with Frobenius polynomial at 5 equal to
+`(25T²+4T+1)²` (so its reduction mod 5 is `≅ E²` over `𝔽₂₅`).
 
 ## Notes
 

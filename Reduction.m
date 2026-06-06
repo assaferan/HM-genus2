@@ -62,6 +62,50 @@ function ConductorExponentAt(C, p)
     try return Conductor(C, p); catch e; return -1; end try;
 end function;
 
+// Integral model of C: clear denominators of the hyperelliptic polynomials. y^2+h y=f
+// is isomorphic to Y^2 + (m h) Y = m^2 f (Y = m y), with m the common denominator -- so
+// the reduction (hence Euler factors/conductor) is unchanged but the model is integral.
+function IntegralModelOf(C)
+    f, h := HyperellipticPolynomials(C);
+    m := LCM([ Integers() | Denominator(c) : c in Coefficients(f) cat Coefficients(h) cat [1] ]);
+    return HyperellipticCurve(Parent(f)!(m^2*f), Parent(f)!(m*h));
+end function;
+
+// Frobenius polynomial (Euler factor) of C at a good prime p, as an integer polynomial.
+// Uses an integral model (EulerFactor needs a p-integral model; the reconstructed curve
+// usually is not). Degenerates if C has bad reduction at p.
+function FrobeniusPolynomial(C, p)
+    return PolynomialRing(Integers()) ! EulerFactor(IntegralModelOf(C), p);
+end function;
+
+// Minimal quadratic twist (best effort): twist C by the product of generators of the
+// odd prime ideals (norm via rational primes <= Bound) where C has additive bad
+// reduction -- those are primes of potential good reduction (invariant criterion), and
+// twisting by a uniformizer there toggles them to good without disturbing other primes
+// (the generator is a unit elsewhere; needs class number 1). The result is good at all
+// such primes when the potential-good reduction is of quadratic type (verify via the
+// conductor). Returns <twisted curve, twist element>.
+function MinimalTwist(C, K : Bound := 50)
+    if Type(K) eq FldRat then
+        bad := [ ell : ell in PrimesUpTo(Bound) | ell ne 2 and ConductorExponentAt(C, ell) gt 0 ];
+        d := &*([Integers()| 1] cat bad);
+        return (d eq 1 select C else QuadraticTwist(C, d)), d;
+    end if;
+    gens := [K| ];
+    for ell in PrimesUpTo(Bound) do
+        if ell eq 2 then continue; end if;
+        for p in PrimesAbove(K, ell) do
+            if ConductorExponentAt(C, p) gt 0 then
+                ok, pi := IsPrincipal(p);
+                error if not ok, "MinimalTwist: non-principal prime (class number > 1)";
+                Append(~gens, K!pi);
+            end if;
+        end for;
+    end for;
+    d := &*([K| 1] cat gens);
+    return (d eq 1 select C else QuadraticTwist(C, d)), d;
+end function;
+
 // True iff C has (actual) good reduction at every prime above 5 -- conductor exponent
 // 0 there. Definitive (p | 5 is odd, so Conductor(C,p) is computable over K).
 function GoodReductionAt5(C)

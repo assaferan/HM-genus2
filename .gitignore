@@ -9,3 +9,6 @@ _*.m
 
 # Claude Code harness state
 .claude/
+
+# search output
+search_results.txt
