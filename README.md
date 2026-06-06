@@ -36,6 +36,7 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
 | `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
 | `Reduction.m`     | Good-reduction-at-5 filter + conductor (over ℚ, and per-prime over a number field). |
+| `search_quadratic.m` | Search driver: screen a family of `x` over `ℚ(√2)` for good reduction at 5, rank by conductor size. |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 
@@ -115,6 +116,17 @@ ReductionReport(C);                 // status at 5 + conductor exponents per bad
   2-part uses Ogg's formula heuristically when `v₂(disc) ≥ 12`).
 - Note: by construction every curve from this family already has a rational 5-isogeny,
   so the search is really over **good reduction at 5 + small conductor**.
+
+### Searching a family
+
+`search_quadratic.m` loops over a configurable family of `x` over `ℚ(√2)`, computes the
+Igusa invariants (`Genus2Invariants` — the period computation **without** the Mestre
+descent, the cheap way to screen), keeps only those with good reduction at 5, ranks the
+survivors by a conductor-size proxy (the norm of the bad primes away from 2 and 5, found
+cheaply at small primes), and writes results to `search_results.txt`. The expensive part
+is the period computation per `x`; the screening and ranking are cheap. For the best
+survivors, build the model with `Genus2Curve` and read exact conductor exponents (odd
+primes) via `ReductionReport`.
 
 ## Notes
 

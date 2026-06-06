@@ -68,15 +68,23 @@ end function;
 // curve is determined up to quadratic twist -- harmless for the 5-isogeny, which is
 // twist-invariant. We avoid CHIMP's ReconstructCurve because it algebraizes the
 // twisted sextic coefficients, whose height dwarfs that of the absolute invariants.
-function Genus2CurveFromTau(tau, K, emb)
+// Absolute Igusa invariants of [tau|I] recognized in K (no curve built). This is the
+// cheap part to use when screening many x -- the Mestre descent is only needed to
+// produce a model, which we defer to survivors.
+function IgusaInvariantsInK(tau, K, emb)
     ICCn := IgusaNumericFromTau(tau);
     QI := [K| ];
     for z in ICCn do
         el, res := RecognizeInField(z, K, emb);
         error if res gt 1e-20,
-            "Genus2CurveFromTau: Igusa invariant not recognized in K; increase Prec (or check the embedding)";
+            "IgusaInvariantsInK: Igusa invariant not recognized in K; increase Prec (or check the embedding)";
         Append(~QI, el);
     end for;
+    return QI;
+end function;
+
+function Genus2CurveFromTau(tau, K, emb)
+    QI := IgusaInvariantsInK(tau, K, emb);
     C := HyperellipticCurveFromIgusaInvariants(QI);
     if not (BaseRing(C) cmpeq K) then          // descend to K via Mestre's algorithm
         IC := [K| c : c in IgusaClebschInvariants(C) ];
@@ -96,4 +104,15 @@ function Genus2Curve(x : K := Rationals(), Embedding := 0, Prec := 300,
     tau, _, emb := x_to_tau_fast(x, CC : K := K, Embedding := Embedding,
                                  trials := Trials, verbose := Verbose);
     return Genus2CurveFromTau(tau, K, emb);   // returns <curve over K, Igusa invariants in K>
+end function;
+
+// Cheap screening variant: returns ONLY the absolute Igusa invariants over K (the
+// period computation, without the Mestre descent). Use this to filter many x by
+// good reduction at 5 before paying for a curve model.
+function Genus2Invariants(x : K := Rationals(), Embedding := 0, Prec := 300,
+                          Trials := 100, Verbose := false)
+    CC := ComplexFieldExtra(Prec);
+    tau, _, emb := x_to_tau_fast(x, CC : K := K, Embedding := Embedding,
+                                 trials := Trials, verbose := Verbose);
+    return IgusaInvariantsInK(tau, K, emb);
 end function;
