@@ -30,8 +30,8 @@ TwistBound := 50;    // examine odd primes up to this for the minimal twist / co
 outfile    := "search_results.txt";
 // ------------------------------------------------
 
-pts, hts := BoundedHeightPoints(k, BoxM);
-printf "Enumerated %o points (BoxM=%o); processing %o lowest by height.\n", #pts, BoxM, Min(MaxPts,#pts);
+pts, hts := BoundedHeightPoints(k, BoxM : ExcludeRational := true);   // drop x in P^3(Q)
+printf "Enumerated %o non-rational points (BoxM=%o); processing %o lowest by height.\n", #pts, BoxM, Min(MaxPts,#pts);
 System("rm -f " cat outfile);
 PrintFile(outfile, Sprintf("# simple + good-at-5 search over %o; p|5 norm %o", k, [Norm(p):p in PrimesAbove(k,5)]));
 ZT<T> := PolynomialRing(Integers());
@@ -48,6 +48,8 @@ for i in [1 .. Min(MaxPts, #pts)] do
         QI := IgusaInvariantsInK(tau, k, emb);
     catch e; printf "skip (%o)\n", e`Object; ok := false; end try;
     if not ok then continue; end if;
+    // reject curves defined over Q (base changes / their twists): rational Igusa invariants
+    if forall{ q : q in QI | Eltseq(k!q)[2] eq 0 } then printf "defined over Q (base change)\n"; continue; end if;
     if not PotentialGoodReductionAt5(QI, k) then printf "potential-bad at 5\n"; continue; end if;
     endim := -1; try endim := GeometricEndomorphismDimension(tau); catch e; end try;
     if endim ne 1 then printf "End-dim %o (not simple)\n", endim; continue; end if;

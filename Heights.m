@@ -11,7 +11,16 @@
 // Note: to capture *every* point of height <= B, take M >= B (a height-B point's
 // primitive coordinates are bounded by ~B in each embedding); for the small B that the
 // per-point period computation allows, the box is small.
-function BoundedHeightPoints(K, M : HeightBound := 0)
+// True iff the point x in P^3(K) is defined over Q, i.e. projectively equivalent to a
+// rational vector. Writing x_i = a_i + b_i*w (w = K.1), x is a Q-point iff the rational
+// vectors (a_i) and (b_i) are proportional (rank of the 2 x 4 matrix is <= 1) -- then
+// the whole HM construction, and the curve, descends to Q (C/K is a base change).
+function IsDefinedOverQ(x, K)
+    cs := [ Eltseq(K!c) : c in x ];
+    return Rank(Matrix(Rationals(), [[cs[i][1] : i in [1..#x]], [cs[i][2] : i in [1..#x]]])) le 1;
+end function;
+
+function BoundedHeightPoints(K, M : HeightBound := 0, ExcludeRational := false)
     Ok := Integers(K);
     w := K.1;
     box := [ K | a + b*w : a in [-M..M], b in [-M..M] ];
@@ -21,6 +30,7 @@ function BoundedHeightPoints(K, M : HeightBound := 0)
         x := [ tup[1], tup[2], tup[3], tup[4] ];
         nz := [ i : i in [1..4] | x[i] ne 0 ];
         if #nz eq 0 then continue; end if;
+        if ExcludeRational and IsDefinedOverQ(x, K) then continue; end if;  // drop P^3(Q) points
         j := nz[#nz];                              // canonical affine chart: last nonzero = 1
         key := < x[i]/x[j] : i in [1..4] >;
         if key in seen then continue; end if;

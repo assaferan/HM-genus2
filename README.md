@@ -128,6 +128,11 @@ conductor-size proxy (norm of the bad primes away from 2 and 5, found cheaply at
 primes). Results stream to `search_results.txt`. For the best survivors, build the model
 with `Genus2Curve` and read exact conductor exponents (odd primes) via `ReductionReport`.
 
+The enumeration **excludes points `x ∈ P³(ℚ)`** (`ExcludeRational`), since a rational `x`
+makes the whole construction — and the curve — defined over ℚ (so `C/K` is a base change).
+As a complete check the driver also **rejects curves with rational Igusa invariants**
+(geometrically defined over ℚ), which catches the rare irrational `x` landing on a ℚ-curve.
+
 For each point the driver: computes `τ`; filters by **potential good reduction at 5**
 (invariant criterion) and by **`End(J)=ℤ`** (`GeometricEndomorphismDimension(τ)==1`,
 i.e. geometrically simple — both cheap and twist-invariant); and for survivors descends
