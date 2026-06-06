@@ -36,7 +36,8 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `InversionFast.m` | Production inverse `x_to_tau_fast`: analytic Jacobian, Levenberg–Marquardt, adaptive truncation, two-phase (low→high) precision with stagnation/eigenvalue pruning. |
 | `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
 | `Reduction.m`     | Good-reduction-at-5 filter + conductor (over ℚ, and per-prime over a number field). |
-| `search_quadratic.m` | Search driver: screen a family of `x` over `ℚ(√2)` for good reduction at 5, rank by conductor size. |
+| `Heights.m`       | Enumerate `P³(K)` points (`K` quadratic) by increasing Weil height. |
+| `search_quadratic.m` | Search driver: screen `ℚ(√2)`-points by increasing height for good reduction at 5, rank by conductor size. |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 
@@ -119,14 +120,21 @@ ReductionReport(C);                 // status at 5 + conductor exponents per bad
 
 ### Searching a family
 
-`search_quadratic.m` loops over a configurable family of `x` over `ℚ(√2)`, computes the
-Igusa invariants (`Genus2Invariants` — the period computation **without** the Mestre
-descent, the cheap way to screen), keeps only those with good reduction at 5, ranks the
-survivors by a conductor-size proxy (the norm of the bad primes away from 2 and 5, found
-cheaply at small primes), and writes results to `search_results.txt`. The expensive part
-is the period computation per `x`; the screening and ranking are cheap. For the best
-survivors, build the model with `Genus2Curve` and read exact conductor exponents (odd
-primes) via `ReductionReport`.
+`search_quadratic.m` enumerates `ℚ(√2)`-points of `P³` in **increasing height order**
+(`Heights.m`: `BoundedHeightPoints`), and for each computes the Igusa invariants
+(`Genus2Invariants` — the period computation **without** the Mestre descent, the cheap
+way to screen), keeps only those with good reduction at 5, and ranks survivors by a
+conductor-size proxy (norm of the bad primes away from 2 and 5, found cheaply at small
+primes). Results stream to `search_results.txt`. For the best survivors, build the model
+with `Genus2Curve` and read exact conductor exponents (odd primes) via `ReductionReport`.
+
+Low height tends to give low conductor, so processing in height order surfaces the best
+candidates first. **Scale caveat:** `P³(K)` has ~`B⁸` points of height ≤ `B`, so an
+exhaustive height bound is infeasible beyond tiny `B`; the driver enumerates within a
+coordinate box (`BoxM`) and processes the lowest `MaxPts` points by height (both
+configurable). The per-point period computation is the cost; enumeration/screening are
+cheap. Many of the very lowest-height points are degenerate (the section leaves the
+abelian locus) and are skipped automatically.
 
 ## Notes
 
