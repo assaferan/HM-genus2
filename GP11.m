@@ -131,9 +131,7 @@ function ThetaMatrix11(abc)              // abc = [a,b,c] -> symmetric 2x2
 end function;
 
 function ResidualAtZ11(v, w, z, abc, N, CC)
-    P := ThetaPt11(z, ThetaMatrix11(abc), N, CC);
-    _, i0 := Max([Abs(c) : c in P]);     // normalize by the largest coordinate (holomorphic locally)
-    P := [ c / P[i0] : c in P ];
+    P := ThetaPt11(z, ThetaMatrix11(abc), N, CC);  // raw theta point (residual stays holomorphic in tau)
     res := [CC| ];
     for u in [v, w] do
         for j in [0..D-1] do
@@ -149,11 +147,12 @@ end function;
 
 // Complex Gauss-Newton with Levenberg-Marquardt damping. Returns <abc, residual norm>.
 function FindTau11(v, w, zs, abc0, N, CC : iters := 80, lambda0 := 1e-3, verbose := false)
+    RR := RealField(Precision(CC));
     abc := abc0;
     r := Residual11(v, w, zs, abc, N, CC);
     nr := Sqrt(&+[ Abs(t)^2 : t in r ]);
-    lambda := CC!lambda0;
-    eps := (CC!10)^(-Precision(CC) div 3);
+    lambda := RR!lambda0;
+    eps := (RR!10)^(-(Precision(CC) div 3));
     for it in [1..iters] do
         cols := [];
         for k in [1..3] do
@@ -182,17 +181,16 @@ end function;
 
 // Invert with random restarts; keep the best tau with positive-definite imaginary part.
 function InvertGP11(v, w, CC : trials := 40, N := 8, nz := 6, verbose := false)
-    SetSeed(1);
+    RR := RealField(Precision(CC)); SetSeed(1);
     zs := [ [ (CC!Random(-500,500) + CC.1*CC!Random(-500,500))/1000 : i in [1..2] ] : k in [1..nz] ];
-    best := 0; bestnr := CC!10^9; got := false;
+    best := [CC|0,0,0]; bestnr := (RR!10)^9; got := false;
     for t in [1..trials] do
         a := CC!Random(-300,300)/1000 + CC.1*(CC!Random(200,1200)/1000);
         b := CC!Random(-300,300)/1000 + CC.1*CC!Random(-200,200)/1000;
         c := CC!Random(-300,300)/1000 + CC.1*(CC!Random(200,1200)/1000);
         abc, nr := FindTau11(v, w, zs, [a,b,c], N, CC);
-        Im := Matrix(CC, 2, 2, [Imaginary(abc[1]), Imaginary(abc[2]), Imaginary(abc[2]), Imaginary(abc[3])]);
-        posdef := Real(Im[1][1]) gt 0 and Real(Im[1][1]*Im[2][2]-Im[2][2]*0) gt 0
-                  and Real(Im[1][1])*Real(Im[2][2]) - Real(Im[2][1])^2 gt 0;
+        i11 := Imaginary(abc[1]); i12 := Imaginary(abc[2]); i22 := Imaginary(abc[3]);
+        posdef := i11 gt 0 and i11*i22 - i12^2 gt 0;
         if verbose then printf "  trial %o: |r|=%o posdef=%o\n", t, ChangePrecision(nr,4), posdef; end if;
         if nr lt bestnr and posdef then best := abc; bestnr := nr; got := true; end if;
     end for;
