@@ -37,7 +37,8 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `Genus2Curve.m`   | Top-level driver `Genus2Curve(x : K := ...)`: `x → τ → curve/K` via Igusa invariants recognized in `K` (default `K = ℚ`; any number field supported). |
 | `Reduction.m`     | Good-reduction-at-5 filter, conductor (per-prime over a number field), minimal quadratic twist, Frobenius polynomials. |
 | `Heights.m`       | Enumerate `P³(K)` points (`K` quadratic) by increasing Weil height. |
-| `search_quadratic.m` | Search driver: screen `ℚ(√2)`-points by increasing height for good reduction at 5, rank by conductor size. |
+| `search_quadratic.m` | Screening: enumerate non-rational `ℚ(√2)`-points by height, keep genuine-`K`, simple (`End=ℤ`), potential-good-at-5 curves; save to `survivors.m`. |
+| `analyze_survivors.m` | Heavy per-survivor analysis (descent, minimal twist, conductor, Frobenius-at-5) reusing the saved invariants — no second period computation. |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 

@@ -83,8 +83,10 @@ function IgusaInvariantsInK(tau, K, emb)
     return QI;
 end function;
 
-function Genus2CurveFromTau(tau, K, emb)
-    QI := IgusaInvariantsInK(tau, K, emb);
+// Build the curve over K directly from its (recognized) absolute Igusa invariants --
+// no period matrix needed, so survivors recorded during a search (which stores the
+// invariants) can be turned into curves later without redoing the period computation.
+function Genus2CurveFromIgusa(QI, K)
     C := HyperellipticCurveFromIgusaInvariants(QI);
     if not (BaseRing(C) cmpeq K) then          // descend to K via Mestre's algorithm
         IC := [K| c : c in IgusaClebschInvariants(C) ];
@@ -93,7 +95,12 @@ function Genus2CurveFromTau(tau, K, emb)
     if Type(BaseRing(C)) eq FldRat then        // Magma's reduction only works over Q
         try C := ReducedMinimalWeierstrassModel(C); catch e ; end try;
     end if;
-    return C, QI;
+    return C;
+end function;
+
+function Genus2CurveFromTau(tau, K, emb)
+    QI := IgusaInvariantsInK(tau, K, emb);
+    return Genus2CurveFromIgusa(QI, K), QI;
 end function;
 
 // Main driver. K defaults to Q; pass K := <number field> and x over K for the
