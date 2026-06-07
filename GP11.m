@@ -94,6 +94,111 @@ function QuadricsFromPencil(v, w, X)
     return QuadricsFromVector(v, X) cat QuadricsFromVector(w, X);
 end function;
 
+// The 22 quadrics in P^10 (polynomial ring R10, coords X0..X10) cutting out the (1,11)
+// surface whose odd 2-torsion point is Ptors in D_2: the pencil <v,w> = ker S(Ptors) in
+// V_+ (Theta: P |-> ker S(P)), then Q^v_j, Q^w_j via the R5 matrix.  Ptors is a 5-vector
+// (x1..x5) over the base field of R10; it must lie on D_2 \ D_1 (so ker S has dim 2).
+function SurfaceQuadrics(Ptors, R10)
+    F := BaseRing(R10);
+    S := IntertwiningMatrix([F!c : c in Ptors]);
+    K := Kernel(S);
+    error if Dimension(K) ne 2, "Ptors not in D_2 \\ D_1 (ker S has dim", Dimension(K), "!= 2)";
+    bw := Basis(K);
+    v := [R10!c : c in Eltseq(bw[1])];
+    w := [R10!c : c in Eltseq(bw[2])];
+    return QuadricsFromPencil(v, w, [R10.i : i in [1..11]]);
+end function;
+
+// Pencil <v,w> = ker S(Ptors) over an exact field (for a 2-torsion point Ptors on D_2).
+// Returned as two 6-vectors; embed into CC for the theta inversion.
+function PencilFromTorsion(Ptors)
+    S := IntertwiningMatrix(Ptors);
+    K := Kernel(S);
+    error if Dimension(K) ne 2, "Ptors not on D_2 \\ D_1 (ker S has dim", Dimension(K), ")";
+    bw := Basis(K);
+    return Eltseq(bw[1]), Eltseq(bw[2]);
+end function;
+
+// ---- (1,11) theta inversion: find tau with Theta_tau(A) on the surface's quadrics -----
+// The surface A is given by a pencil v,w in V_+ (length-6 vectors over CC). A point z lies
+// on A_tau, so its (1,11) theta image must satisfy all 22 quadrics Q^v_j, Q^w_j. We solve
+// for tau = [[a,b],[b,c]] by (complex) Gauss-Newton on these residuals over sample z's.
+// Mirrors Inversion.m for (1,5); the residual is holomorphic in tau (theta point is
+// normalized by a FIXED coordinate, not by abs), so the Jacobian can be taken over C.
+
+function ThetaMatrix11(abc)              // abc = [a,b,c] -> symmetric 2x2
+    return Matrix(Parent(abc[1]), 2, 2, [abc[1], abc[2], abc[2], abc[3]]);
+end function;
+
+function ResidualAtZ11(v, w, z, abc, N, CC)
+    P := ThetaPt11(z, ThetaMatrix11(abc), N, CC);
+    _, i0 := Max([Abs(c) : c in P]);     // normalize by the largest coordinate (holomorphic locally)
+    P := [ c / P[i0] : c in P ];
+    res := [CC| ];
+    for u in [v, w] do
+        for j in [0..D-1] do
+            Append(~res, &+[ u[i+1] * P[((j+i) mod D)+1] * P[((j-i) mod D)+1] : i in [0..5] ]);
+        end for;
+    end for;
+    return res;
+end function;
+
+function Residual11(v, w, zs, abc, N, CC)
+    return &cat[ ResidualAtZ11(v, w, z, abc, N, CC) : z in zs ];
+end function;
+
+// Complex Gauss-Newton with Levenberg-Marquardt damping. Returns <abc, residual norm>.
+function FindTau11(v, w, zs, abc0, N, CC : iters := 80, lambda0 := 1e-3, verbose := false)
+    abc := abc0;
+    r := Residual11(v, w, zs, abc, N, CC);
+    nr := Sqrt(&+[ Abs(t)^2 : t in r ]);
+    lambda := CC!lambda0;
+    eps := (CC!10)^(-Precision(CC) div 3);
+    for it in [1..iters] do
+        cols := [];
+        for k in [1..3] do
+            abck := abc; abck[k] +:= eps;
+            rk := Residual11(v, w, zs, abck, N, CC);
+            Append(~cols, [ (rk[l] - r[l]) / eps : l in [1..#r] ]);
+        end for;
+        J := Matrix(CC, #r, 3, [ cols[k][l] : l in [1..#r], k in [1..3] ]);
+        Jh := Transpose(J); Jh := Matrix(CC, 3, #r, [ ComplexConjugate(Jh[i][j]) : i in [1..3], j in [1..#r] ]);
+        H := Jh * J; g := Jh * Matrix(CC, #r, 1, r);
+        ok := false; step := [CC|0,0,0];
+        for tries in [1..12] do
+            Hd := H + lambda * IdentityMatrix(CC, 3);
+            d := -(Hd^(-1)) * g;
+            cand := [ abc[k] + d[k][1] : k in [1..3] ];
+            rc := Residual11(v, w, zs, cand, N, CC);
+            nc := Sqrt(&+[ Abs(t)^2 : t in rc ]);
+            if nc lt nr then abc := cand; r := rc; nr := nc; lambda /:= 2; ok := true; break;
+            else lambda *:= 3; end if;
+        end for;
+        if verbose then printf "   it %o: |r|=%o lambda=%o\n", it, ChangePrecision(nr,6), ChangePrecision(lambda,3); end if;
+        if not ok or nr lt eps*100 then break; end if;
+    end for;
+    return abc, nr;
+end function;
+
+// Invert with random restarts; keep the best tau with positive-definite imaginary part.
+function InvertGP11(v, w, CC : trials := 40, N := 8, nz := 6, verbose := false)
+    SetSeed(1);
+    zs := [ [ (CC!Random(-500,500) + CC.1*CC!Random(-500,500))/1000 : i in [1..2] ] : k in [1..nz] ];
+    best := 0; bestnr := CC!10^9; got := false;
+    for t in [1..trials] do
+        a := CC!Random(-300,300)/1000 + CC.1*(CC!Random(200,1200)/1000);
+        b := CC!Random(-300,300)/1000 + CC.1*CC!Random(-200,200)/1000;
+        c := CC!Random(-300,300)/1000 + CC.1*(CC!Random(200,1200)/1000);
+        abc, nr := FindTau11(v, w, zs, [a,b,c], N, CC);
+        Im := Matrix(CC, 2, 2, [Imaginary(abc[1]), Imaginary(abc[2]), Imaginary(abc[2]), Imaginary(abc[3])]);
+        posdef := Real(Im[1][1]) gt 0 and Real(Im[1][1]*Im[2][2]-Im[2][2]*0) gt 0
+                  and Real(Im[1][1])*Real(Im[2][2]) - Real(Im[2][1])^2 gt 0;
+        if verbose then printf "  trial %o: |r|=%o posdef=%o\n", t, ChangePrecision(nr,4), posdef; end if;
+        if nr lt bestnr and posdef then best := abc; bestnr := nr; got := true; end if;
+    end for;
+    return best, bestnr, got;
+end function;
+
 // im(Theta_11) subset Gr(2,6): the 5 linear Plucker relations cutting the moduli 3-fold
 // out of Gr(2,6) (Theorem 2.6).  p_ij are Plucker coords of the pencil <v,w> in V_+.
 //   p23=-p15, p26=p13, p14=-p35, p16=p45, p46=-p12.
