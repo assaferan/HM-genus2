@@ -6,7 +6,7 @@
 //      backtracking and positive-definiteness guards.
 //   3. The lattice truncation N is adaptive: coarse while the residual is large,
 //      ramped to full precision only near the solution.
-import "HMSurface.m": HMSurface;
+import "HMsurface.m": HMSurface;
 import "Inversion.m": ThetaPt, QEval, Residual, verify_tau;
 
 // prec := 200;                       // push it freely now
