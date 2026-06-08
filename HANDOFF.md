@@ -112,11 +112,14 @@ Math. 100 (1978). Moduli `A₁₁^lev` is birational to the **Klein cubic**
 
 ## What remains for (1,11)
 
-1. **Wrap `τ → curve`.** `A_τ` (1,11-polarized) is 11-isogenous to the principally
-   polarized `[τ|I]`, so the **same τ** from `InvertGP11Fast` feeds the reused
-   `Genus2CurveFromTau` / `IgusaNumericFromTau` (in `Genus2Curve.m`). A full-chain test
-   (`_gp11full.m`) computing the genus-2 curve's Igusa invariants from the converged τ was
-   running at handoff — re-run it to confirm (see recipe below).
+1. **Wrap `τ → curve` — CONFIRMED working.** `A_τ` (1,11-polarized) is 11-isogenous to the
+   principally polarized `[τ|I]`, so the **same τ** from `InvertGP11Fast` feeds the reused
+   `IgusaNumericFromTau` / `Genus2CurveFromTau` (in `Genus2Curve.m`). The full-chain test
+   ran successfully: from the real `D₂` point above, `|R|=9.95e-79` and the genus-2 curve's
+   absolute Igusa invariants came out real (curve over a number field):
+   `[1, -0.158469023628550, -0.188271294021765, -0.0533459313678878, -2.0704e-7]`.
+   So the entire chain `v → A ⊂ P¹⁰ → τ → C` works. What's left here is packaging it as a
+   tidy `GP11Curve(...)` driver and recognizing the invariants in the field of moduli.
 2. **11-isogeny test** — analogue of `test.m`: at good primes `p ≠ 11`, the mod-11
    reduction of the `L`-polynomial of `C/𝔽_p` has a root in `𝔽₁₁`.
 3. **Search infrastructure** — analogue of `Heights.m` + `search_quadratic.m`: enumerate
