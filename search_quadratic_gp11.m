@@ -105,7 +105,7 @@ for i in [1..Min(MaxPts, #pts)] do
                 QI := IgusaInvariantsInK(tau, k, emb);
                 found_emb := true;
                 printf "  t0 ~ %o: |R|=%o\n",
-                    RealField(6)!RealPart(emb(t0)), RealField(6)!nr;
+                    RealField(6)!Real(emb(t0)), RealField(6)!nr;
                 break;
             catch e; end try;
         end for;
