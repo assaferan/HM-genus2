@@ -1,21 +1,22 @@
-// data_qsqrt5_gp11.m -- Comprehensive data file for the Q(sqrt(5)) (1,11) curves.
+// data_qsqrt2.m -- Comprehensive data file for the Q(sqrt(2)) (1,5) curves.
 //
-// Produces data_qsqrt5_gp11.txt with, for each of the 2 K-isomorphism classes
-// (A = survivors 1&2; B = survivor 3; B' = survivor 4, the Galois conjugate of B):
+// Produces data_qsqrt2.txt with, for each K-isomorphism class of genus-2 curves
+// arising from the Horrocks-Mumford (1,5) search over K = Q(sqrt(2)):
 //   - Igusa-Siegel invariants
 //   - minimal quadratic twist
 //   - bad odd prime ideals (Igusa valuation criterion up to norm 200)
 //   - Frobenius L-polynomial at the first 20 prime ideals of good reduction
+//   - Frobenius at the prime above 5 (5 is inert in K, N(p5) = 25)
 //
-// Run: magma data_qsqrt5_gp11.m
+// Run: magma data_qsqrt2.m
 
 AttachSpec("../CHIMP/CHIMP.spec");
-load "survivors_qsqrt5_gp11.m";   // defines k<s5>, survivors_qsqrt5_gp11
+load "survivors.m";   // defines k<s2> := QuadraticField(2); survivors := [* ... *]
 import "Genus2Curve.m": Genus2CurveFromIgusa;
 import "Reduction.m": MinimalTwist, ConductorExponentAt, PrimesAbove,
                       BadPrimesFromInvariants;
 
-outfile := "data_qsqrt5_gp11.txt";
+outfile := "data_qsqrt2.txt";
 System("rm -f " cat outfile);
 
 procedure Emit(s) PrintFile(outfile, s); printf "%o\n", s; end procedure;
@@ -43,47 +44,62 @@ function TryReduceModP(CI, P)
     return false, _;
 end function;
 
+// Deduplicate survivors: group by equal Igusa invariants over K.
+// Two survivors with identical [J2:J4:J6:J8:J10] (with J2=1) are K-isomorphic.
+classes := [* *];
+seen_QI := [* *];
+for s in survivors do
+    QI := s[2];
+    is_new := true;
+    for c in seen_QI do
+        if forall{i : i in [1..5] | QI[i] eq c[i]} then is_new := false; break; end if;
+    end for;
+    if is_new then
+        Append(~classes, s);
+        Append(~seen_QI, QI);
+    end if;
+end for;
+
 ZT<T> := PolynomialRing(Integers());
-R11<t> := PolynomialRing(GF(11));
+F25<w25> := GF(5, 2);   // F_25 = GF(5^2); w25 satisfies the Conway polynomial
+R25<t> := PolynomialRing(F25);
 
 // -----------------------------------------------------------------------
 // Header
 // -----------------------------------------------------------------------
 Emit("===========================================================================");
-Emit("Genus-2 curves over K = Q(sqrt(5)) with a rational (1,11)-polarized isogeny");
-Emit("from the Gross-Popescu construction (HM-genus2 pipeline)");
+Emit("Genus-2 curves over K = Q(sqrt(2)) with a rational (1,5)-polarized abelian");
+Emit("surface from the Horrocks-Mumford bundle (HM-genus2 pipeline)");
 Emit("===========================================================================");
 Emit("");
-Emit("Field:  K = Q(s5),  s5^2 = 5.");
-Emit("        Ring of integers: O_K = Z[(1+s5)/2]  (golden-ratio ring).");
-Emit("        Discriminant: disc(K/Q) = 5.  Class number: h(K) = 1.");
-Emit("        Golden ratio: phi = (1+s5)/2, phi^(-1) = (s5-1)/2.");
+Emit("Field:  K = Q(s2),  s2^2 = 2.");
+Emit("        Ring of integers: O_K = Z[s2].");
+Emit("        Discriminant: disc(K/Q) = 8.  Class number: h(K) = 1.");
 Emit("");
-Emit("Splitting of 11 in K: (5/11) = 1 by QR, so 11 is SPLIT.");
-Emit("  11*O_K = p11a * p11b,  N(p11a) = N(p11b) = 11.");
+Emit("Splitting of 2 in K: 2 ramifies;  2*O_K = p2^2,  N(p2) = 2.");
+Emit("Splitting of 5 in K: (2/5) = -1 (QR), so 5 is INERT.");
+Emit("  5*O_K = p5 (prime),  N(p5) = 25.");
+Emit("General splitting: p splits in K iff p == +/-1 (mod 8).");
 Emit("");
-Emit("The search enumerated non-rational P^3(K)-points (x:t) in the D_2 locus,");
-Emit("inverted via InvertGP11Fast to period matrices, and recognized Igusa");
-Emit("invariants in K.  4 survivors in 2 K-isomorphism classes:");
-Emit("  Class A:  survivors 1 and 2 have identical Igusa invariants.");
-Emit("  Class B:  survivor 3.");
-Emit("  Class B': survivor 4, Galois conjugate of B (related by s5 -> -s5).");
-Emit("(B and B' are a single orbit under Gal(K/Q); each is a distinct curve over K.)");
+Emit("The search enumerated non-rational P^3(K)-points x of smallest height,");
+Emit("inverted via x_to_tau_fast to period matrices, and recognized Igusa");
+Emit("invariants in K.  Filters: genuinely over K (not a base-change from Q),");
+Emit("potential good reduction at 5, and simple Jacobian (End = Z).");
+Emit(Sprintf("%o total survivors, in %o K-isomorphism classes (grouped by Igusa invariants).",
+    #survivors, #classes));
 Emit("");
 
 // -----------------------------------------------------------------------
-// Per-curve data
+// Per-class data
 // -----------------------------------------------------------------------
-for idx in [1, 3, 4] do
-    s := survivors_qsqrt5_gp11[idx];
+for idx in [1 .. #classes] do
+    s := classes[idx];
     QI := s[2];
-    lbl := idx eq 1 select "A  (= survivors 1 and 2)"
-         else idx eq 3 select "B  (= survivor 3)"
-         else "B' (= survivor 4, Galois conjugate of B)";
+    lbl := Sprintf("%o", idx);
 
     Emit("");
     Emit("===========================================================================");
-    Emit(Sprintf("CURVE %o", lbl));
+    Emit(Sprintf("CURVE CLASS %o  (representative x = %o)", lbl, s[1]));
     Emit("===========================================================================");
     Emit("");
     Emit("Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:");
@@ -116,7 +132,7 @@ for idx in [1, 3, 4] do
     Emit("  over number fields).");
     Emit("");
 
-    // Conductor exponents at the bad primes and at 11.
+    // Conductor exponents at the bad primes and at p|5.
     if #bad_qi gt 0 then
         Emit("Conductor exponents at the bad prime ideals above:");
         for p in bad_qi do
@@ -126,11 +142,11 @@ for idx in [1, 3, 4] do
         end for;
         Emit("");
     end if;
-    Emit("Conductor exponents at primes above 11:");
-    for p11 in PrimesAbove(k, 11) do
-        e := ConductorExponentAt(Cmin, p11);
-        Emit(Sprintf("  p11 (N = %o): exponent = %o  [%o]",
-            Norm(p11), e, e eq 0 select "good reduction" else "BAD"));
+    Emit("Conductor exponent at the prime above 5 (N = 25, inert):");
+    for p5 in PrimesAbove(k, 5) do
+        e := ConductorExponentAt(Cmin, p5);
+        Emit(Sprintf("  p5 (N = %o): exponent = %o  [%o]",
+            Norm(p5), e, e eq 0 select "good reduction" else "BAD"));
     end for;
     Emit("");
 
@@ -140,18 +156,16 @@ for idx in [1, 3, 4] do
     Emit("L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.");
     Emit("Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).");
     Emit("");
-    Emit(Sprintf("  %-6o  %-5o  %-54o  factored over F_11[T]",
+    Emit(Sprintf("  %-6o  %-5o  %-54o  factored over F_25[T]",
         "N(p)", "p", "L_p(T)"));
     Emit("  " cat "-"^100);
 
     CI := MakeIntegral(Cmin);
-    bad_set := {p : p in bad_qi};  // prime ideals known bad from Igusa criterion
+    bad_set := {p : p in bad_qi};
     count := 0; pp := 3;
     while count lt 20 and pp lt 600 do
         for pid in PrimesAbove(k, pp) do
-            // Skip if Igusa criterion says bad at this prime.
             if pid in bad_set then continue; end if;
-            // Also skip if conductor exponent is positive.
             e := ConductorExponentAt(Cmin, pid);
             if e ne 0 then continue; end if;
 
@@ -162,7 +176,7 @@ for idx in [1, 3, 4] do
             end if;
 
             lp := ZT ! LPolynomial(Cp);
-            fac := Factorization(R11 ! lp);
+            fac := Factorization(R25 ! lp);
             Emit(Sprintf("  %-6o  %-5o  %-54o  %o", Norm(pid), pp, lp, fac));
             count +:= 1;
             if count ge 20 then break; end if;
@@ -171,23 +185,23 @@ for idx in [1, 3, 4] do
     end while;
 
     Emit("");
-    Emit(Sprintf("Frobenius at p | 11 (both primes; confirms rational 11-torsion):"));
-    for p11 in PrimesAbove(k, 11) do
-        e := ConductorExponentAt(Cmin, p11);
+    Emit(Sprintf("Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):"));
+    for p5 in PrimesAbove(k, 5) do
+        e := ConductorExponentAt(Cmin, p5);
         if e ne 0 then
-            Emit(Sprintf("  N(p11) = %o: bad reduction (exponent %o)", Norm(p11), e));
+            Emit(Sprintf("  N(p5) = %o: bad reduction (exponent %o)", Norm(p5), e));
             continue;
         end if;
-        ok, Cp11 := TryReduceModP(CI, p11);
+        ok, Cp5 := TryReduceModP(CI, p5);
         if not ok then
-            Emit(Sprintf("  N(p11) = %o: reduction failed", Norm(p11)));
+            Emit(Sprintf("  N(p5) = %o: reduction failed", Norm(p5)));
             continue;
         end if;
-        lp11 := ZT ! LPolynomial(Cp11);
-        fac11 := Factorization(R11 ! lp11);
-        rts11 := [r[1] : r in Roots(R11 ! lp11)];
-        Emit(Sprintf("  N(p11) = %o: L_{p11}(T) = %o = %o  (roots mod 11: %o)",
-            Norm(p11), lp11, fac11, rts11));
+        lp5 := ZT ! LPolynomial(Cp5);
+        fac5 := Factorization(R25 ! lp5);
+        rts5 := [r[1] : r in Roots(R25 ! lp5)];
+        Emit(Sprintf("  N(p5) = %o: L_{p5}(T) = %o = %o  (roots over F_25: %o)",
+            Norm(p5), lp5, fac5, rts5));
     end for;
 end for;
 
@@ -203,26 +217,37 @@ Emit("Convention for L-polynomials:");
 Emit("  L_p(T) = 1 + a1*T + a2*T^2 + a3*T^3 + N(p)^2 * T^4");
 Emit("  with a3 = N(p)*a1 (from functional equation) and |a1| <= 4*sqrt(N(p)).");
 Emit("  The number of F_{N(p)}-points on Jac(C) is L_p(1) = 1+a1+a2+a3+N(p)^2.");
-Emit("  Factorization is over F_11[T] = GF(11)[T] (reduce L_p(T) mod 11, then factor).");
+Emit("  Factorization is over F_25[T] = GF(5^2)[T].  The generator w25 of GF(5^2)");
+Emit(Sprintf("  satisfies %o (Conway polynomial).", DefiningPolynomial(F25)));
 Emit("");
-Emit("Rational (1,11)-isogeny:");
-Emit("  Each curve C has a K-rational 11-torsion subgroup in Jac(C)(K), so at");
-Emit("  every prime of good reduction 11 divides #Jac(C)(F_q) = L_p(1), i.e.");
-Emit("  L_p(T) has T=1 as a root modulo 11.  At both primes above 11 this gives");
-Emit("  L_{p11}(1) = 0 in F_11, consistent with the 11-isogeny kernel reducing");
-Emit("  to a non-trivial F_{11}-point.");
+Emit("Rational (1,5)-polarization structure:");
+Emit("  The HM search finds abelian surfaces A = Jac(C) carrying a K-rational");
+Emit("  (1,5)-polarization; equivalently, a Lagrangian 5^2-subgroup scheme defined");
+Emit("  over K.  At the (inert) prime above 5 (N=25), this structure implies");
+Emit("  5 | L_{p5}(1) = #Jac(C)(F_25), i.e. T=1 is a root of L_{p5} mod 5.");
+Emit("");
+Emit("Galois action:");
+Emit("  Classes come in Galois-conjugate pairs under Gal(K/Q): s2 -> -s2.");
+Emit("  Conjugate curves have L-polynomials that are related by the same s2->-s2");
+Emit("  substitution in the coefficients; for inert or ramified p these coincide.");
+Emit("");
+Emit("Notes on reduction failures:");
+Emit("  'reduction failed' in the Frobenius table is a MODEL artifact, not evidence");
+Emit("  of bad reduction.  The Igusa criterion and ConductorExponentAt both confirm");
+Emit("  good reduction at those primes.  The issue: the current Weierstrass model");
+Emit("  (from Genus2CurveFromIgusa, via a random Mestre conic point) can have");
+Emit("  leading coefficient divisible by certain prime ideals; neither integer");
+Emit("  shifts nor the flip x->1/x resolve this.  A minimal Weierstrass model");
+Emit("  at those primes would give good reduction.");
 Emit("");
 Emit("Sharing these curves:");
 Emit("  The compact Igusa-Siegel invariants [J2:...:J10] above are the recommended");
-Emit("  form for sharing; denominators are at most ~ 10^22.  A Weierstrass model");
-Emit("  y^2 = f(x) over Q(sqrt(5)) can be recovered in Magma via:");
-Emit("    k<s5> := QuadraticField(5);");
-Emit("    load \"survivors_qsqrt5_gp11.m\";");
-Emit("    QI := survivors_qsqrt5_gp11[1][2];  // curve A");
+Emit("  form for sharing.  A Weierstrass model y^2 = f(x) over Q(sqrt(2)) can be");
+Emit("  recovered in Magma via:");
+Emit("    k<s2> := QuadraticField(2);");
+Emit("    load \"survivors.m\";");
+Emit("    QI := survivors[2][2];  // pick a representative");
 Emit("    import \"Genus2Curve.m\": Genus2CurveFromIgusa;");
 Emit("    C := Genus2CurveFromIgusa(QI, k);");
-Emit("  (The resulting Weierstrass model has large-fraction coefficients due to");
-Emit("   Magma not implementing height-reduction for Mestre's conic over Q(sqrt(5));");
-Emit("   the invariants are the better shareable form.)");
 Emit("");
 printf "Done. Output written to %o\n", outfile;

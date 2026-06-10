@@ -32,27 +32,44 @@ function PotentialGoodReductionAt5(Jinv, K)
     return &and[ IgusaPotentialGoodReduction(Jinv, p) : p in PrimesAbove(K, 5) ];
 end function;
 
-// Bad primes (away from 2 and 5) among primes above the rational primes <= Bound,
-// from the valuation criterion. This is cheap -- valuation at a fixed prime needs no
-// factorization of the (large-height) invariants -- and small primes are exactly what
-// "small conductor" cares about. Primes above Bound are not examined (a candidate with
-// no small bad primes is the promising case; confirm large primes separately if needed).
-function BadPrimesFromInvariants(Jinv, K : Bound := 100)
+// All prime ideals in the support of the Igusa invariants (away from 2).
+// These are the ONLY primes that can fail the valuation criterion: any prime p
+// with v_p(J_i) = 0 for all i automatically satisfies v_p(J_{2i})/(2i) >= v_p(J10)/10.
+function JinvSupport(Jinv, K)
+    OK := Integers(K);
+    prime_set := {};
+    for j in Jinv do
+        if j eq 0 then continue; end if;
+        if Type(K) eq FldRat then
+            n := Integers() ! Numerator(j); d := Integers() ! Denominator(j);
+            for fac in Factorization(Abs(n) * d) do
+                if fac[1] ne 2 then Include(~prime_set, fac[1]); end if;
+            end for;
+        else
+            for fac in Factorization(j * OK) do
+                p := fac[1];
+                if Norm(p) mod 2 ne 0 then Include(~prime_set, p); end if;
+            end for;
+        end if;
+    end for;
+    return prime_set;
+end function;
+
+// Bad prime ideals from the Igusa valuation criterion.
+// Exact (no bound needed): only primes in the support of the invariants can be bad.
+function BadPrimesFromInvariants(Jinv, K)
     bad := [];
-    for ell in PrimesUpTo(Bound) do
-        if ell eq 2 or ell eq 5 then continue; end if;
-        for p in PrimesAbove(K, ell) do
-            if not IgusaPotentialGoodReduction(Jinv, p) then Append(~bad, p); end if;
-        end for;
+    for p in JinvSupport(Jinv, K) do
+        if not IgusaPotentialGoodReduction(Jinv, p) then Append(~bad, p); end if;
     end for;
     return bad;
 end function;
 
-// A cheap "conductor size" away from {2,5} for ranking survivors: the norm of the
-// product of the small bad primes (the conductor radical away from 2,5 below Bound).
-// Smaller is nicer. Returns <size, bad primes>.
-function ConductorSizeProxy(Jinv, K : Bound := 100)
-    bad := BadPrimesFromInvariants(Jinv, K : Bound := Bound);
+// A "conductor size" proxy for ranking survivors: the norm of the product of the
+// bad prime ideals (from the Igusa criterion). Smaller is nicer.
+// Returns <size, bad primes>.
+function ConductorSizeProxy(Jinv, K)
+    bad := BadPrimesFromInvariants(Jinv, K);
     return &*([1] cat [ Type(K) eq FldRat select p else Norm(p) : p in bad ]), bad;
 end function;
 
