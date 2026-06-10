@@ -27,20 +27,92 @@ function MakeIntegral(C)
     return HyperellipticCurve(Parent(f)!(m^2*f), Parent(f)!(m*h));
 end function;
 
-// Reduce CI mod P, trying the flip y^2 = x^6*f(1/x) if the leading coeff of f
-// vanishes mod P (happens when P divides the leading coefficient of the model).
+// Reduce CI mod P.
+//
+// MakeIntegral clears denominators with a global LCM, which for inert primes like p5
+// (where J-invariants already have 5 in denominators from the (1,5)-structure) makes
+// every coefficient divisible by 5^k — f ≡ 0 mod P identically.  The fix is to
+// scale the polynomial to its "P-optimal" form before trying shifts and Mobius
+// transforms.
+//
+// Strategy:
+//   For each candidate base polynomial (original, flip):
+//     a) Scale x -> ell^e * x, y -> ell^{3e} * y so that
+//        min_{i<n} v_P(a_i) = 0 (removes the common P-factor).
+//        e = floor( min_{i<n, a_i≠0} v_P(a_i) / (n-i) ).
+//     b) Try all ell^2 O_K-shifts on the scaled poly.
+//     c) Try Mobius transforms x -> alpha + 1/X (leading coeff = f_scaled(alpha)):
+//        find alpha with f_scaled(alpha) ≢ 0 mod P, then apply TryShifts.
 function TryReduceModP(CI, P)
     K := BaseRing(CI); OK := Integers(K);
-    Fp, redP := ResidueClassField(P); Rx<x> := PolynomialRing(Fp);
-    f0, _ := HyperellipticPolynomials(CI); n := Degree(f0); R := Parent(f0);
-    for flip in [0, 1] do
-        f := flip eq 0 select f0
-             else Polynomial([Coefficient(f0, n-i) : i in [0..n]]);
-        for sh in [0..20] do
-            fp := Rx![redP(OK!c) : c in Coefficients(Evaluate(f, R.1 + sh))];
-            if Degree(fp) eq n then return true, HyperellipticCurve(fp, Rx!0); end if;
+    Fp, redP := ResidueClassField(P); Rx<t> := PolynomialRing(Fp);
+    ell := Characteristic(Fp);
+    f0, _ := HyperellipticPolynomials(CI); n := Degree(f0); Rk<x> := Parent(f0);
+    ww := K.1;
+
+    // All residue classes of O_K/P (F_{ell} or F_{ell^2})
+    res := [K| a + b*ww : a in [0..ell-1], b in [0..ell-1]];
+
+    // Scale poly (with O_K coefficients) to minimise the common P-content.
+    // For a degree-n polynomial: apply x -> ell^e * x, y -> ell^{3e} * y
+    // (for n=6) or the analogous substitution.  The new a_i = a_i / ell^{(n-i)*e}.
+    // Requires ell^{(n-i)*e} | a_i in O_K (guaranteed by the choice of e).
+    // For inert P over ell, ell*O_K = P, so exact division by ell^k keeps us in O_K.
+    function ScaleOptimal(f)
+        nn := Degree(f);
+        min_rat := Infinity();
+        for i in [0..nn-1] do
+            c := Coefficient(f, i);
+            if c ne 0 then
+                v := Valuation(K!c, P);  // P-adic valuation (integer)
+                r := Rationals()!(v) / (nn - i);
+                if r lt min_rat then min_rat := r; end if;
+            end if;
+        end for;
+        if min_rat le 0 or min_rat eq Infinity() then return f; end if;
+        e := Floor(min_rat);  // positive integer
+        if e le 0 then return f; end if;
+        // New a_i = a_i / ell^{(nn-i)*e}.  Since v_P(a_i) >= (nn-i)*e, the division
+        // is exact in O_K for inert ell (ell*O_K = P); use ExactQuotient.
+        new_coeffs := [ i lt nn
+            select K ! ExactQuotient(OK!(K!Coefficient(f,i)), ell^((nn-i)*e))
+            else Coefficient(f, nn) : i in [0..nn] ];
+        return Polynomial(new_coeffs);
+    end function;
+
+    // Try to reduce poly (with O_K coefficients) with O_K shifts; check discriminant.
+    function TryShifts(poly)
+        d := Degree(poly);
+        for sh in res do
+            g := Evaluate(poly, Rk.1 + sh);
+            cffs := Coefficients(g);
+            if exists{c : c in cffs | Valuation(K!c, P) lt 0} then continue; end if;
+            fp := Rx![redP(OK!(K!c)) : c in cffs];
+            if Degree(fp) eq d and Discriminant(fp) ne 0 then
+                return true, HyperellipticCurve(fp, Rx!0);
+            end if;
+        end for;
+        return false, _;
+    end function;
+
+    for use_flip in [false, true] do
+        f_base := use_flip
+            select Polynomial([Coefficient(f0, n-i) : i in [0..n]])
+            else f0;
+        f := ScaleOptimal(f_base);
+
+        // a) Shifts on the scaled polynomial.
+        ok, Cp := TryShifts(f); if ok then return ok, Cp; end if;
+
+        // b) Mobius transforms: x -> alpha + 1/X, leading coeff = f(alpha).
+        for alpha in res do
+            fa := Evaluate(f, alpha);
+            if Valuation(K!fa, P) gt 0 then continue; end if;
+            g := &+ [Coefficient(f, i) * x^(n-i) * (alpha*x + 1)^i : i in [0..n]];
+            ok, Cp := TryShifts(g); if ok then return ok, Cp; end if;
         end for;
     end for;
+
     return false, _;
 end function;
 
