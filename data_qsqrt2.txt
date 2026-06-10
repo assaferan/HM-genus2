@@ -1,0 +1,3691 @@
+===========================================================================
+Genus-2 curves over K = Q(sqrt(2)) with a rational (1,5)-polarized abelian
+surface from the Horrocks-Mumford bundle (HM-genus2 pipeline)
+===========================================================================
+
+Field:  K = Q(s2),  s2^2 = 2.
+        Ring of integers: O_K = Z[s2].
+        Discriminant: disc(K/Q) = 8.  Class number: h(K) = 1.
+
+Splitting of 2 in K: 2 ramifies;  2*O_K = p2^2,  N(p2) = 2.
+Splitting of 5 in K: (2/5) = -1 (QR), so 5 is INERT.
+  5*O_K = p5 (prime),  N(p5) = 25.
+General splitting: p splits in K iff p == +/-1 (mod 8).
+
+The search enumerated non-rational P^3(K)-points x of smallest height,
+inverted via x_to_tau_fast to period matrices, and recognized Igusa
+invariants in K.  Filters: genuinely over K (not a base-change from Q),
+potential good reduction at 5, and simple Jacobian (End = Z).
+26 total survivors, in 26 K-isomorphism classes (grouped by Igusa invariants).
+
+
+===========================================================================
+CURVE CLASS 1  (representative x = [ -s2, -1, 0, -s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/1201975058824418*(-9235265175907*s2 + 34438343516580)
+  J6  = 1/29466475059908372017646*(-25626793862661038205*s2 + 44090224906378668973)
+  J8  = 1/2889488084071926222824306077448*(-310194821407853009993332575*s2 + 402584060868139257649815882)
+  J10 = 1/283343744747852890932281344924093440224*(-10240976875366689262989598248586*s2 + 16759526034199456889287948017515)
+
+Minimal quadratic twist factor: d = 3
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 23
+  N(p) = 765241
+  N(p) = 479
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 23: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 765241: exponent = 1  [BAD]
+  N(p) = 479: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 - 5*x^2 + 1                                      [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  7       7      49*x^4 - 5*x^2 + 1                                      [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  121     11     14641*x^4 + 8*x^2 + 1                                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  169     13     28561*x^4 + 507*x^3 - 102*x^2 + 3*x + 1                 [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     289*x^4 - 68*x^3 + 13*x^2 - 4*x + 1                     [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  17      17     289*x^4 - 17*x^3 + 32*x^2 - x + 1                       [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  361     19     130321*x^4 + 722*x^3 - 421*x^2 + 2*x + 1                [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 + 12615*x^3 + 563*x^2 + 15*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 155*x^3 + 48*x^2 - 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 186*x^3 + 46*x^2 + 6*x + 1                    [
+<t + 4, 4>
+]
+  1369    37     1874161*x^4 + 2738*x^3 - 847*x^2 + 2*x + 1              [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  41      41     1681*x^4 - 164*x^3 + 25*x^2 - 4*x + 1                   [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 + 123*x^3 - 8*x^2 + 3*x + 1                    [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  1849    43     3418801*x^4 - 18490*x^3 + 573*x^2 - 10*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  47      47     2209*x^4 - 94*x^3 + 4*x^2 - 2*x + 1                     [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 + 94*x^3 + 14*x^2 + 2*x + 1                    [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  2809    53     7890481*x^4 + 151686*x^3 + 5038*x^2 + 54*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  3481    59     12117361*x^4 + 83544*x^3 + 4406*x^2 + 24*x + 1          [
+<t + 1, 4>
+]
+  3721    61     13845841*x^4 - 528382*x^3 + 12034*x^2 - 142*x + 1       [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  4489    67     20151121*x^4 - 157115*x^3 - 1397*x^2 - 35*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 2  (representative x = [ 0, -1, 0, -s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 7/160
+  J6  = 1/16000*(-s2 + 10)
+  J8  = 1/512000*(-8*s2 - 165)
+  J10 = 1/819200000*(-3125*s2 - 216)
+
+Minimal quadratic twist factor: d = 410*s2 - 205
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 127
+  N(p) = 1871
+  N(p) = 41
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 127: exponent = 1  [BAD]
+  N(p) = 1871: exponent = 1  [BAD]
+  N(p) = 41: exponent = 4  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 847*x^3 + 112*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 845*x^3 + 268*x^2 - 5*x + 1                 [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     289*x^4 - 153*x^3 + 52*x^2 - 9*x + 1                    [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  17      17     289*x^4 + 17*x^3 + 17*x^2 + x + 1                       [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  361     19     130321*x^4 + 1083*x^3 + 367*x^2 + 3*x + 1               [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 23*x^3 + 11*x^2 + x + 1                       [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  23      23     529*x^4 - 23*x^3 + 11*x^2 - x + 1                       [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^9, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 + 818*x^2 + 1                                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 31*x^3 - 44*x^2 + x + 1                       [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 186*x^3 + 30*x^2 - 6*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1369    37     1874161*x^4 - 21904*x^3 + 1838*x^2 - 16*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  41      41     [reduction failed -- skipped]
+  1849    43     3418801*x^4 + 81356*x^3 + 3588*x^2 + 44*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 47*x^3 - 18*x^2 - x + 1                      [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  47      47     2209*x^4 - 423*x^3 + 107*x^2 - 9*x + 1                  [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  2809    53     7890481*x^4 + 22472*x^3 - 82*x^2 + 8*x + 1              [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  3481    59     12117361*x^4 - 142721*x^3 + 3526*x^2 - 41*x + 1         [
+<t + 1, 4>
+]
+  3721    61     13845841*x^4 - 122793*x^3 + 3007*x^2 - 33*x + 1         [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 + 448900*x^3 + 5088*x^2 + 100*x + 1        [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 - 355*x^3 + 23*x^2 - 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 + 355*x^3 - 2*x^2 + 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 3  (representative x = [ 0, -s2, -1, -s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/38850289*(-1385183*s2 + 1943034)
+  J6  = 1/242153851337*(-190121232*s2 + 158925046)
+  J8  = 1/1509344955383521*(1049472422847*s2 - 1655566300104)
+  J10 = 1/9407747106905486393*(53481444873272*s2 - 341833262589088)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 92285519
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 92285519: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 - 14*x^3 + 4*x^2 - 2*x + 1                       [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  7       7      49*x^4 - 14*x^3 + 4*x^2 - 2*x + 1                       [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  121     11     14641*x^4 + 121*x^3 + 111*x^2 + x + 1                   [
+<t + 4, 4>
+]
+  169     13     28561*x^4 - 4732*x^3 + 438*x^2 - 28*x + 1               [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  17      17     289*x^4 - 17*x^3 + 12*x^2 - x + 1                       [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  17      17     289*x^4 - 85*x^3 + 10*x^2 - 5*x + 1                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 - 5776*x^3 + 686*x^2 - 16*x + 1              [
+<t + 1, 4>
+]
+  23      23     [reduction failed -- skipped]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 + 6728*x^3 + 1182*x^2 + 8*x + 1              [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  31      31     961*x^4 - 186*x^3 + 46*x^2 - 6*x + 1                    [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 403*x^3 + 97*x^2 - 13*x + 1                   [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1369    37     1874161*x^4 - 62974*x^3 + 2178*x^2 - 46*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  41      41     1681*x^4 + 41*x^3 - 24*x^2 + x + 1                      [
+<t + 4, 4>
+]
+  41      41     1681*x^4 + 410*x^3 + 88*x^2 + 10*x + 1                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1849    43     3418801*x^4 - 24037*x^3 + 388*x^2 - 13*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  47      47     2209*x^4 + 47*x^3 - 73*x^2 + x + 1                      [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 141*x^3 - 26*x^2 + 3*x + 1                   [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 + 47753*x^3 + 1588*x^2 + 17*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 76582*x^3 - 558*x^2 - 22*x + 1           [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 - 93025*x^3 + 7158*x^2 - 25*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  4489    67     20151121*x^4 + 215472*x^3 + 48*x^2 + 48*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 4  (representative x = [ -s2, 1, s2, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/2255847794704*(-269371950340*s2 + 474943131497)
+  J6  = 1/13552664334240333568*(-5535706918477563809*s2 + 7860043717518589750)
+  J8  = 1/20355397091483600521790464*(-1822713268434517054232023*s2 + 2580650761943775223766041)
+  J10 = 1/15286373975379805418251071911936*(1269491566276824434347050612004*s2 - 1795332190346947979219961518017)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 145423
+  N(p) = 463
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 145423: exponent = 1  [BAD]
+  N(p) = 463: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 242*x^3 + 114*x^2 - 2*x + 1                 [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  169     13     28561*x^4 - 676*x^3 + 238*x^2 - 4*x + 1                 [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  17      17     289*x^4 + 34*x^3 + 6*x^2 + 2*x + 1                      [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  17      17     289*x^4 + 17*x^3 + 23*x^2 + x + 1                       [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  361     19     130321*x^4 + 5415*x^3 + 198*x^2 + 15*x + 1              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 138*x^3 + 19*x^2 - 6*x + 1                    [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 - 23*x^3 - 6*x^2 - x + 1                        [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 - 47096*x^3 + 1941*x^2 - 56*x + 1            [
+<t + 1, 4>
+]
+  31      31     961*x^4 + 124*x^3 + 35*x^2 + 4*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 - 186*x^3 + 30*x^2 - 6*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1369    37     1874161*x^4 - 47915*x^3 + 838*x^2 - 35*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 410*x^3 + 98*x^2 + 10*x + 1                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 82*x^3 + 34*x^2 + 2*x + 1                    [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  1849    43     3418801*x^4 - 99846*x^3 + 1983*x^2 - 54*x + 1           [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 188*x^3 + 2*x^2 - 4*x + 1                    [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 141*x^3 + 84*x^2 + 3*x + 1                   [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 - 112360*x^3 - 592*x^2 - 40*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 + 27848*x^3 + 2782*x^2 + 8*x + 1           [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 + 256749*x^3 + 6826*x^2 + 69*x + 1         [
+<t + 1, 4>
+]
+  4489    67     20151121*x^4 + 22445*x^3 + 6548*x^2 + 5*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 5  (representative x = [ -s2, -s2, -s2, -1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/230926720802*(33406725577*s2 - 37624001418)
+  J6  = 1/78468668801798798*(23799177713897116*s2 - 33475575934947251)
+  J8  = 1/53327150380364859523204*(4671915739242155493935*s2 - 6599379641123479965420)
+  J10 = 1/4530128093024399725281298999*(-36698862938959255742531814*s2 + 51900029691947623462257988)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 629537
+  N(p) = 463
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 629537: exponent = 1  [BAD]
+  N(p) = 463: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 - 21*x^3 + 9*x^2 - 3*x + 1                       [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  7       7      49*x^4 - 21*x^3 + 11*x^2 - 3*x + 1                      [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  121     11     14641*x^4 - 242*x^3 - 23*x^2 - 2*x + 1                  [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 1690*x^3 + 138*x^2 + 10*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     289*x^4 - 34*x^3 + 4*x^2 - 2*x + 1                      [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  17      17     289*x^4 - 51*x^3 + 4*x^2 - 3*x + 1                      [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  361     19     130321*x^4 - 2166*x^3 + 625*x^2 - 6*x + 1               [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  23      23     529*x^4 - 115*x^3 + 25*x^2 - 5*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 46*x^3 + 27*x^2 + 2*x + 1                     [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  841     29     707281*x^4 - 17661*x^3 + 1086*x^2 - 21*x + 1            [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 186*x^3 + 21*x^2 - 6*x + 1                    [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 310*x^3 + 83*x^2 - 10*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 + 1778*x^2 + 1                              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 41*x^3 + 60*x^2 + x + 1                      [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 + 41*x^3 - 24*x^2 + x + 1                      [
+<t + 4, 4>
+]
+  1849    43     3418801*x^4 + 35131*x^3 + 3128*x^2 + 19*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 + 282*x^3 + 12*x^2 + 6*x + 1                   [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 423*x^3 + 93*x^2 + 9*x + 1                   [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  2809    53     7890481*x^4 - 219102*x^3 + 5173*x^2 - 78*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 240189*x^3 + 4696*x^2 - 69*x + 1         [
+<t + 4, 4>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 6  (representative x = [ -s2, -1, 0, -1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/219498269844676*(-7820583875145*s2 - 1908545462352)
+  J6  = 1/3251970909928781316424*(-51951716284519194028*s2 - 65926466224670619189)
+  J8  = 1/48179490464806201445165544976*(-199885295401093285338717838*s2 - 275674364085426524126361135)
+  J10 = 1/713801988314584192549612557287758624*(2887369615979773134829130894571*s2 + 4083357325549479368660091665318)
+
+Minimal quadratic twist factor: d = -5*s2 + 13
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 239
+  N(p) = 7
+  N(p) = 435161
+  N(p) = 7
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 239: exponent = 1  [BAD]
+  N(p) = 7: exponent = 4  [BAD]
+  N(p) = 435161: exponent = 1  [BAD]
+  N(p) = 7: exponent = 0  [good reduction (twist fixed it)]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  121     11     14641*x^4 + 2057*x^3 + 182*x^2 + 17*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 3042*x^3 + 213*x^2 + 18*x + 1               [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 + 7220*x^3 + 243*x^2 + 20*x + 1              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 92*x^3 + 36*x^2 - 4*x + 1                     [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  23      23     529*x^4 - 46*x^3 + 28*x^2 - 2*x + 1                     [
+<t + 4, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 - 21866*x^3 + 876*x^2 - 26*x + 1             [
+<t + 1, 4>
+]
+  31      31     961*x^4 + 62*x^3 - x^2 + 2*x + 1                        [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 - 248*x^3 + 57*x^2 - 8*x + 1                    [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1369    37     1874161*x^4 + 91723*x^3 + 3633*x^2 + 67*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  41      41     1681*x^4 + 41*x^3 + 60*x^2 + x + 1                      [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 - 41*x^3 + 51*x^2 - x + 1                      [
+<t + 1, 4>
+]
+  1849    43     3418801*x^4 + 33282*x^3 - 1182*x^2 + 18*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 752*x^3 + 138*x^2 + 16*x + 1                 [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 55*x^2 + 1                                   [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 + 154495*x^3 + 4458*x^2 + 55*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 + 83544*x^3 + 2920*x^2 + 24*x + 1          [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  3721    61     13845841*x^4 - 93025*x^3 - 492*x^2 - 25*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  4489    67     20151121*x^4 - 170582*x^3 + 6423*x^2 - 38*x + 1         [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  71      71     5041*x^4 + 284*x^3 - 4*x^2 + 4*x + 1                    [
+<t + 1, 4>
+]
+  71      71     5041*x^4 + 1420*x^3 + 218*x^2 + 20*x + 1                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 7  (representative x = [ 0, -s2, -1, -1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/199120321*(-11058886*s2 + 7327354)
+  J6  = 1/2809786849631*(-3892019336*s2 + 1548329044)
+  J8  = 1/39648902235143041*(26786115071248*s2 - 69109891155856)
+  J10 = 1/559485659440103451551*(-52720696005416384*s2 - 7600390978415872)
+
+Minimal quadratic twist factor: d = 110*s2 + 65
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 10729
+  N(p) = 111871
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 10729: exponent = 1  [BAD]
+  N(p) = 111871: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 + 21*x^3 + 14*x^2 + 3*x + 1                      [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  7       7      49*x^4 + 10*x^2 + 1                                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  121     11     14641*x^4 + 2178*x^3 + 262*x^2 + 18*x + 1               [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 4225*x^3 + 408*x^2 - 25*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     289*x^4 + 85*x^3 + 35*x^2 + 5*x + 1                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 + 10830*x^3 + 638*x^2 + 30*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 161*x^3 + 33*x^2 - 7*x + 1                    [
+<t + 4, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 23*x^3 + 6*x^2 + x + 1                        [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 - 8410*x^3 + 1338*x^2 - 10*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 124*x^3 + 10*x^2 + 4*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 - 93*x^3 - 16*x^2 - 3*x + 1                     [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  1369    37     1874161*x^4 + 95830*x^3 + 3258*x^2 + 70*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 41*x^3 + 76*x^2 - x + 1                      [
+<t + 1, 4>
+]
+  41      41     1681*x^4 - 41*x^3 + 35*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1849    43     3418801*x^4 + 116487*x^3 + 2328*x^2 + 63*x + 1          [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     [reduction failed -- skipped]
+  47      47     [reduction failed -- skipped]
+  2809    53     7890481*x^4 + 146068*x^3 + 2718*x^2 + 52*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 250632*x^3 + 3234*x^2 - 72*x + 1         [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  3721    61     13845841*x^4 - 44652*x^3 + 1394*x^2 - 12*x + 1          [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  4489    67     20151121*x^4 - 157115*x^3 + 3233*x^2 - 35*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 + 142*x^3 + 52*x^2 + 2*x + 1                   [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 8  (representative x = [ -1, 1, 0, -s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/689159132162*(301111997*s2 + 28336326756)
+  J6  = 1/809085226022566916*(28618572193818*s2 + 1846041523625871)
+  J8  = 1/1899761237769123931176976*(-265456429366473102*s2 + 280514237849822770285)
+  J10 = 1/69698559026350979357266594049*(-38955941012815226684*s2 + 55487580624654577292)
+
+Minimal quadratic twist factor: d = -30*s2 + 265
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 23
+  N(p) = 243623
+  N(p) = 7
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 23: exponent = 4  [BAD]
+  N(p) = 243623: exponent = 1  [BAD]
+  N(p) = 7: exponent = 4  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 363*x^3 + 149*x^2 - 3*x + 1                 [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  169     13     28561*x^4 + 338*x^3 - 207*x^2 + 2*x + 1                 [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 + 6498*x^3 + 687*x^2 + 18*x + 1              [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 + 18502*x^3 + 1319*x^2 + 22*x + 1            [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 - 12*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 124*x^3 - 9*x^2 + 4*x + 1                     [
+<t + 1, 4>
+]
+  1369    37     1874161*x^4 - 20535*x^3 + 963*x^2 - 15*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 533*x^3 + 122*x^2 - 13*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  41      41     1681*x^4 + 68*x^2 + 1                                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1849    43     3418801*x^4 + 51772*x^3 + 968*x^2 + 28*x + 1            [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 94*x^3 + 76*x^2 + 2*x + 1                    [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 + 564*x^3 + 74*x^2 + 12*x + 1                  [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  2809    53     7890481*x^4 + 129214*x^3 + 618*x^2 + 46*x + 1           [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  3481    59     12117361*x^4 - 104430*x^3 + 4473*x^2 - 30*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 + 145119*x^3 + 3550*x^2 + 39*x + 1         [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  4489    67     20151121*x^4 + 588059*x^3 + 10503*x^2 + 131*x + 1       [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 + 852*x^3 + 94*x^2 + 12*x + 1                  [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  71      71     5041*x^4 - 355*x^3 - 27*x^2 - 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  73      73     5329*x^4 - 292*x^3 - x^2 - 4*x + 1                      [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>
+]
+  73      73     5329*x^4 + 73*x^3 - 36*x^2 + x + 1                      [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 9  (representative x = [ -1, -1, 0, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/13395898562*(141479633*s2 + 754619120)
+  J6  = 1/2192667468425284*(-6689424416246*s2 - 4482222122377)
+  J8  = 1/717800393133574671376*(-760995655954754806*s2 - 976312530094659835)
+  J10 = 1/3671593873402805292505201*(39498722816178293040*s2 + 55859633488399339508)
+
+Minimal quadratic twist factor: d = -6*s2 - 45
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 1193
+  N(p) = 6353
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 1193: exponent = 1  [BAD]
+  N(p) = 6353: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 484*x^3 + 70*x^2 - 4*x + 1                  [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  169     13     28561*x^4 + 1352*x^3 + 293*x^2 + 8*x + 1                [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     289*x^4 + 119*x^3 + 29*x^2 + 7*x + 1                    [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  17      17     289*x^4 + 17*x^3 + 13*x^2 + x + 1                       [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  361     19     130321*x^4 + 10469*x^3 + 830*x^2 + 29*x + 1             [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  23      23     529*x^4 + 299*x^3 + 87*x^2 + 13*x + 1                   [
+<t + 1, 2>,
+<t + 2, 2>
+]
+  23      23     529*x^4 - 69*x^3 + 37*x^2 - 3*x + 1                     [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  841     29     707281*x^4 - 48778*x^3 + 2107*x^2 - 58*x + 1            [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  31      31     [reduction failed -- skipped]
+  31      31     [reduction failed -- skipped]
+  1369    37     1874161*x^4 + 30118*x^3 + 268*x^2 + 22*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  41      41     1681*x^4 - 410*x^3 + 63*x^2 - 10*x + 1                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 451*x^3 + 81*x^2 - 11*x + 1                  [
+<t + 1, 4>
+]
+  1849    43     3418801*x^4 + 90601*x^3 + 1323*x^2 + 49*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 + 94*x^3 - 56*x^2 + 2*x + 1                    [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  47      47     2209*x^4 - 564*x^3 + 76*x^2 - 12*x + 1                  [
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  2809    53     7890481*x^4 - 272473*x^3 + 5038*x^2 - 97*x + 1          [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  3481    59     12117361*x^4 + 181012*x^3 + 477*x^2 + 52*x + 1          [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 + 104188*x^3 + 942*x^2 + 28*x + 1          [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 + 67335*x^3 - 1272*x^2 + 15*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 - 852*x^3 + 122*x^2 - 12*x + 1                 [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  71      71     5041*x^4 - 71*x^3 + 30*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 10  (representative x = [ 0, -1, 0, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 7/160
+  J6  = 1/16000*(s2 + 10)
+  J8  = 1/512000*(8*s2 - 165)
+  J10 = 1/819200000*(3125*s2 - 216)
+
+Minimal quadratic twist factor: d = 60*s2 - 5
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 41
+  N(p) = 1871
+  N(p) = 127
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 41: exponent = 4  [BAD]
+  N(p) = 1871: exponent = 1  [BAD]
+  N(p) = 127: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 + 14*x^3 + 6*x^2 + 2*x + 1                       [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 847*x^3 + 112*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 845*x^3 + 268*x^2 - 5*x + 1                 [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     289*x^4 - 17*x^3 + 17*x^2 - x + 1                       [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  17      17     289*x^4 - 153*x^3 + 52*x^2 - 9*x + 1                    [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  361     19     130321*x^4 - 1083*x^3 + 367*x^2 - 3*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  23      23     [reduction failed -- skipped]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 + 818*x^2 + 1                                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 186*x^3 + 30*x^2 + 6*x + 1                    [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 - 31*x^3 - 44*x^2 - x + 1                       [
+<t + 1, 4>
+]
+  1369    37     1874161*x^4 - 21904*x^3 + 1838*x^2 - 16*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  41      41     [reduction failed -- skipped]
+  1849    43     3418801*x^4 + 81356*x^3 + 3588*x^2 + 44*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 423*x^3 + 107*x^2 - 9*x + 1                  [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 47*x^3 - 18*x^2 - x + 1                      [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  2809    53     7890481*x^4 - 22472*x^3 - 82*x^2 - 8*x + 1              [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 142721*x^3 + 3526*x^2 - 41*x + 1         [
+<t + 1, 4>
+]
+  3721    61     13845841*x^4 - 122793*x^3 + 3007*x^2 - 33*x + 1         [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 - 448900*x^3 + 5088*x^2 - 100*x + 1        [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 - 355*x^3 - 2*x^2 - 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 - 355*x^3 + 23*x^2 - 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  73      73     5329*x^4 + 219*x^3 + 118*x^2 + 3*x + 1                  [
+<t + 4, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>,
+<t + 3, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 11  (representative x = [ -s2, -s2, -1, 0 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/592428853636*(-11892879650*s2 + 36769724995)
+  J6  = 1/911977868141014768*(1750507655737999*s2 - 1454758585345999)
+  J8  = 1/1403887786481860441681984*(1548273448046065404653*s2 - 2194753326241347672178)
+  J10 = 1/135070500741046136349996624112*(-1910929667147511230640477*s2 + 2705649381979749920726708)
+
+Minimal quadratic twist factor: d = 3
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 73746929
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 73746929: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 2420*x^3 + 298*x^2 + 20*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  169     13     28561*x^4 + 2028*x^3 + 63*x^2 + 12*x + 1                [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  17      17     289*x^4 + 68*x^3 + 7*x^2 + 4*x + 1                      [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  17      17     289*x^4 + 68*x^3 + 22*x^2 + 4*x + 1                     [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  361     19     130321*x^4 - 2888*x^3 + 332*x^2 - 8*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 184*x^3 + 52*x^2 + 8*x + 1                    [
+<t + 1, 2>,
+<t + 2, 2>
+]
+  23      23     529*x^4 + 184*x^3 + 38*x^2 + 8*x + 1                    [
+<t + 4, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 + 11774*x^3 + 1105*x^2 + 14*x + 1            [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 + 124*x^3 + 16*x^2 + 4*x + 1                    [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 186*x^3 + 46*x^2 - 6*x + 1                    [
+<t + 1, 4>
+]
+  1369    37     1874161*x^4 + 53391*x^3 + 478*x^2 + 39*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  41      41     1681*x^4 - 328*x^3 + 54*x^2 - 8*x + 1                   [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 + 123*x^3 - 8*x^2 + 3*x + 1                    [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  1849    43     3418801*x^4 - 208937*x^3 + 6303*x^2 - 113*x + 1         [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  47      47     2209*x^4 + 517*x^3 + 113*x^2 + 11*x + 1                 [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 611*x^3 + 119*x^2 - 13*x + 1                 [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  2809    53     7890481*x^4 - 73034*x^3 + 3668*x^2 - 26*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  3481    59     12117361*x^4 - 226265*x^3 + 6783*x^2 - 65*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 - 200934*x^3 + 1670*x^2 - 54*x + 1         [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  4489    67     20151121*x^4 - 53868*x^3 + 413*x^2 - 12*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 12  (representative x = [ -1, 0, 0, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 25/32*s2
+  J6  = 1/512*s2
+  J8  = 1/2048*(s2 - 625)
+  J10 = 1/262144*(3125*s2 - 128)
+
+Minimal quadratic twist factor: d = 7
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 1393919
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 4  [BAD]
+  N(p) = 1393919: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 847*x^3 + 112*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 3549*x^3 + 348*x^2 + 21*x + 1               [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  17      17     289*x^4 - 68*x^3 + 8*x^2 - 4*x + 1                      [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  17      17     289*x^4 + 17*x^3 - 3*x^2 + x + 1                        [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  361     19     130321*x^4 - 2888*x^3 + 624*x^2 - 8*x + 1               [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  23      23     529*x^4 + 115*x^3 + 15*x^2 + 5*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 - 92*x^3 + 16*x^2 - 4*x + 1                     [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 + 37004*x^3 + 1570*x^2 + 44*x + 1            [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 - 93*x^3 + 42*x^2 - 3*x + 1                     [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  31      31     961*x^4 + 62*x^3 + 2*x^2 + 2*x + 1                      [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1369    37     1874161*x^4 - 9583*x^3 + 2238*x^2 - 7*x + 1             [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  41      41     1681*x^4 - 41*x^3 + 76*x^2 - x + 1                      [
+<t + 1, 4>
+]
+  41      41     1681*x^4 + 68*x^2 + 1                                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1849    43     3418801*x^4 + 205239*x^3 + 6118*x^2 + 111*x + 1         [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 235*x^3 - 5*x^2 - 5*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 + 376*x^3 + 84*x^2 + 8*x + 1                   [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 + 196630*x^3 + 5048*x^2 + 70*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 + 233227*x^3 + 4932*x^2 + 67*x + 1         [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 + 546987*x^3 + 11317*x^2 + 147*x + 1       [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 + 273829*x^3 + 5163*x^2 + 61*x + 1         [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 13  (representative x = [ 0, -s2, -1, 0 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = -25*s2
+  J6  = -1/16*s2
+  J8  = 1/64*(-s2 - 20000)
+  J10 = 1/8*(-3125*s2 - 4)
+
+Minimal quadratic twist factor: d = 7
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 9765617
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 9765617: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 847*x^3 + 112*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 2366*x^3 + 158*x^2 + 14*x + 1               [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  17      17     289*x^4 + 17*x^3 + 28*x^2 + x + 1                       [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  17      17     289*x^4 - 68*x^3 + 18*x^2 - 4*x + 1                     [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  361     19     130321*x^4 - 3971*x^3 - 40*x^2 - 11*x + 1               [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  23      23     529*x^4 - 138*x^3 + 46*x^2 - 6*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^9, 1>,
+<t + w25^21, 1>
+]
+  23      23     529*x^4 - 138*x^3 + 46*x^2 - 6*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^9, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 - 5887*x^3 + 662*x^2 - 7*x + 1               [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  31      31     961*x^4 - 62*x^3 + 2*x^2 - 2*x + 1                      [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  31      31     961*x^4 + 93*x^3 + 42*x^2 + 3*x + 1                     [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  1369    37     1874161*x^4 + 26011*x^3 - 912*x^2 + 19*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  41      41     1681*x^4 + 656*x^3 + 146*x^2 + 16*x + 1                 [
+<t + 4, 4>
+]
+  41      41     1681*x^4 + 41*x^3 + 60*x^2 + x + 1                      [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  1849    43     3418801*x^4 + 134977*x^3 + 3993*x^2 + 73*x + 1          [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 47*x^3 - 18*x^2 - x + 1                      [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  47      47     2209*x^4 + 235*x^3 + 45*x^2 + 5*x + 1                   [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 + 244383*x^3 + 4513*x^2 + 87*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 34810*x^3 + 2558*x^2 - 10*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 - 327448*x^3 + 8522*x^2 - 88*x + 1         [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 - 26934*x^3 + 8358*x^2 - 6*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 14  (representative x = [ -s2, -s2, -s2, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/230926720802*(-33406725577*s2 - 37624001418)
+  J6  = 1/78468668801798798*(-23799177713897116*s2 - 33475575934947251)
+  J8  = 1/53327150380364859523204*(-4671915739242155493935*s2 - 6599379641123479965420)
+  J10 = 1/4530128093024399725281298999*(36698862938959255742531814*s2 + 51900029691947623462257988)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 463
+  N(p) = 629537
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 463: exponent = 1  [BAD]
+  N(p) = 629537: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 - 21*x^3 + 11*x^2 - 3*x + 1                      [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  7       7      49*x^4 - 21*x^3 + 9*x^2 - 3*x + 1                       [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  121     11     14641*x^4 + 242*x^3 - 23*x^2 + 2*x + 1                  [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 1690*x^3 + 138*x^2 - 10*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     289*x^4 + 51*x^3 + 4*x^2 + 3*x + 1                      [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  17      17     289*x^4 - 34*x^3 + 4*x^2 - 2*x + 1                      [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 + 2166*x^3 + 625*x^2 + 6*x + 1               [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  23      23     529*x^4 - 46*x^3 + 27*x^2 - 2*x + 1                     [
+<t + 1, 2>,
+<t + 2, 2>
+]
+  23      23     529*x^4 - 115*x^3 + 25*x^2 - 5*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 - 17661*x^3 + 1086*x^2 - 21*x + 1            [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 310*x^3 + 83*x^2 - 10*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 186*x^3 + 21*x^2 - 6*x + 1                    [
+<t + 1, 4>
+]
+  1369    37     1874161*x^4 + 1778*x^2 + 1                              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 41*x^3 - 24*x^2 + x + 1                      [
+<t + 4, 4>
+]
+  41      41     1681*x^4 - 41*x^3 + 60*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1849    43     3418801*x^4 + 35131*x^3 + 3128*x^2 + 19*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 423*x^3 + 93*x^2 - 9*x + 1                   [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 282*x^3 + 12*x^2 - 6*x + 1                   [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  2809    53     7890481*x^4 - 219102*x^3 + 5173*x^2 - 78*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 240189*x^3 + 4696*x^2 - 69*x + 1         [
+<t + 4, 4>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 15  (representative x = [ -s2, 1, -s2, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/111406821733249*(-263209011929*s2 + 5011330056063)
+  J6  = 1/2351785306411208799614*(3115586592115977039*s2 + 1072215767315046146)
+  J8  = 1/99291839429631373764096768008*(38160947821374156659055885*s2 - 39186797489731768189924424)
+  J10 = 1/598868403168520949195278190176379168*(-1110069776730481479208520781360*s2 + 1569887765007218767143793909069)
+
+Minimal quadratic twist factor: d = 15*s2 - 11
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 23
+  N(p) = 7
+  N(p) = 47
+  N(p) = 313
+  N(p) = 2239
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 23: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 7: exponent = 1  [BAD]
+  N(p) = 47: exponent = 2  [BAD]
+  N(p) = 313: exponent = 1  [BAD]
+  N(p) = 2239: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 1210*x^3 + 238*x^2 + 10*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  169     13     28561*x^4 - 2704*x^3 + 178*x^2 - 16*x + 1               [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 + 10469*x^3 + 555*x^2 + 29*x + 1             [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 - 7569*x^3 + 921*x^2 - 9*x + 1               [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 62*x^3 - 26*x^2 - 2*x + 1                     [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 + 38*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 - 71188*x^3 + 2608*x^2 - 52*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  41      41     1681*x^4 + 410*x^3 + 73*x^2 + 10*x + 1                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 41*x^3 - 24*x^2 + x + 1                      [
+<t + 4, 4>
+]
+  1849    43     3418801*x^4 + 29584*x^3 + 13*x^2 + 16*x + 1             [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  47      47     [reduction failed -- skipped]
+  2809    53     7890481*x^4 - 247192*x^3 + 5978*x^2 - 88*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 + 128797*x^3 + 1247*x^2 + 37*x + 1         [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 - 595360*x^3 + 12613*x^2 - 160*x + 1       [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  4489    67     20151121*x^4 + 125692*x^3 + 3103*x^2 + 28*x + 1         [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 + 852*x^3 + 122*x^2 + 12*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  71      71     5041*x^4 - 923*x^3 + 122*x^2 - 13*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  73      73     5329*x^4 + 438*x^3 + x^2 + 6*x + 1                      [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  73      73     5329*x^4 + 146*x^3 - 3*x^2 + 2*x + 1                    [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  79      79     6241*x^4 + 474*x^3 + 158*x^2 + 6*x + 1                  [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  79      79     6241*x^4 - 395*x^3 - 2*x^2 - 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 16  (representative x = [ -1, 1, 0, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/689159132162*(-301111997*s2 + 28336326756)
+  J6  = 1/809085226022566916*(-28618572193818*s2 + 1846041523625871)
+  J8  = 1/1899761237769123931176976*(265456429366473102*s2 + 280514237849822770285)
+  J10 = 1/69698559026350979357266594049*(38955941012815226684*s2 + 55487580624654577292)
+
+Minimal quadratic twist factor: d = 30*s2 + 265
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 23
+  N(p) = 243623
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 1  [BAD]
+  N(p) = 23: exponent = 4  [BAD]
+  N(p) = 243623: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 363*x^3 + 149*x^2 + 3*x + 1                 [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  169     13     28561*x^4 - 338*x^3 - 207*x^2 - 2*x + 1                 [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 - 6498*x^3 + 687*x^2 - 18*x + 1              [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 + 18502*x^3 + 1319*x^2 + 22*x + 1            [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 - 124*x^3 - 9*x^2 - 4*x + 1                     [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 12*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 + 20535*x^3 + 963*x^2 + 15*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 68*x^2 + 1                                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 533*x^3 + 122*x^2 - 13*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1849    43     3418801*x^4 + 51772*x^3 + 968*x^2 + 28*x + 1            [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 564*x^3 + 74*x^2 - 12*x + 1                  [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 - 94*x^3 + 76*x^2 - 2*x + 1                    [
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  2809    53     7890481*x^4 - 129214*x^3 + 618*x^2 - 46*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  3481    59     12117361*x^4 - 104430*x^3 + 4473*x^2 - 30*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 + 145119*x^3 + 3550*x^2 + 39*x + 1         [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  4489    67     20151121*x^4 - 588059*x^3 + 10503*x^2 - 131*x + 1       [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  71      71     5041*x^4 - 355*x^3 - 27*x^2 - 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 + 852*x^3 + 94*x^2 + 12*x + 1                  [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  73      73     5329*x^4 - 73*x^3 - 36*x^2 - x + 1                      [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  73      73     5329*x^4 + 292*x^3 - x^2 + 4*x + 1                      [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 17  (representative x = [ -1, -s2, 0, -1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/66556859783490244*(-142013805834295*s2 + 2574576233811780)
+  J6  = 1/2452964115759257002000504*(-2176614384554448396792*s2 + 2618959456111314338549)
+  J8  = 1/4429815584239181009424154443179536*(-799875999957021583046537588982*s2 - 484797884048293235706421737471)
+  J10 = 1/1142831120945653998644623434891135569580832*(85498974525250450091417514931746617*s2 + 120914878375007502785165668044493969)
+
+Minimal quadratic twist factor: d = -s2 + 7
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 47
+  N(p) = 89
+  N(p) = 17
+  N(p) = 15551
+  N(p) = 191
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 47: exponent = 4  [BAD]
+  N(p) = 89: exponent = 1  [BAD]
+  N(p) = 17: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 15551: exponent = 1  [BAD]
+  N(p) = 191: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 1331*x^3 + 16*x^2 - 11*x + 1                [
+<t + 1, 4>
+]
+  169     13     28561*x^4 - 507*x^3 + 33*x^2 - 3*x + 1                  [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 + 18050*x^3 + 1278*x^2 + 50*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 161*x^3 + 33*x^2 - 7*x + 1                    [
+<t + 4, 1>,
+<t + w25^13, 1>,
+<t + w25^17, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 - 184*x^3 + 57*x^2 - 8*x + 1                    [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  841     29     707281*x^4 - 10933*x^3 + 864*x^2 - 13*x + 1             [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 - 124*x^3 - 9*x^2 - 4*x + 1                     [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 124*x^3 + 41*x^2 - 4*x + 1                    [
+<t + 4, 4>
+]
+  1369    37     1874161*x^4 + 6845*x^3 - 1217*x^2 + 5*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 205*x^3 + 28*x^2 + 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 41*x^3 + 60*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1849    43     3418801*x^4 + 25886*x^3 - 1987*x^2 + 14*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     [reduction failed -- skipped]
+  2809    53     7890481*x^4 - 11236*x^3 - 4182*x^2 - 4*x + 1            [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  3481    59     12117361*x^4 - 424682*x^3 + 8092*x^2 - 122*x + 1        [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 + 26047*x^3 - 3863*x^2 + 7*x + 1           [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 - 175071*x^3 + 6193*x^2 - 39*x + 1         [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     [reduction failed -- skipped]
+  73      73     5329*x^4 - 219*x^3 + 87*x^2 - 3*x + 1                   [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  73      73     5329*x^4 - 365*x^3 + 105*x^2 - 5*x + 1                  [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  79      79     6241*x^4 + 790*x^3 + 78*x^2 + 10*x + 1                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  79      79     6241*x^4 + 1580*x^3 + 258*x^2 + 20*x + 1                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 18  (representative x = [ -s2, -1, 0, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/218583345269724484*(1845157811801095*s2 + 11447385462758564)
+  J6  = 1/102194048021775422346097352*(-175030770560947309184076*s2 + 8320528789037267839443)
+  J8  = 1/47778678829303584954989257269066256*(-31019105675381674158186254452372*s2 - 33490440078179785312144296965223)
+  J10 = 1/22337916883254541525742303451985617681966368*(104419232714760361789492893603436827851*s2 + 148322121453868472590999810035433335800)
+
+Minimal quadratic twist factor: d = 3*s2 + 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 42267289
+  N(p) = 71
+  N(p) = 199
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 42267289: exponent = 1  [BAD]
+  N(p) = 71: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 199: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 92*x^2 + 1                                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  169     13     28561*x^4 + 3042*x^3 + 258*x^2 + 18*x + 1               [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     289*x^4 - 17*x^3 - 7*x^2 - x + 1                        [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  361     19     130321*x^4 + 3249*x^3 + 161*x^2 + 9*x + 1               [
+<t + 1, 4>
+]
+  23      23     529*x^4 + 40*x^2 + 1                                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 23*x^3 - 19*x^2 + x + 1                       [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 - 3364*x^3 + 1350*x^2 - 4*x + 1              [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 + 279*x^3 + 76*x^2 + 9*x + 1                    [
+<t + 1, 4>
+]
+  31      31     961*x^4 + 93*x^3 + 42*x^2 + 3*x + 1                     [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  1369    37     1874161*x^4 + 47915*x^3 + 2688*x^2 + 35*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 82*x^3 + 9*x^2 + 2*x + 1                     [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 - 328*x^3 + 57*x^2 - 8*x + 1                   [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1849    43     3418801*x^4 - 83205*x^3 + 2953*x^2 - 45*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  47      47     2209*x^4 - 235*x^3 + 70*x^2 - 5*x + 1                   [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 - 188*x^3 + 58*x^2 - 4*x + 1                   [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  2809    53     7890481*x^4 + 67416*x^3 + 898*x^2 + 24*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  3481    59     12117361*x^4 + 146202*x^3 + 3194*x^2 + 42*x + 1         [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  3721    61     13845841*x^4 - 18605*x^3 - 2607*x^2 - 5*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  4489    67     20151121*x^4 - 520724*x^3 + 9803*x^2 - 116*x + 1        [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  71      71     [reduction failed -- skipped]
+  73      73     5329*x^4 + 730*x^3 + 50*x^2 + 10*x + 1                  [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 19  (representative x = [ 0, -s2, -1, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/133425601*(-9446394*s2 + 6970086)
+  J6  = 1/1541199117151*(-2735017736*s2 + 1104771924)
+  J8  = 1/17802391002211201*(25023041817808*s2 - 53572399389936)
+  J10 = 1/205635418466541582751*(33143435646911808*s2 - 4799216644941568)
+
+Minimal quadratic twist factor: d = -6*s2 + 53
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 23
+  N(p) = 23369
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 4  [BAD]
+  N(p) = 23: exponent = 4  [BAD]
+  N(p) = 23369: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 - 363*x^3 - 8*x^2 - 3*x + 1                   [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 1690*x^3 + 58*x^2 + 10*x + 1                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 + 6137*x^3 - 43*x^2 + 17*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 - 18502*x^3 + 492*x^2 - 22*x + 1             [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  31      31     961*x^4 + 186*x^3 + 46*x^2 + 6*x + 1                    [
+<t + 4, 4>
+]
+  31      31     961*x^4 + 124*x^3 + 10*x^2 + 4*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1369    37     1874161*x^4 - 72557*x^3 + 1228*x^2 - 53*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  41      41     1681*x^4 - 123*x^3 + 19*x^2 - 3*x + 1                   [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  41      41     1681*x^4 - 123*x^3 - 8*x^2 - 3*x + 1                    [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  1849    43     3418801*x^4 - 127581*x^3 + 3653*x^2 - 69*x + 1          [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 + 188*x^3 + 62*x^2 + 4*x + 1                   [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  47      47     2209*x^4 - 141*x^3 + 64*x^2 - 3*x + 1                   [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  2809    53     7890481*x^4 + 2878*x^2 + 1                              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 - 163607*x^3 + 5717*x^2 - 47*x + 1         [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  3721    61     13845841*x^4 + 193492*x^3 + 6014*x^2 + 52*x + 1         [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  4489    67     20151121*x^4 + 4489*x^3 - 5317*x^2 + x + 1              [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 - 852*x^3 + 94*x^2 - 12*x + 1                  [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  71      71     5041*x^4 - 213*x^3 + 74*x^2 - 3*x + 1                   [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  73      73     5329*x^4 - 365*x^3 + 55*x^2 - 5*x + 1                   [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  73      73     5329*x^4 - 1095*x^3 + 145*x^2 - 15*x + 1                [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 20  (representative x = [ -s2, 0, 1, 0 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 7/160
+  J6  = 1/512000*(s2 + 320)
+  J8  = 1/2048000*(s2 - 660)
+  J10 = 1/102400000*(12500*s2 - 27)
+
+Minimal quadratic twist factor: d = 240*s2 - 225
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 44642753
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 4  [BAD]
+  N(p) = 44642753: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     14641*x^4 + 847*x^3 + 112*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 + 2197*x^3 + 268*x^2 + 13*x + 1               [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  17      17     289*x^4 - 17*x^3 + 12*x^2 - x + 1                       [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  17      17     289*x^4 + 51*x^3 - 4*x^2 + 3*x + 1                      [
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  361     19     130321*x^4 + 2527*x^3 + 212*x^2 + 7*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 138*x^3 + 16*x^2 + 6*x + 1                    [
+<t + w25^9, 1>,
+<t + 4, 1>,
+<t + 3, 1>,
+<t + w25^21, 1>
+]
+  23      23     529*x^4 - 69*x^3 + 17*x^2 - 3*x + 1                     [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  841     29     707281*x^4 + 28594*x^3 + 946*x^2 + 34*x + 1             [
+<t + 1, 4>
+]
+  31      31     961*x^4 - 186*x^3 + 30*x^2 - 6*x + 1                    [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  31      31     961*x^4 + 31*x^3 - 44*x^2 + x + 1                       [
+<t + 4, 4>
+]
+  1369    37     1874161*x^4 - 16428*x^3 + 2518*x^2 - 12*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  41      41     [reduction failed -- skipped]
+  41      41     [reduction failed -- skipped]
+  1849    43     3418801*x^4 + 35131*x^3 - 627*x^2 + 19*x + 1            [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 + 564*x^3 + 76*x^2 + 12*x + 1                  [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 + 47*x^3 - 27*x^2 + x + 1                      [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  2809    53     7890481*x^4 - 148877*x^3 + 3648*x^2 - 53*x + 1          [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  3481    59     12117361*x^4 - 605694*x^3 + 14470*x^2 - 174*x + 1       [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  3721    61     13845841*x^4 + 78141*x^3 - 1379*x^2 + 21*x + 1          [
+<t + 4, 4>
+]
+  4489    67     20151121*x^4 + 44890*x^3 - 182*x^2 + 10*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 + 852*x^3 + 94*x^2 + 12*x + 1                  [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  71      71     5041*x^4 + 108*x^2 + 1                                  [
+<t + 1, 2>,
+<t + 4, 2>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 21  (representative x = [ -s2, -s2, -1, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/506018*(63183*s2 + 113610)
+  J6  = 1/254527054*(-30346700*s2 - 43049451)
+  J8  = 1/256054216324*(-11221305365*s2 - 16049790696)
+  J10 = 1/32198817702743*(253992153546*s2 + 359282949932)
+
+Minimal quadratic twist factor: d = 180*s2 - 179
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 233743
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 233743: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 - 28*x^3 + 13*x^2 - 4*x + 1                      [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  7       7      49*x^4 - 14*x^3 + x^2 - 2*x + 1                         [
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  121     11     14641*x^4 - 363*x^3 - 76*x^2 - 3*x + 1                  [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  169     13     28561*x^4 + 676*x^3 + 213*x^2 + 4*x + 1                 [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  17      17     289*x^4 + 34*x^3 + 6*x^2 + 2*x + 1                      [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 - 3610*x^3 + 48*x^2 - 10*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 10*x^2 + 1                                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 161*x^3 + 22*x^2 + 7*x + 1                    [
+<t + 4, 2>,
+<t + 3, 2>
+]
+  841     29     707281*x^4 + 4205*x^3 + 208*x^2 + 5*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 279*x^3 + 76*x^2 - 9*x + 1                    [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 12*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 - 2738*x^3 + 258*x^2 - 2*x + 1              [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  41      41     [reduction failed -- skipped]
+  41      41     1681*x^4 - 164*x^3 + 75*x^2 - 4*x + 1                   [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  1849    43     3418801*x^4 - 70262*x^3 + 1278*x^2 - 38*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  47      47     2209*x^4 + 376*x^3 + 44*x^2 + 8*x + 1                   [
+<t + 1, 1>,
+<t + w25^3, 1>,
+<t + w25^15, 1>,
+<t + 3, 1>
+]
+  47      47     [reduction failed -- skipped]
+  2809    53     7890481*x^4 - 67416*x^3 + 2218*x^2 - 24*x + 1           [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  3481    59     12117361*x^4 - 27848*x^3 + 5194*x^2 - 8*x + 1           [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  3721    61     13845841*x^4 - 29768*x^3 + 1157*x^2 - 8*x + 1           [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  4489    67     20151121*x^4 + 520724*x^3 + 11068*x^2 + 116*x + 1       [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 + 142*x^3 + 39*x^2 + 2*x + 1                   [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 22  (representative x = [ -s2, -1, 0, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/86860286402*(1103375887*s2 + 5179678596)
+  J6  = 1/18101596825890398*(-36006266124025*s2 - 9015478008483)
+  J8  = 1/15089418707674932211208*(-13218802319217100627*s2 - 16510790128433151094)
+  J10 = 1/12578479077042992791534143968*(112990282272820097881702*s2 + 159792389606602958660187)
+
+Minimal quadratic twist factor: d = -12*s2 + 55
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 52127
+  N(p) = 257
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 52127: exponent = 1  [BAD]
+  N(p) = 257: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 + 14*x^3 + 9*x^2 + 2*x + 1                       [
+<t + w25^3, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^15, 1>
+]
+  121     11     14641*x^4 + 847*x^3 + 212*x^2 + 7*x + 1                 [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 2704*x^3 + 278*x^2 - 16*x + 1               [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  17      17     289*x^4 + 68*x^3 + 38*x^2 + 4*x + 1                     [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 - 2527*x^3 + 487*x^2 - 7*x + 1               [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  23      23     [reduction failed -- skipped]
+  23      23     [reduction failed -- skipped]
+  841     29     707281*x^4 - 207*x^2 + 1                                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 217*x^3 + 62*x^2 + 7*x + 1                    [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  31      31     961*x^4 + 124*x^3 + 16*x^2 + 4*x + 1                    [
+<t + 1, 4>
+]
+  1369    37     1874161*x^4 + 76664*x^3 + 2628*x^2 + 56*x + 1           [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  41      41     1681*x^4 + 205*x^3 + 58*x^2 + 5*x + 1                   [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 82*x^3 - 16*x^2 + 2*x + 1                    [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  1849    43     3418801*x^4 + 49923*x^3 + 3023*x^2 + 27*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  47      47     2209*x^4 - 282*x^3 + 2*x^2 - 6*x + 1                    [
+<t + 1, 1>,
+<t + 3, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  47      47     2209*x^4 - 470*x^3 + 95*x^2 - 10*x + 1                  [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 - 28090*x^3 - 127*x^2 - 10*x + 1            [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 + 174050*x^3 + 2538*x^2 + 50*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 + 126514*x^3 + 4256*x^2 + 34*x + 1         [
+<t + 1, 4>
+]
+  4489    67     20151121*x^4 - 273829*x^3 + 3818*x^2 - 61*x + 1         [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  71      71     5041*x^4 - 710*x^3 + 103*x^2 - 10*x + 1                 [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  71      71     5041*x^4 - 213*x^3 - 76*x^2 - 3*x + 1                   [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 23  (representative x = [ -1, -1, -s2, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/5202961*(-22638*s2 + 174984)
+  J6  = 1/11867954041*(-28173880*s2 - 42663180)
+  J8  = 1/27070803167521*(-14085511174*s2 - 32239767981)
+  J10 = 1/61748502025115401*(166662434199*s2 + 277411558771)
+
+Minimal quadratic twist factor: d = s2 + 11
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 346639
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 346639: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      49*x^4 + 14*x^3 + 11*x^2 + 2*x + 1                      [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  121     11     14641*x^4 - 1452*x^3 + 97*x^2 - 12*x + 1                [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 1690*x^3 + 168*x^2 - 10*x + 1               [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  17      17     [reduction failed -- skipped]
+  17      17     [reduction failed -- skipped]
+  361     19     130321*x^4 - 4332*x^3 + 322*x^2 - 12*x + 1              [
+<t + 2, 1>,
+<t + 4, 2>,
+<t + 3, 1>
+]
+  23      23     529*x^4 - 69*x^3 + 28*x^2 - 3*x + 1                     [
+<t + 1, 1>,
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 2, 1>
+]
+  23      23     529*x^4 - 138*x^3 + 31*x^2 - 6*x + 1                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^9, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 - 4205*x^3 - 42*x^2 - 5*x + 1                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 12*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 + 13*x^2 + 1                                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 - 42*x^2 + 1                                [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 82*x^3 + 34*x^2 - 2*x + 1                    [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+  41      41     1681*x^4 - 574*x^3 + 105*x^2 - 14*x + 1                 [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  1849    43     3418801*x^4 - 22188*x^3 + 1588*x^2 - 12*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 188*x^3 + 48*x^2 - 4*x + 1                   [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 376*x^3 + 66*x^2 - 8*x + 1                   [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  2809    53     7890481*x^4 + 379215*x^3 + 9828*x^2 + 135*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 - 83544*x^3 + 5006*x^2 - 24*x + 1          [
+<t + 4, 4>
+]
+  3721    61     13845841*x^4 - 200934*x^3 + 6570*x^2 - 54*x + 1         [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  4489    67     20151121*x^4 - 53868*x^3 - 142*x^2 - 12*x + 1           [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 - 1349*x^3 + 190*x^2 - 19*x + 1                [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 24  (representative x = [ 0, -s2, -1, s2 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/42941809*(-1180337*s2 + 1648566)
+  J6  = 1/281397674377*(-217826992*s2 + 165144886)
+  J8  = 1/1843998960192481*(616076653727*s2 - 1105491571384)
+  J10 = 1/12083725186141327993*(52258808755928*s2 + 324591802701984)
+
+Minimal quadratic twist factor: d = 22*s2 + 11
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 1318103
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 2  [BAD]
+  N(p) = 1318103: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     [reduction failed -- skipped]
+  169     13     28561*x^4 + 1521*x^3 + 103*x^2 + 9*x + 1                [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  17      17     289*x^4 - 119*x^3 + 36*x^2 - 7*x + 1                    [
+<t + 2, 1>,
+<t + 4, 1>,
+<t + w25^19, 1>,
+<t + w25^23, 1>
+]
+  17      17     289*x^4 + 85*x^3 + 20*x^2 + 5*x + 1                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 + 7220*x^3 + 518*x^2 + 20*x + 1              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 + 207*x^3 + 59*x^2 + 9*x + 1                    [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 - 20*x^2 + 1                                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 - 27753*x^3 + 1054*x^2 - 33*x + 1            [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 + 155*x^3 + 48*x^2 + 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 155*x^3 + 48*x^2 - 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 - 47915*x^3 + 1863*x^2 - 35*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 + 246*x^3 + 16*x^2 + 6*x + 1                   [
+<t + 4, 4>
+]
+  41      41     1681*x^4 - 41*x^3 - 15*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1849    43     3418801*x^4 + 7396*x^3 + 2508*x^2 + 4*x + 1             [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 - 658*x^3 + 128*x^2 - 14*x + 1                 [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  47      47     2209*x^4 + 282*x^3 + 58*x^2 + 6*x + 1                   [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  2809    53     7890481*x^4 + 56180*x^3 - 72*x^2 + 20*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 + 261075*x^3 + 6288*x^2 + 75*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 - 338611*x^3 + 6210*x^2 - 91*x + 1         [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  4489    67     20151121*x^4 + 408499*x^3 + 8823*x^2 + 91*x + 1         [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 + 923*x^3 + 94*x^2 + 13*x + 1                  [
+<t + 1, 2>,
+<t + w25^4, 1>,
+<t + w25^20, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 25  (representative x = [ -s2, 1, 0, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/219498269844676*(7820583875145*s2 - 1908545462352)
+  J6  = 1/3251970909928781316424*(51951716284519194028*s2 - 65926466224670619189)
+  J8  = 1/48179490464806201445165544976*(199885295401093285338717838*s2 - 275674364085426524126361135)
+  J10 = 1/713801988314584192549612557287758624*(-2887369615979773134829130894571*s2 + 4083357325549479368660091665318)
+
+Minimal quadratic twist factor: d = 2*s2 + 1
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 435161
+  N(p) = 7
+  N(p) = 7
+  N(p) = 239
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 435161: exponent = 1  [BAD]
+  N(p) = 7: exponent = 0  [good reduction (twist fixed it)]
+  N(p) = 7: exponent = 4  [BAD]
+  N(p) = 239: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  121     11     14641*x^4 + 2057*x^3 + 182*x^2 + 17*x + 1               [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  169     13     28561*x^4 - 3042*x^3 + 213*x^2 - 18*x + 1               [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  17      17     289*x^4 + 17*x^3 + 7*x^2 + x + 1                        [
+<t + 2, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 4, 1>
+]
+  17      17     289*x^4 - 17*x^3 - 12*x^2 - x + 1                       [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  361     19     130321*x^4 - 7220*x^3 + 243*x^2 - 20*x + 1              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 + 46*x^3 + 28*x^2 + 2*x + 1                     [
+<t + 1, 1>,
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 2, 1>
+]
+  23      23     529*x^4 + 92*x^3 + 36*x^2 + 4*x + 1                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + w25^9, 1>,
+<t + w25^21, 1>
+]
+  841     29     707281*x^4 + 21866*x^3 + 876*x^2 + 26*x + 1             [
+<t + 4, 4>
+]
+  31      31     961*x^4 - 248*x^3 + 57*x^2 - 8*x + 1                    [
+<t + 1, 2>,
+<t + 2, 1>,
+<t + 3, 1>
+]
+  31      31     961*x^4 + 62*x^3 - x^2 + 2*x + 1                        [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  1369    37     1874161*x^4 + 91723*x^3 + 3633*x^2 + 67*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  41      41     1681*x^4 - 41*x^3 + 51*x^2 - x + 1                      [
+<t + 1, 4>
+]
+  41      41     1681*x^4 - 41*x^3 + 60*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  1849    43     3418801*x^4 - 33282*x^3 - 1182*x^2 - 18*x + 1           [
+<t + 1, 1>,
+<t + 4, 1>,
+<t + w25^14, 1>,
+<t + w25^22, 1>
+]
+  47      47     2209*x^4 - 55*x^2 + 1                                   [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  47      47     2209*x^4 + 752*x^3 + 138*x^2 + 16*x + 1                 [
+<t + 1, 2>,
+<t + 3, 2>
+]
+  2809    53     7890481*x^4 - 154495*x^3 + 4458*x^2 - 55*x + 1          [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 - 83544*x^3 + 2920*x^2 - 24*x + 1          [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  3721    61     13845841*x^4 + 93025*x^3 - 492*x^2 + 25*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  4489    67     20151121*x^4 + 170582*x^3 + 6423*x^2 + 38*x + 1         [
+<t + 1, 1>,
+<t + w25^2, 1>,
+<t + w25^10, 1>,
+<t + 4, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+CURVE CLASS 26  (representative x = [ -s2, 0, s2, 1 ])
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/42941809*(1180337*s2 + 1648566)
+  J6  = 1/281397674377*(217826992*s2 + 165144886)
+  J8  = 1/1843998960192481*(-616076653727*s2 - 1105491571384)
+  J10 = 1/12083725186141327993*(-52258808755928*s2 + 324591802701984)
+
+Minimal quadratic twist factor: d = 22*s2 - 11
+
+Bad odd primes (Igusa valuation criterion, exact -- all primes in the support of the invariants):
+  N(p) = 7
+  N(p) = 1318103
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at the bad prime ideals above:
+  N(p) = 7: exponent = 2  [BAD]
+  N(p) = 1318103: exponent = 1  [BAD]
+
+Conductor exponent at the prime above 5 (N = 25, inert):
+  p5 (N = 25): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over F_25[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  25      5      [reduction failed -- skipped]
+  7       7      [reduction failed -- skipped]
+  121     11     [reduction failed -- skipped]
+  169     13     28561*x^4 - 1521*x^3 + 103*x^2 - 9*x + 1                [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  17      17     289*x^4 + 85*x^3 + 20*x^2 + 5*x + 1                     [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  17      17     289*x^4 + 119*x^3 + 36*x^2 + 7*x + 1                    [
+<t + 1, 1>,
+<t + w25^7, 1>,
+<t + w25^11, 1>,
+<t + 3, 1>
+]
+  361     19     130321*x^4 - 7220*x^3 + 518*x^2 - 20*x + 1              [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  23      23     529*x^4 - 20*x^2 + 1                                    [
+<t + 1, 1>,
+<t + 2, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  23      23     529*x^4 + 207*x^3 + 59*x^2 + 9*x + 1                    [
+<t + w25, 1>,
+<t + w25^5, 1>,
+<t + 4, 1>,
+<t + 3, 1>
+]
+  841     29     707281*x^4 - 27753*x^3 + 1054*x^2 - 33*x + 1            [
+<t + w25^8, 1>,
+<t + 4, 2>,
+<t + w25^16, 1>
+]
+  31      31     961*x^4 + 155*x^3 + 48*x^2 + 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  31      31     961*x^4 - 155*x^3 + 48*x^2 - 5*x + 1                    [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  1369    37     1874161*x^4 - 47915*x^3 + 1863*x^2 - 35*x + 1           [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  41      41     1681*x^4 - 41*x^3 - 15*x^2 - x + 1                      [
+<t + w25^4, 1>,
+<t + 4, 2>,
+<t + w25^20, 1>
+]
+  41      41     1681*x^4 + 246*x^3 + 16*x^2 + 6*x + 1                   [
+<t + 4, 4>
+]
+  1849    43     3418801*x^4 - 7396*x^3 + 2508*x^2 - 4*x + 1             [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  47      47     2209*x^4 - 282*x^3 + 58*x^2 - 6*x + 1                   [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  47      47     2209*x^4 + 658*x^3 + 128*x^2 + 14*x + 1                 [
+<t + 2, 2>,
+<t + 4, 2>
+]
+  2809    53     7890481*x^4 + 56180*x^3 - 72*x^2 + 20*x + 1             [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3481    59     12117361*x^4 - 261075*x^3 + 6288*x^2 - 75*x + 1         [
+<t + 1, 2>,
+<t + 4, 2>
+]
+  3721    61     13845841*x^4 + 338611*x^3 + 6210*x^2 + 91*x + 1         [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+  4489    67     20151121*x^4 + 408499*x^3 + 8823*x^2 + 91*x + 1         [
+<t + 1, 1>,
+<t + 2, 2>,
+<t + 4, 1>
+]
+  71      71     5041*x^4 - 284*x^3 + 20*x^2 - 4*x + 1                   [
+<t + 1, 2>,
+<t + w25^8, 1>,
+<t + w25^16, 1>
+]
+
+Frobenius at p | 5 (5 is inert; N(p5) = 25; confirms rational (1,5)-structure):
+  N(p5) = 25: reduction failed
+
+===========================================================================
+Notes
+===========================================================================
+
+Convention for L-polynomials:
+  L_p(T) = 1 + a1*T + a2*T^2 + a3*T^3 + N(p)^2 * T^4
+  with a3 = N(p)*a1 (from functional equation) and |a1| <= 4*sqrt(N(p)).
+  The number of F_{N(p)}-points on Jac(C) is L_p(1) = 1+a1+a2+a3+N(p)^2.
+  Factorization is over F_25[T] = GF(5^2)[T].  The generator w25 of GF(5^2)
+  satisfies $.1^2 + 4*$.1 + 2 (Conway polynomial).
+
+Rational (1,5)-polarization structure:
+  The HM search finds abelian surfaces A = Jac(C) carrying a K-rational
+  (1,5)-polarization; equivalently, a Lagrangian 5^2-subgroup scheme defined
+  over K.  At the (inert) prime above 5 (N=25), this structure implies
+  5 | L_{p5}(1) = #Jac(C)(F_25), i.e. T=1 is a root of L_{p5} mod 5.
+
+Galois action:
+  Classes come in Galois-conjugate pairs under Gal(K/Q): s2 -> -s2.
+  Conjugate curves have L-polynomials that are related by the same s2->-s2
+  substitution in the coefficients; for inert or ramified p these coincide.
+
+Notes on reduction failures:
+  'reduction failed' in the Frobenius table is a MODEL artifact, not evidence
+  of bad reduction.  The Igusa criterion and ConductorExponentAt both confirm
+  good reduction at those primes.  The issue: the current Weierstrass model
+  (from Genus2CurveFromIgusa, via a random Mestre conic point) can have
+  leading coefficient divisible by certain prime ideals; neither integer
+  shifts nor the flip x->1/x resolve this.  A minimal Weierstrass model
+  at those primes would give good reduction.
+
+Sharing these curves:
+  The compact Igusa-Siegel invariants [J2:...:J10] above are the recommended
+  form for sharing.  A Weierstrass model y^2 = f(x) over Q(sqrt(2)) can be
+  recovered in Magma via:
+    k<s2> := QuadraticField(2);
+    load "survivors.m";
+    QI := survivors[2][2];  // pick a representative
+    import "Genus2Curve.m": Genus2CurveFromIgusa;
+    C := Genus2CurveFromIgusa(QI, k);
+
