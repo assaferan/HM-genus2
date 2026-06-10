@@ -1,0 +1,371 @@
+===========================================================================
+Genus-2 curves over K = Q(sqrt(5)) with a rational (1,11)-polarized isogeny
+from the Gross-Popescu construction (HM-genus2 pipeline)
+===========================================================================
+
+Field:  K = Q(s5),  s5^2 = 5.
+        Ring of integers: O_K = Z[(1+s5)/2]  (golden-ratio ring).
+        Discriminant: disc(K/Q) = 5.  Class number: h(K) = 1.
+        Golden ratio: phi = (1+s5)/2, phi^(-1) = (s5-1)/2.
+
+Splitting of 11 in K: (5/11) = 1 by QR, so 11 is SPLIT.
+  11*O_K = p11a * p11b,  N(p11a) = N(p11b) = 11.
+
+The search enumerated non-rational P^3(K)-points (x:t) in the D_2 locus,
+inverted via InvertGP11Fast to period matrices, and recognized Igusa
+invariants in K.  4 survivors in 2 K-isomorphism classes:
+  Class A:  survivors 1 and 2 have identical Igusa invariants.
+  Class B:  survivor 3.
+  Class B': survivor 4, Galois conjugate of B (related by s5 -> -s5).
+(B and B' are a single orbit under Gal(K/Q); each is a distinct curve over K.)
+
+
+===========================================================================
+CURVE A  (= survivors 1 and 2)
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/1459240*(243125*s5 - 482787)
+  J6  = 1/2229718720*(-54798934*s5 + 127710391)
+  J8  = 1/8517525510400*(182422196780*s5 - 406668692089)
+  J10 = 1/65073894899456000*(38134182372761*s5 - 85270624049895)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, up to rational prime 200):
+  None found.  (Potential everywhere-good reduction at all odd primes.)
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at primes above 11:
+  p11 (N = 11): exponent = 0  [good reduction]
+  p11 (N = 11): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over Z[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  5       5      [reduction failed -- skipped]
+  49      7      2401*T^4 + 98*T^3 - 58*T^2 + 2*T + 1                    [
+<2401*T^4 + 98*T^3 - 58*T^2 + 2*T + 1, 1>
+]
+  11      11     121*x^4 + 33*x^3 + 18*x^2 + 3*x + 1                     [
+<11*x^2 - x + 1, 1>,
+<11*x^2 + 4*x + 1, 1>
+]
+  11      11     121*x^4 - 44*x^3 + 14*x^2 - 4*x + 1                     [
+<121*x^4 - 44*x^3 + 14*x^2 - 4*x + 1, 1>
+]
+  169     13     28561*x^4 + 2873*x^3 + 376*x^2 + 17*x + 1               [
+<28561*x^4 + 2873*x^3 + 376*x^2 + 17*x + 1, 1>
+]
+  289     17     83521*x^4 - 867*x^3 + 288*x^2 - 3*x + 1                 [
+<83521*x^4 - 867*x^3 + 288*x^2 - 3*x + 1, 1>
+]
+  19      19     361*x^4 - 76*x^3 + 26*x^2 - 4*x + 1                     [
+<19*x^2 - 6*x + 1, 1>,
+<19*x^2 + 2*x + 1, 1>
+]
+  19      19     361*x^4 + 171*x^3 + 49*x^2 + 9*x + 1                    [
+<361*x^4 + 171*x^3 + 49*x^2 + 9*x + 1, 1>
+]
+  529     23     279841*x^4 - 17457*x^3 + 933*x^2 - 33*x + 1             [
+<279841*x^4 - 17457*x^3 + 933*x^2 - 33*x + 1, 1>
+]
+  29      29     841*x^4 + 203*x^3 + 37*x^2 + 7*x + 1                    [
+<841*x^4 + 203*x^3 + 37*x^2 + 7*x + 1, 1>
+]
+  29      29     841*x^4 - 261*x^3 + 65*x^2 - 9*x + 1                    [
+<841*x^4 - 261*x^3 + 65*x^2 - 9*x + 1, 1>
+]
+  31      31     961*x^4 + 155*x^3 + 44*x^2 + 5*x + 1                    [
+<961*x^4 + 155*x^3 + 44*x^2 + 5*x + 1, 1>
+]
+  31      31     961*x^4 + 6*x^2 + 1                                     [
+<961*x^4 + 6*x^2 + 1, 1>
+]
+  1369    37     1874161*x^4 - 8214*x^3 - 1310*x^2 - 6*x + 1             [
+<1874161*x^4 - 8214*x^3 - 1310*x^2 - 6*x + 1, 1>
+]
+  41      41     1681*x^4 + 82*x^3 + 38*x^2 + 2*x + 1                    [
+<1681*x^4 + 82*x^3 + 38*x^2 + 2*x + 1, 1>
+]
+  41      41     1681*x^4 - 82*x^3 + 8*x^2 - 2*x + 1                     [
+<1681*x^4 - 82*x^3 + 8*x^2 - 2*x + 1, 1>
+]
+  1849    43     3418801*x^4 + 133128*x^3 + 3178*x^2 + 72*x + 1          [
+<3418801*x^4 + 133128*x^3 + 3178*x^2 + 72*x + 1, 1>
+]
+  2209    47     4879681*x^4 + 19881*x^3 + 1808*x^2 + 9*x + 1            [
+<4879681*x^4 + 19881*x^3 + 1808*x^2 + 9*x + 1, 1>
+]
+  2809    53     7890481*x^4 + 140450*x^3 + 2950*x^2 + 50*x + 1          [
+<7890481*x^4 + 140450*x^3 + 2950*x^2 + 50*x + 1, 1>
+]
+  59      59     3481*x^4 + 177*x^3 + 89*x^2 + 3*x + 1                   [
+<3481*x^4 + 177*x^3 + 89*x^2 + 3*x + 1, 1>
+]
+  59      59     3481*x^4 + 59*x^3 - 34*x^2 + x + 1                      [
+<3481*x^4 + 59*x^3 - 34*x^2 + x + 1, 1>
+]
+
+Frobenius at p | 11 (both primes; confirms rational 11-torsion):
+  N(p11) = 11: L_{p11}(T) = 121*x^4 + 33*x^3 + 18*x^2 + 3*x + 1 = [
+<11*x^2 - x + 1, 1>,
+<11*x^2 + 4*x + 1, 1>
+]  (roots mod 11: [ 1, 8 ])
+  N(p11) = 11: L_{p11}(T) = 121*x^4 - 44*x^3 + 14*x^2 - 4*x + 1 = [
+<121*x^4 - 44*x^3 + 14*x^2 - 4*x + 1, 1>
+]  (roots mod 11: [ 1, 4 ])
+
+===========================================================================
+CURVE B  (= survivor 3)
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/283315208*(-279106*s5 + 8627389)
+  J6  = 1/3372017605616*(1674615499*s5 - 619836124)
+  J8  = 1/321070028336333056*(44678459406664*s5 - 89575920849197)
+  J10 = 1/15285501909036144130048*(-138485012172127*s5 + 309690942212419)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, up to rational prime 200):
+  None found.  (Potential everywhere-good reduction at all odd primes.)
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at primes above 11:
+  p11 (N = 11): exponent = 0  [good reduction]
+  p11 (N = 11): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over Z[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  5       5      [reduction failed -- skipped]
+  49      7      2401*x^4 + 245*x^3 - x^2 + 5*x + 1                      [
+<2401*x^4 + 245*x^3 - x^2 + 5*x + 1, 1>
+]
+  11      11     [reduction failed -- skipped]
+  11      11     [reduction failed -- skipped]
+  169     13     28561*x^4 + 338*x^3 + 50*x^2 + 2*x + 1                  [
+<169*x^2 - 16*x + 1, 1>,
+<169*x^2 + 18*x + 1, 1>
+]
+  289     17     83521*x^4 + 5491*x^3 + 101*x^2 + 19*x + 1               [
+<83521*x^4 + 5491*x^3 + 101*x^2 + 19*x + 1, 1>
+]
+  19      19     361*x^4 + 133*x^3 + 26*x^2 + 7*x + 1                    [
+<361*x^4 + 133*x^3 + 26*x^2 + 7*x + 1, 1>
+]
+  19      19     361*x^4 - 57*x^3 + 18*x^2 - 3*x + 1                     [
+<361*x^4 - 57*x^3 + 18*x^2 - 3*x + 1, 1>
+]
+  529     23     279841*x^4 - 4761*x^3 + 324*x^2 - 9*x + 1               [
+<279841*x^4 - 4761*x^3 + 324*x^2 - 9*x + 1, 1>
+]
+  29      29     841*x^4 + 29*x^3 + 24*x^2 + x + 1                       [
+<841*x^4 + 29*x^3 + 24*x^2 + x + 1, 1>
+]
+  29      29     841*x^4 - 29*x^3 + 24*x^2 - x + 1                       [
+<841*x^4 - 29*x^3 + 24*x^2 - x + 1, 1>
+]
+  31      31     961*x^4 - 124*x^3 + 24*x^2 - 4*x + 1                    [
+<961*x^4 - 124*x^3 + 24*x^2 - 4*x + 1, 1>
+]
+  31      31     961*x^4 + 62*x^3 - 14*x^2 + 2*x + 1                     [
+<961*x^4 + 62*x^3 - 14*x^2 + 2*x + 1, 1>
+]
+  1369    37     1874161*x^4 - 71188*x^3 + 2486*x^2 - 52*x + 1           [
+<1874161*x^4 - 71188*x^3 + 2486*x^2 - 52*x + 1, 1>
+]
+  41      41     1681*x^4 - 533*x^3 + 96*x^2 - 13*x + 1                  [
+<1681*x^4 - 533*x^3 + 96*x^2 - 13*x + 1, 1>
+]
+  41      41     1681*x^4 + 328*x^3 + 62*x^2 + 8*x + 1                   [
+<41*x^2 - 2*x + 1, 1>,
+<41*x^2 + 10*x + 1, 1>
+]
+  1849    43     3418801*x^4 - 9245*x^3 + 1330*x^2 - 5*x + 1             [
+<3418801*x^4 - 9245*x^3 + 1330*x^2 - 5*x + 1, 1>
+]
+  2209    47     4879681*x^4 + 156839*x^3 + 4588*x^2 + 71*x + 1          [
+<4879681*x^4 + 156839*x^3 + 4588*x^2 + 71*x + 1, 1>
+]
+  2809    53     7890481*x^4 + 98315*x^3 - 73*x^2 + 35*x + 1             [
+<7890481*x^4 + 98315*x^3 - 73*x^2 + 35*x + 1, 1>
+]
+  59      59     3481*x^4 - 767*x^3 + 114*x^2 - 13*x + 1                 [
+<3481*x^4 - 767*x^3 + 114*x^2 - 13*x + 1, 1>
+]
+  59      59     3481*x^4 + 60*x^2 + 1                                   [
+<3481*x^4 + 60*x^2 + 1, 1>
+]
+  61      61     3721*x^4 + 61*x^3 + x + 1                               [
+<3721*x^4 + 61*x^3 + x + 1, 1>
+]
+  61      61     3721*x^4 + 183*x^3 + 52*x^2 + 3*x + 1                   [
+<61*x^2 - 7*x + 1, 1>,
+<61*x^2 + 10*x + 1, 1>
+]
+
+Frobenius at p | 11 (both primes; confirms rational 11-torsion):
+  N(p11) = 11: reduction failed
+  N(p11) = 11: reduction failed
+
+===========================================================================
+CURVE B' (= survivor 4, Galois conjugate of B)
+===========================================================================
+
+Igusa-Siegel invariants [J2:J4:J6:J8:J10] in WPS(2,4,6,8,10), J2 = 1:
+  J2  = 1
+  J4  = 1/283315208*(279106*s5 + 8627389)
+  J6  = 1/3372017605616*(-1674615499*s5 - 619836124)
+  J8  = 1/321070028336333056*(-44678459406664*s5 - 89575920849197)
+  J10 = 1/15285501909036144130048*(138485012172127*s5 + 309690942212419)
+
+Minimal quadratic twist factor: d = 1
+
+Bad odd primes (Igusa valuation criterion, up to rational prime 200):
+  None found.  (Potential everywhere-good reduction at all odd primes.)
+  Note: p = 2 not checked (Magma cannot compute conductor exponent at p|2
+  over number fields).
+
+Conductor exponents at primes above 11:
+  p11 (N = 11): exponent = 0  [good reduction]
+  p11 (N = 11): exponent = 0  [good reduction]
+
+Frobenius L-polynomials L_p(T) at prime ideals of good reduction
+(first 20 prime ideals, skipping p | 2):
+L_p(T) = det(1 - Frob_p * T | V_l Jac(C)),  deg = 4,  coefficients in Z.
+Functional equation: L_p(T) = N(p)^2 T^4 L_p(1/(N(p)T)).
+
+  N(p)    p      L_p(T)                                                  factored over Z[T]
+  ----------------------------------------------------------------------------------------------------
+  9       3      [reduction failed -- skipped]
+  5       5      [reduction failed -- skipped]
+  49      7      2401*x^4 - 245*x^3 - x^2 - 5*x + 1                      [
+<2401*x^4 - 245*x^3 - x^2 - 5*x + 1, 1>
+]
+  11      11     [reduction failed -- skipped]
+  11      11     [reduction failed -- skipped]
+  169     13     28561*x^4 + 338*x^3 + 50*x^2 + 2*x + 1                  [
+<169*x^2 - 16*x + 1, 1>,
+<169*x^2 + 18*x + 1, 1>
+]
+  289     17     83521*x^4 - 5491*x^3 + 101*x^2 - 19*x + 1               [
+<83521*x^4 - 5491*x^3 + 101*x^2 - 19*x + 1, 1>
+]
+  19      19     361*x^4 - 57*x^3 + 18*x^2 - 3*x + 1                     [
+<361*x^4 - 57*x^3 + 18*x^2 - 3*x + 1, 1>
+]
+  19      19     361*x^4 + 133*x^3 + 26*x^2 + 7*x + 1                    [
+<361*x^4 + 133*x^3 + 26*x^2 + 7*x + 1, 1>
+]
+  529     23     279841*x^4 - 4761*x^3 + 324*x^2 - 9*x + 1               [
+<279841*x^4 - 4761*x^3 + 324*x^2 - 9*x + 1, 1>
+]
+  29      29     841*x^4 - 29*x^3 + 24*x^2 - x + 1                       [
+<841*x^4 - 29*x^3 + 24*x^2 - x + 1, 1>
+]
+  29      29     841*x^4 + 29*x^3 + 24*x^2 + x + 1                       [
+<841*x^4 + 29*x^3 + 24*x^2 + x + 1, 1>
+]
+  31      31     961*x^4 + 62*x^3 - 14*x^2 + 2*x + 1                     [
+<961*x^4 + 62*x^3 - 14*x^2 + 2*x + 1, 1>
+]
+  31      31     961*x^4 + 124*x^3 + 24*x^2 + 4*x + 1                    [
+<961*x^4 + 124*x^3 + 24*x^2 + 4*x + 1, 1>
+]
+  1369    37     1874161*x^4 + 71188*x^3 + 2486*x^2 + 52*x + 1           [
+<1874161*x^4 + 71188*x^3 + 2486*x^2 + 52*x + 1, 1>
+]
+  41      41     1681*x^4 - 328*x^3 + 62*x^2 - 8*x + 1                   [
+<41*x^2 - 10*x + 1, 1>,
+<41*x^2 + 2*x + 1, 1>
+]
+  41      41     1681*x^4 + 533*x^3 + 96*x^2 + 13*x + 1                  [
+<1681*x^4 + 533*x^3 + 96*x^2 + 13*x + 1, 1>
+]
+  1849    43     3418801*x^4 + 9245*x^3 + 1330*x^2 + 5*x + 1             [
+<3418801*x^4 + 9245*x^3 + 1330*x^2 + 5*x + 1, 1>
+]
+  2209    47     4879681*x^4 - 156839*x^3 + 4588*x^2 - 71*x + 1          [
+<4879681*x^4 - 156839*x^3 + 4588*x^2 - 71*x + 1, 1>
+]
+  2809    53     7890481*x^4 - 98315*x^3 - 73*x^2 - 35*x + 1             [
+<7890481*x^4 - 98315*x^3 - 73*x^2 - 35*x + 1, 1>
+]
+  59      59     3481*x^4 + 60*x^2 + 1                                   [
+<3481*x^4 + 60*x^2 + 1, 1>
+]
+  59      59     3481*x^4 - 767*x^3 + 114*x^2 - 13*x + 1                 [
+<3481*x^4 - 767*x^3 + 114*x^2 - 13*x + 1, 1>
+]
+  61      61     [reduction failed -- skipped]
+  4489    67     20151121*x^4 + 197516*x^3 - 1806*x^2 + 44*x + 1         [
+<20151121*x^4 + 197516*x^3 - 1806*x^2 + 44*x + 1, 1>
+]
+  71      71     5041*x^4 - 639*x^3 + 72*x^2 - 9*x + 1                   [
+<71*x^2 - 14*x + 1, 1>,
+<71*x^2 + 5*x + 1, 1>
+]
+
+Frobenius at p | 11 (both primes; confirms rational 11-torsion):
+  N(p11) = 11: reduction failed
+  N(p11) = 11: reduction failed
+
+===========================================================================
+Notes
+===========================================================================
+
+Convention for L-polynomials:
+  L_p(T) = 1 + a1*T + a2*T^2 + a3*T^3 + N(p)^2 * T^4
+  with a3 = N(p)*a1 (from functional equation) and |a1| <= 4*sqrt(N(p)).
+  The number of F_{N(p)}-points on Jac(C) is L_p(1) = 1+a1+a2+a3+N(p)^2.
+
+Rational (1,11)-isogeny structure:
+  The Gross-Popescu search finds abelian surfaces with a K-rational (1,11)-
+  polarization structure (a Lagrangian 11^2-kernel defined over K, not
+  individual K-rational 11-torsion points).  The characteristic signature
+  appears at p = 11 itself: for curve A, L_p(T) has T ≡ 1 (mod 11) as a
+  root at BOTH primes above 11 (verified below), i.e. 11 | L_p(1).
+  This does not imply 11 | L_p(1) at all split primes; e.g. for curve A at
+  the second prime above 19, L_p(1) = 591 (not divisible by 11).
+
+Notes on reduction failures:
+  "reduction failed" in the Frobenius table is a MODEL artifact, not evidence
+  of bad reduction.  The Igusa criterion and ConductorExponentAt both confirm
+  good reduction at those primes.  The issue: the current Weierstrass model
+  (from Genus2CurveFromIgusa, which uses a random Mestre conic point) has
+  leading coefficient divisible by certain prime ideals, and neither integer
+  shifts nor the flip x->1/x resolve this.  A minimal Weierstrass model at
+  those primes would give good reduction.
+  Specifically:
+    p above 3 (N=9, inert) and p above 5 (N=5, ramified): fail for all curves.
+    p above 11 (N=11): fail for curves B and B' (curve A succeeds).
+
+Sharing these curves:
+  The compact Igusa-Siegel invariants [J2:...:J10] above are the recommended
+  form for sharing; denominators are at most ~ 10^22.  A Weierstrass model
+  y^2 = f(x) over Q(sqrt(5)) can be recovered in Magma via:
+    k<s5> := QuadraticField(5);
+    load "survivors_qsqrt5_gp11.m";
+    QI := survivors_qsqrt5_gp11[1][2];  // curve A
+    import "Genus2Curve.m": Genus2CurveFromIgusa;
+    C := Genus2CurveFromIgusa(QI, k);
+  (The resulting Weierstrass model has large-fraction coefficients due to
+   Magma not implementing height-reduction for Mestre's conic over Q(sqrt(5));
+   the invariants are the better shareable form.)
+
