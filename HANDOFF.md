@@ -148,30 +148,39 @@ tau, nr := InvertGP11Fast([emb(c):c in v], [emb(c):c in w], CC : trials := 80); 
 J := IgusaNumericFromTau(tau);                                // genus-2 curve invariants
 ```
 
-## (1,5) search — current state (background, slow)
+## (1,5) search — current state
 
-- Goal: simple (`End=ℤ`), genuinely-over-`ℚ(√2)` (not a base change) genus-2 curves with a
-  rational 5-isogeny, **good reduction at 5** (via `MinimalTwist`), small conductor.
-- A screening run (`search_quadratic.m`, `BoxM=2, MaxPts=30, Prec=200`) was grinding in the
-  background: ~minutes–tens-of-minutes **per point** (the period computation dominates;
-  worse under CPU contention). 1 survivor so far (`x=[−√2,−1,0,−√2]`). Just re-run
-  `magma search_quadratic.m` on the new machine; then `magma analyze_survivors.m`.
-- **Key (1,5) findings already baked into the code:**
-  - The rational 5-isogeny is automatic for this family; the real targets are
-    good-reduction-at-5 + small conductor.
-  - Good-reduction-at-5 / conductor / Frobenius-at-5 are **twist-dependent**;
-    `End=ℤ`, the 5-isogeny, and *potential* good reduction are twist-invariant.
-    `MinimalTwist` pins the smallest-conductor model.
-  - Earlier "leader" `x=[0,−1,1,1]` turned out to be a **rational point** (base change from
-    ℚ) — now excluded. Its minimal model was good away from 2, `Frob₅=(25T²+4T+1)²`.
-  - Conceptual: a rational 5-isogeny forces a linear factor in `L_p mod 5` at good `p≠5`
-    (the mod-5 rep is reducible), **not** in the Euler factor *at* 5 (`J[5]` is ramified
-    at 5). Verified numerically.
-- `EulerFactor` needs a p-integral model (`IntegralModelOf`); `Conductor(C,p)` over a
-  number field works at odd primes (incl. `p|5`) but not `p|2` ("fibre blowups").
+- **27 survivors** found over `ℚ(√2)` (BoxM=2, MaxPts=30, Trials=120); stored in
+  `survivors.m`. Extended search (`search_quadratic_ext.m`, MaxPts=300, Trials=300)
+  is available to run for more.
+- All survivors have good reduction at 5 (both primes above 5) and simple Jacobian.
+- Full Frobenius data in `data_qsqrt2.m` / `data_qsqrt2.txt`.
+- **Known issue:** `TryReduceModP` in `data_qsqrt2.m` fails at both primes above 3 and 5
+  for all 27 survivors. This is a **mathematical obstruction** (not a bug): the Mestre
+  reconstruction gives a model where all P₅-valuations of the polynomial coefficients
+  are negative (because v_{P5}(J₁₀)/10 requires a scaling u with v_{P5}(u) = 1/2,
+  which is not achievable over K). Working at these primes requires passing to the
+  ramified extension K(5^{1/2}).
+
+## (1,11) search — current state (NEW, COMPLETE)
+
+- **3 K-isomorphism classes** found over `ℚ(√5)` (BoxM=2, MaxPts=200): Curve A, B, B'.
+  Stored in `survivors_qsqrt5_gp11.m`.
+- **Curve A**: smallest conductor (odd part = norm 66179). Fully verified:
+  - Bad prime N(p)=66179, conductor exponent 1 ✓
+  - Both primes above 11: conductor exponent 0 (good reduction) ✓
+  - Frobenius L-polynomials verified against `data_qsqrt5_gp11.txt` ✓
+  - Verification script: `verify_curveA.m` (~8 s)
+- **Curve B / B'**: Galois conjugate pair, conductor exponent 1 at N(p)=602479.
+- Full Frobenius data: `data_qsqrt5_gp11.txt`.  Results summary: `results_gp11.md`.
+- Extended search: `search_qsqrt5_gp11_ext.m`.
+- **Weierstrass model note:** coefficients have 170–350 digit numerators/denominators;
+  this is intrinsic (see `results_gp11.md` for explanation and `reduce_curveA*.m`
+  for the reduction attempts). For computation use `TryReduceModP`; for a paper
+  quote the Igusa-Siegel invariants and conductor.
 
 ## Git
-All committed, `main` clean. Recent commits: `InversionGP11.m` (analytic-Jacobian (1,11)
-inversion), GP11 convention verification + residual fix, GP11 construction, search split,
-base-change exclusion. `git pull` on the other machine gets everything (remember to also
-have `../CHIMP`).
+All committed and pushed to `main`. Recent commits:
+- `65177eb` — extended searches, `verify_curveA.m`, improved `TryReduceModP`.
+- Earlier: `InversionGP11.m`, GP11 convention verification, search infrastructure.
+`git pull` gets everything; remember to also have `../CHIMP` as a sibling directory.

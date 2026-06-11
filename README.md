@@ -38,7 +38,16 @@ x ∈ P³  ──HMSurface──►   A_x ⊂ P⁴   (smooth, degree 10, (1,5)-p
 | `Reduction.m`     | Good-reduction-at-5 filter, conductor (per-prime over a number field), minimal quadratic twist, Frobenius polynomials. |
 | `Heights.m`       | Enumerate `P³(K)` points (`K` quadratic) by increasing Weil height. |
 | `search_quadratic.m` | Screening: enumerate non-rational `ℚ(√2)`-points by height, keep genuine-`K`, simple (`End=ℤ`), potential-good-at-5 curves; save to `survivors.m`. |
+| `search_quadratic_ext.m` | Extended search: retries first 30 points with Trials=300, then screens up to 300 points; deduplicates against `survivors.m`. |
 | `analyze_survivors.m` | Heavy per-survivor analysis (descent, minimal twist, conductor, Frobenius-at-5) reusing the saved invariants — no second period computation. |
+| `data_qsqrt2.m`   | Frobenius L-polynomials for all 27 Q(√2) survivors. Uses improved `TryReduceModP` with O_K-shifts and Möbius transforms. |
+| `GP11.m`          | Gross–Popescu (1,11) construction: Heisenberg generators, intertwining matrix, `PencilFromTorsion`, early finite-diff inversion (superseded). |
+| `InversionGP11.m` | Production (1,11) inversion: analytic-Jacobian port of `InversionFast.m`. `InvertGP11Fast`. |
+| `search_qsqrt5_gp11.m` | (1,11) screening over `ℚ(√5)` D₂-locus points; saves to `survivors_qsqrt5_gp11.m`. |
+| `search_qsqrt5_gp11_ext.m` | Extended (1,11) search to 200 points with deduplication. |
+| `data_qsqrt5_gp11.m` | Frobenius L-polynomials for the 3 K-isomorphism classes of Q(√5) (1,11) survivors. |
+| `verify_curveA.m` | Standalone verification of Curve A: conductor + Frobenius spot-check (~8 s). |
+| `results_gp11.md` | Summary of (1,11) search results, conductor data, and Weierstrass model note. |
 | `test.m`          | Checks the reconstructed curve has a **rational cyclic 5-isogeny**. |
 | `test_quadratic.m`| Example: reconstructs a curve over `ℚ(√2)` from `x = [1, √2, 3, 4]`. |
 
