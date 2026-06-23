@@ -17,7 +17,7 @@ AttachSpec("../CHIMP/CHIMP.spec");
 import "GP11.m": IntertwiningMatrix, PencilFromTorsion;
 import "InversionGP11.m": InvertGP11Fast;
 import "Genus2Curve.m": IgusaInvariantsInK, GeometricEndomorphismDimension;
-import "Reduction.m": PrimesAbove;
+import "Reduction.m": PrimesAbove, ConductorProxy11;
 
 // ---- configuration ----
 BoxM     := 2;    // |a_i| <= BoxM for i=1..4 (rational base point for P^3)
@@ -40,23 +40,6 @@ function PotentialGoodReductionAt11(QI, K)
         end for;
     end for;
     return true;
-end function;
-
-// Norm-product of bad primes away from {2,11} up to Bound, as a proxy for conductor size.
-function ConductorProxy11(QI, K : Bound := 100)
-    wts := [2,4,6,8,10]; bad := []; sz := 1;
-    for ell in PrimesUpTo(Bound) do
-        if ell eq 2 or ell eq 11 then continue; end if;
-        for p in PrimesAbove(K, ell) do
-            if QI[5] eq 0 then continue; end if;
-            base := Valuation(QI[5],p) / 10;
-            if exists{i : i in [1..4] | QI[i] ne 0 and Valuation(QI[i],p)/wts[i] lt base} then
-                Append(~bad, p);
-                sz *:= Type(K) eq FldRat select ell else Norm(p);
-            end if;
-        end for;
-    end for;
-    return sz, bad;
 end function;
 
 // Primitive P^3(Q) points with max |coord| <= M, deduplicated and sorted by height.

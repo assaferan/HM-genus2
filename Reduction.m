@@ -73,6 +73,25 @@ function ConductorSizeProxy(Jinv, K)
     return &*([1] cat [ Type(K) eq FldRat select p else Norm(p) : p in bad ]), bad;
 end function;
 
+// Like ConductorSizeProxy but for the GP(1,1) setting: norm-product of bad primes
+// away from {2,11} up to Bound (those two are expected/allowed bad here). Smaller is
+// nicer. Returns <size, bad primes>.
+function ConductorProxy11(QI, K : Bound := 100)
+    wts := [2,4,6,8,10]; bad := []; sz := 1;
+    for ell in PrimesUpTo(Bound) do
+        if ell eq 2 or ell eq 11 then continue; end if;
+        for p in PrimesAbove(K, ell) do
+            if QI[5] eq 0 then continue; end if;
+            base := Valuation(QI[5],p) / 10;
+            if exists{i : i in [1..4] | QI[i] ne 0 and Valuation(QI[i],p)/wts[i] lt base} then
+                Append(~bad, p);
+                sz *:= Type(K) eq FldRat select ell else Norm(p);
+            end if;
+        end for;
+    end for;
+    return sz, bad;
+end function;
+
 // Local conductor exponent of C at p (an integer prime for Q, a prime ideal for K).
 // Returns -1 if Magma cannot compute it (number-field fibre blowups at p | 2).
 function ConductorExponentAt(C, p)

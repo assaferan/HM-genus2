@@ -13,7 +13,7 @@ load "survivors_qsqrt5_gp11.m";   // defines k<s5> and survivors_qsqrt5_gp11
 import "GP11.m": IntertwiningMatrix, PencilFromTorsion;
 import "InversionGP11.m": InvertGP11Fast;
 import "Genus2Curve.m": IgusaInvariantsInK, GeometricEndomorphismDimension;
-import "Reduction.m": PrimesAbove;
+import "Reduction.m": PrimesAbove, ConductorProxy11;
 import "Heights.m": BoundedHeightPoints;
 
 // ---- configuration ----
@@ -37,21 +37,6 @@ function PotentialGoodReductionAt11(QI, K)
         end for;
     end for;
     return true;
-end function;
-
-function ConductorProxy11(QI, K : Bound := 100)
-    wts := [2,4,6,8,10]; bad := []; sz := 1;
-    for ell in PrimesUpTo(Bound) do
-        if ell eq 2 or ell eq 11 then continue; end if;
-        for p in PrimesAbove(K, ell) do
-            if QI[5] eq 0 then continue; end if;
-            base := Valuation(QI[5],p) / 10;
-            if exists{i : i in [1..4] | QI[i] ne 0 and Valuation(QI[i],p)/wts[i] lt base} then
-                Append(~bad, p); sz *:= Norm(p);
-            end if;
-        end for;
-    end for;
-    return sz, bad;
 end function;
 
 function RealEmbeddings(K, CC)
