@@ -46,7 +46,6 @@ function PotentialGoodReductionAt11(QI, K)
     return true;
 end function;
 
-
 // Real embeddings of K into CC.
 function RealEmbeddings(K, CC)
     rts := [r[1] : r in Roots(DefiningPolynomial(K), RealField(Precision(CC)))];

@@ -39,7 +39,6 @@ function PotentialGoodReductionAt11(QI, K)
     return true;
 end function;
 
-
 function RealEmbeddings(K, CC)
     rts := [r[1] : r in Roots(DefiningPolynomial(K), RealField(Precision(CC)))];
     return [hom<K -> CC | CC!rt> : rt in rts];
