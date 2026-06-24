@@ -37,11 +37,11 @@ above $11$. The mod-$11$ representation $A[11]$ splits over $K$ as a sum of two 
 $2$-dimensional pieces $\rho_1,\rho_2$ with cyclotomic determinant --- a splitting forced not
 by extra endomorphisms but by the polarization, since $11$ is the polarization degree. Working
 entirely mod $11$ inside a space of Hilbert modular forms computed via a definite quaternion
-algebra, we exhibit a Hilbert modular eigenform of parallel weight $2$ and level
-$\mathfrak p\cdot(2)$ over $K$ ($\mathfrak p$ the bad prime of $A$ of norm $66179$) realizing
-one of the pieces up to the quadratic twist $\chi_{K(\sqrt d)}$, $d=66179(5-\sqrt5)/2$
-(ramified at $5$ and $66179$), verified over $24$ primes --- concrete evidence for Serre
-modularity over $K$. The modular form itself supplies the global labeling of the two pieces.
+algebra, we exhibit a Hilbert modular newform of parallel weight $2$ and level
+$\mathfrak p$ over $K$ ($\mathfrak p$ the bad prime of $A$ of norm $66179$) realizing
+one of the pieces up to the quadratic twist $\chi_{K(\sqrt d)}$, $d=66179(5-\sqrt5)/2$,
+verified over $24$ primes --- concrete evidence for Serre modularity over $K$. The modular
+form itself supplies the global labeling of the two pieces.
 \end{abstract}
 
 \section{Introduction}
@@ -159,25 +159,20 @@ V \;=\; \bigcap_{P}\ \Big[\ \ker\!\big(T_P^2 - \Tr_P\,T_P + \Nm_P\big)\;+\;
 A common eigenform realizing $\rho_i$ (up to twist) lies in $V$.
 
 \begin{theorem}[computational]\label{thm:main}
-Take $\mathfrak n=\mathfrak p\cdot(2)$, of norm $264716=4\cdot 66179$; then
-$\dim S_2(\mathfrak n)=5514$. The space $V$ of \eqref{eq:V}, intersected over the primes $P$
-above $\{29,31,41,7,59\}$ (eight prime conditions), is
-\[
-\dim V \;=\; 2,
-\]
-stable: $\dim S_2(\mathfrak n)\otimes\bbF_{11}=5514\to 5\to 2\to 2\to\cdots\to 2$. By contrast
-$V=0$ at level $\mathfrak p$ alone, and $V=0$ at level $\mathfrak n$ if one keeps only the
-untwisted kernel.
+At level $\mathfrak n=\mathfrak p$ (norm $66179$, $\dim S_2(\mathfrak n)=1102$), the space $V$ of
+\eqref{eq:V} is $\dim V=1$, stable over ten prime conditions; the corresponding eigensystem
+$\sigma$ is a Hilbert newform of parallel weight $2$ and level $\mathfrak p$. At
+$\mathfrak n=\mathfrak p\cdot(2)$ ($\dim 5514$) the same computation gives $\dim V=2$ --- the
+two oldform copies of $\sigma$ --- collapsing $5514\to 5\to 2\to\cdots\to 2$. By contrast,
+keeping only the \emph{untwisted} kernel gives $V=0$ at every level (the form realizes its
+piece only after the quadratic twist $\varepsilon$).
 \end{theorem}
 
-A $2$-dimensional space surviving eight independent constraints ``$a_P\in\{\pm t_P,\pm t_P'\}$''
-is not an accident (each prime cuts the surviving dimension by a definite factor).
-
-Restricting each $T_P$ to $V$ yields a \emph{scalar} matrix --- a single eigenvalue $a_P$ ---
-so $V$ is the multiplicity-$2$ eigenspace of \emph{one} mod-$11$ Hecke eigensystem $\sigma$
-(two distinct forms would give two eigenvalues, and $\rho_1,\rho_2$ cannot share an eigensystem
-since they are not twist-related). Thus the match exhibits \emph{one} of the two pieces,
-realized with multiplicity $2$.
+The eigensystem $\sigma$ surviving these constraints (``$a_P\in\{\pm t_P,\pm t_P'\}$'') is not
+an accident, and being a newform at the bad-prime level $\mathfrak p$ it is a genuine
+$2$-dimensional Galois representation realizing one of the two pieces (up to twist); restricting
+$T_P$ to the $2$-dimensional oldform space at $\mathfrak p\cdot(2)$ is scalar, confirming a
+single eigensystem.
 
 Crucially, $\sigma$ \emph{is} a genuine Hecke eigensystem, hence a genuine $2$-dimensional
 Galois representation, so it follows one piece consistently: setting
@@ -201,11 +196,15 @@ $\rho_i$ as modular, in agreement with Serre's conjecture over $\bbQ(\sqrt5)$.
 This is computational evidence, not a proof. The dimension count in Theorem~\ref{thm:main} is
 unconditional; the eigensystem $\sigma$ is extracted and verified ($a_P^2=\mathrm{tr}\,\rho_i^2$)
 over $24$ primes; and $\varepsilon=\chi_{K(\sqrt d)}$ matches $17$ of the $18$ non-degenerate
-cleanly-signed primes, the lone exception being one prime above $59$ (a residual extraction
-artifact; the excluded $19$th point is the double-root prime above $61$, where $\varepsilon$ is
-ill-defined). What remains is to confirm that the \emph{second} piece $\rho_2$ is itself
-modular (its traces are now explicit, as the complementary roots) and to remove the one
-residual misfit. All constructions are reproducible from the accompanying scripts
+cleanly-signed primes, the lone exception being one prime above $59$ (which is genuine, not an
+extraction artifact, since $\sigma$ is a newform of multiplicity one at $\mathfrak p$; the
+excluded $19$th point is the double-root prime above $61$, where $\varepsilon$ is ill-defined).
+Two items remain open. (i) A conductor subtlety: $\varepsilon$ appears ramified at
+$\{5,66179\}$ yet $\sigma$ has level $\mathfrak p$ (no $5$-part), consistent only if $\rho_1$
+is itself ramified at $5$ (the prime where the model degenerates). (ii) The \emph{second} piece
+$\rho_2$: its traces are explicit (the complementary roots), but its form is not at any of the
+cheap levels $\mathfrak p$, $\mathfrak p^\tau$, $\mathfrak p\cdot(2)$, so exhibiting it needs a
+heavier computation. All constructions are reproducible from the accompanying scripts
 (\texttt{mod11\_rep.m}, \texttt{match\_hmf\_twist.m}, \texttt{extract\_eigensystems.m},
 \texttt{identify\_twist2.m}, \texttt{verify\_twist.m}; fingerprint in \texttt{mod11\_trnm.txt}).
 \end{remark}

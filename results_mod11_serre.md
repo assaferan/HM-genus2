@@ -182,6 +182,26 @@ Net: `σ ≅ ρ_i ⊗ ε` with `ε = χ_{K(√(66179(5−√5)/2))}`; one piece 
 both pieces is fixed by `σ`, verified over 24 primes (with one glitch in the twist fit).
 `eps_data.txt` holds the authoritative `(p,rid,ε)` points; `verify_twist.m` confirms `d`.
 
+### `σ₁` is a newform at level `𝔭` (`level_p_twist.m`)
+
+Running the twist-robust search at level `𝔭` itself (norm 66179, dim 1102) gives **`dim V = 1`**,
+with the same `a_P` as before. So **`σ₁` is a Hilbert newform of parallel weight 2 and level `𝔭`**
+— the dim-2 space at `𝔭·(2)` was just its oldforms (which is also why `T_P|_V` was scalar of
+multiplicity 2). The match is therefore at the bad-prime level directly. At dim 1 the `a_P` are
+unambiguous, so the lone twist misfit `⟨59,8⟩` is **genuine** (a single-prime subtlety in the
+`ε`-fit / labeling, not an extraction artifact). NB a conductor puzzle remains: `ε` appears
+ramified at `{5, 66179}` yet `σ₁` sits at level `𝔭` (norm 66179, no 5-part) — consistent only
+if `ρ₁` is itself ramified at 5 (plausible: 5 is the "model-fails" prime) and the `ε`-fit's
+66179-ramification is partly a labeling artifact. Not fully resolved.
+
+### `ρ₂` not at the cheap levels
+
+`ρ₂`'s form is **not** at `𝔭` (dim `V`=1 = `σ₁` only), at the other prime `𝔭^τ` above 66179
+(`V` collapses to 0), or at `𝔭·(2)` (only `σ₁` oldforms). Exhibiting it would need a heavier
+level (`𝔭·(2)²`, dim 22059, or one involving 5) — beyond cheap interactive reach with the
+kernel-intersection method. So `ρ₂`'s modularity remains the one genuinely open item; its
+traces are explicit (the complementary roots), but its form is not yet exhibited.
+
 ## Reusable artifacts produced
 
 | File | Contents |
