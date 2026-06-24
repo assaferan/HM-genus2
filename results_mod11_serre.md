@@ -153,6 +153,30 @@ surface over `Q(√5)` → `A[11] = ρ₁ ⊕ ρ₂` → a matching Hilbert modu
 Open refinements: identify the exact twist `ε` and the newform(s); verify over many more
 primes; the 2-part exponent of the level.
 
+### Eigensystem extraction + twist (`extract_eigensystems.m`, `identify_twist.m`)
+
+Restricting each `T_P` to the 2-dimensional `V` gives a **scalar** `2×2` matrix at every prime
+(a *single* eigenvalue `a_P`), so `V` is the multiplicity-2 eigenspace of **one** mod-11 Hecke
+eigensystem `σ` (two distinct forms would give two eigenvalues; and `ρ₁,ρ₂` cannot share an
+eigensystem as they are not twist-related). Thus the match exhibits **one** of the two pieces,
+realized with multiplicity 2.
+
+- **Verification (refinement b): 24/24 primes.** `a_P ∈ {±t, ±t'}` (the roots of
+  `y²−Tr_P y+Nm_P` and their negatives) at *every* one of 24 primes; equivalently
+  `a_P² = tr(ρ_i)(Frob_P)²`. So `σ` matches a piece **up to a quadratic twist** at all 24.
+- **Twist (refinement a): `ε` is ramified at `{2, 5, 66179}`.** Reducing `a_P = ε(P)·t_P`
+  to `ε(P)=±1` and fitting an order-2 Hecke character: the best character (conductor dividing
+  `(2)⁴·5·𝔭`) matches **17/19** cleanly-signed primes; including the bad prime `𝔭=66179` is
+  necessary (`(2)⁴·5` alone gives only 14/19), and larger conductors (`+11`, `(2)⁸`, `𝔭²`) do
+  not improve on 17. The 2 residual misfits are exactly one of the two primes above 59 and
+  above 61 — the `ρ₁`-vs-`ρ₂` global-labeling ambiguity (there `σ`'s trace² tracks the other
+  piece). Pinning `ε` to 19/19, writing it as `K(√d)`, and capturing the **second** piece all
+  reduce to globally separating `ρ₁,ρ₂`, i.e. the `K(L)`/Heisenberg computation deferred above.
+
+Net: one piece is modular up to a quadratic twist ramified at `{2,5,66179}`, verified over 24
+primes — a sharper, honestly-bounded version of the Theorem. `eps_data.txt` holds the
+authoritative `(p,rid,ε)` points.
+
 ## Reusable artifacts produced
 
 | File | Contents |
