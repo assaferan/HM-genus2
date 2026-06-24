@@ -194,13 +194,17 @@ ramified at `{5, 66179}` yet `σ₁` sits at level `𝔭` (norm 66179, no 5-part
 if `ρ₁` is itself ramified at 5 (plausible: 5 is the "model-fails" prime) and the `ε`-fit's
 66179-ramification is partly a labeling artifact. Not fully resolved.
 
-### `ρ₂` not at the cheap levels
+### `ρ₂` not found at any level checked (incl. `𝔭·(2)²` on lovelace)
 
-`ρ₂`'s form is **not** at `𝔭` (dim `V`=1 = `σ₁` only), at the other prime `𝔭^τ` above 66179
-(`V` collapses to 0), or at `𝔭·(2)` (only `σ₁` oldforms). Exhibiting it would need a heavier
-level (`𝔭·(2)²`, dim 22059, or one involving 5) — beyond cheap interactive reach with the
-kernel-intersection method. So `ρ₂`'s modularity remains the one genuinely open item; its
-traces are explicit (the complementary roots), but its form is not yet exhibited.
+`ρ₂`'s form is **not** at `𝔭` (dim `V`=1 = `σ₁` only), the other prime `𝔭^τ` above 66179 (`V`
+collapses to 0), `𝔭·(2)` (only `σ₁` oldforms), **or `𝔭·(2)²`** (`rho2_search.m`, run on the
+MIT server `lovelace`, dim 22059): `dim V = 3`, exactly `σ₁`'s oldform multiplicity, with `a_P`
+matching `σ₁` — so no new eigensystem, **`ρ₂` is not at `𝔭·(2)²` either**. The search uses a
+`ker(T_P−λ)` intersection that restricts to the small surviving space after the first prime
+(first prime ~15 min at dim 22059, then ~60 s each). So `ρ₂`'s modularity is the open item: its
+traces are explicit (the complementary roots), but no form has been located. Next candidate
+levels involve ramification at 5 (`𝔭·(5)`, `𝔭·(2)·(5)`) — consistent with the conductor
+subtlety above (`ε`/`ρ₁` ramified at 5). See `lovelace-remote-compute` memory for the setup.
 
 ## Reusable artifacts produced
 
