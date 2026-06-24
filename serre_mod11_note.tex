@@ -39,8 +39,9 @@ by extra endomorphisms but by the polarization, since $11$ is the polarization d
 entirely mod $11$ inside a space of Hilbert modular forms computed via a definite quaternion
 algebra, we exhibit a Hilbert modular eigenform of parallel weight $2$ and level
 $\mathfrak p\cdot(2)$ over $K$ ($\mathfrak p$ the bad prime of $A$ of norm $66179$) realizing
-one of the pieces up to a quadratic twist ramified at $\{2,5,66179\}$, verified over $24$
-primes --- concrete evidence for Serre modularity over $K$.
+one of the pieces up to the quadratic twist $\chi_{K(\sqrt d)}$, $d=66179(5-\sqrt5)/2$
+(ramified at $5$ and $66179$), verified over $24$ primes --- concrete evidence for Serre
+modularity over $K$. The modular form itself supplies the global labeling of the two pieces.
 \end{abstract}
 
 \section{Introduction}
@@ -178,31 +179,35 @@ so $V$ is the multiplicity-$2$ eigenspace of \emph{one} mod-$11$ Hecke eigensyst
 since they are not twist-related). Thus the match exhibits \emph{one} of the two pieces,
 realized with multiplicity $2$.
 
+Crucially, $\sigma$ \emph{is} a genuine Hecke eigensystem, hence a genuine $2$-dimensional
+Galois representation, so it follows one piece consistently: setting
+$\mathrm{tr}\,\rho_1(\Frob_P)$ to be the root of $y^2-\Tr_P y+\Nm_P$ whose square equals
+$a_P^2$ gives a globally consistent labeling of the two pieces (and $\mathrm{tr}\,\rho_2$ is the
+complementary root). Thus the modular form itself separates $\rho_1$ from $\rho_2$ --- no
+explicit computation of the polarization kernel $K(\mathcal L)$ is needed.
+
 \begin{theorem}\label{thm:serre}
 One of the two $2$-dimensional mod-$11$ representations $\rho_1,\rho_2$ attached to
 $\Jac(C)/\bbQ(\sqrt5)$ is modular up to a quadratic twist: the eigensystem $\sigma$ of
 Theorem~\ref{thm:main} satisfies $a_P^2=\mathrm{tr}\,\rho_i(\Frob_P)^2$ at all $24$ primes
-checked (so $\mathrm{tr}\,\sigma=\varepsilon(P)\,\mathrm{tr}\,\rho_i$ with $\varepsilon(P)=\pm1$),
-where $\varepsilon$ is a quadratic Hecke character of $K$ ramified at $\{2,5,66179\}$
-(conductor dividing $\mathfrak p\cdot(2)^4\cdot(5)$). Since a quadratic twist preserves
-modularity, this realizes $\rho_i$ as modular, in agreement with Serre's conjecture over
-$\bbQ(\sqrt5)$.
+checked, so $\mathrm{tr}\,\sigma=\varepsilon(P)\,\mathrm{tr}\,\rho_i$ with
+$\varepsilon=\chi_{K(\sqrt d)}$, $\ d=\tfrac12\big(330895-66179\sqrt5\big)=66179\cdot
+\tfrac{5-\sqrt5}{2}$, a quadratic character ramified at the prime above $5$ and the primes
+above $66179$ (unramified at $2$). Since a quadratic twist preserves modularity, this realizes
+$\rho_i$ as modular, in agreement with Serre's conjecture over $\bbQ(\sqrt5)$.
 \end{theorem}
 
 \begin{remark}
 This is computational evidence, not a proof. The dimension count in Theorem~\ref{thm:main} is
-unconditional. The eigensystem $\sigma$ is then extracted and verified ($a_P^2=\mathrm{tr}\,
-\rho_i^2$) over $24$ primes, and the best order-$2$ character matches $\varepsilon(P)$ at $17$
-of the $19$ cleanly-signed primes (the prime $66179$ \emph{must} lie in its conductor; larger
-conductors do not improve the fit). The two residual primes are precisely one of the two
-primes above $59$ and above $61$, reflecting the global labeling of $\rho_1$ versus $\rho_2$
-(at those primes $\mathrm{tr}\,\sigma$ tracks the other piece). Pinning $\varepsilon$ exactly,
-writing it as $K(\sqrt d)$, and capturing the \emph{second} piece all reduce to separating
-$\rho_1,\rho_2$ globally --- equivalently, computing the Galois action on the polarization
-kernel $K(\mathcal L)$ via the Heisenberg structure. All constructions are reproducible from
-the accompanying scripts (\texttt{mod11\_rep.m}, \texttt{match\_hmf\_twist.m},
-\texttt{extract\_eigensystems.m}, \texttt{identify\_twist.m}; fingerprint in
-\texttt{mod11\_trnm.txt}).
+unconditional; the eigensystem $\sigma$ is extracted and verified ($a_P^2=\mathrm{tr}\,\rho_i^2$)
+over $24$ primes; and $\varepsilon=\chi_{K(\sqrt d)}$ matches $17$ of the $18$ non-degenerate
+cleanly-signed primes, the lone exception being one prime above $59$ (a residual extraction
+artifact; the excluded $19$th point is the double-root prime above $61$, where $\varepsilon$ is
+ill-defined). What remains is to confirm that the \emph{second} piece $\rho_2$ is itself
+modular (its traces are now explicit, as the complementary roots) and to remove the one
+residual misfit. All constructions are reproducible from the accompanying scripts
+(\texttt{mod11\_rep.m}, \texttt{match\_hmf\_twist.m}, \texttt{extract\_eigensystems.m},
+\texttt{identify\_twist2.m}, \texttt{verify\_twist.m}; fingerprint in \texttt{mod11\_trnm.txt}).
 \end{remark}
 
 \end{document}

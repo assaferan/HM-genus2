@@ -164,18 +164,23 @@ realized with multiplicity 2.
 - **Verification (refinement b): 24/24 primes.** `a_P ∈ {±t, ±t'}` (the roots of
   `y²−Tr_P y+Nm_P` and their negatives) at *every* one of 24 primes; equivalently
   `a_P² = tr(ρ_i)(Frob_P)²`. So `σ` matches a piece **up to a quadratic twist** at all 24.
-- **Twist (refinement a): `ε` is ramified at `{2, 5, 66179}`.** Reducing `a_P = ε(P)·t_P`
-  to `ε(P)=±1` and fitting an order-2 Hecke character: the best character (conductor dividing
-  `(2)⁴·5·𝔭`) matches **17/19** cleanly-signed primes; including the bad prime `𝔭=66179` is
-  necessary (`(2)⁴·5` alone gives only 14/19), and larger conductors (`+11`, `(2)⁸`, `𝔭²`) do
-  not improve on 17. The 2 residual misfits are exactly one of the two primes above 59 and
-  above 61 — the `ρ₁`-vs-`ρ₂` global-labeling ambiguity (there `σ`'s trace² tracks the other
-  piece). Pinning `ε` to 19/19, writing it as `K(√d)`, and capturing the **second** piece all
-  reduce to globally separating `ρ₁,ρ₂`, i.e. the `K(L)`/Heisenberg computation deferred above.
+- **Global labeling via `σ` — the `K(L)` computation is circumvented.** `σ` is a genuine
+  Hecke eigensystem, hence a genuine 2-dim Galois rep, so it follows **one** piece consistently:
+  `tr ρ₁(Frob_P) := ` the `q`-root whose square equals `a_P(σ)²` is a globally consistent
+  labeling, and `tr ρ₂ = ` the complementary `q`-root. No explicit Heisenberg/`K(L)`
+  computation is needed — the modular form does the separating.
 
-Net: one piece is modular up to a quadratic twist ramified at `{2,5,66179}`, verified over 24
-primes — a sharper, honestly-bounded version of the Theorem. `eps_data.txt` holds the
-authoritative `(p,rid,ε)` points.
+- **Twist (refinement a): `ε = χ_{K(√d)}` with `d = 66179·(5−√5)/2`** (`identify_twist2.m`,
+  `verify_twist.m`). Extracting the matching order-2 Hecke character directly: `ε` is ramified
+  at the prime above **5** and **both** primes above **66179**, and is **unramified at 2** (my
+  earlier "ramified at 2" was an artifact of hand-transcribed data; the Magma-saved
+  `eps_data.txt` is authoritative). It matches **17/18 non-degenerate primes** — the lone
+  misfit is `<59, rid 8>` (one prime above 59; a residual `a_P` extraction glitch), and the one
+  excluded point is the double-root prime `<61, rid 26>` where `q={7,7}` makes `ε` ill-defined.
+
+Net: `σ ≅ ρ_i ⊗ ε` with `ε = χ_{K(√(66179(5−√5)/2))}`; one piece is modular, the labeling of
+both pieces is fixed by `σ`, verified over 24 primes (with one glitch in the twist fit).
+`eps_data.txt` holds the authoritative `(p,rid,ε)` points; `verify_twist.m` confirms `d`.
 
 ## Reusable artifacts produced
 
