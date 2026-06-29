@@ -23,7 +23,7 @@
 
 \title{A mod-11 modularity match over $\bbQ(\sqrt5)$ \\ from a $(1,11)$-polarized abelian surface}
 \author{(working note)}
-\date{June 2026}
+\date{June 2026 (corrected 29 June 2026)}
 
 \begin{document}
 \maketitle
@@ -37,9 +37,17 @@ above $11$. The mod-$11$ representation $A[11]$ splits over $K$ as a sum of two 
 $2$-dimensional pieces $\rho_1,\rho_2$ with cyclotomic determinant --- a splitting forced not
 by extra endomorphisms but by the polarization, since $11$ is the polarization degree. Working
 entirely mod $11$ inside a space of Hilbert modular forms computed via a definite quaternion
-algebra, we show that $\rho_1$ and $\rho_2$ are modular (up to a quadratic twist ramified at
-$2$): they are realized by Hilbert modular eigenforms of parallel weight $2$ and level
-$\mathfrak p\cdot(2)$ over $K$, where $\mathfrak p$ is the bad prime of $A$ of norm $66179$.
+algebra, we analyze whether $\rho_1$ and $\rho_2$ are realized by Hilbert modular eigenforms
+of parallel weight $2$.
+
+\medskip\noindent\textbf{Correction (2026-06-29).} An earlier version of this note claimed a
+match (modularity of $\rho_1,\rho_2$ up to a quadratic twist at $2$, at level
+$\mathfrak p\cdot(2)$). \emph{That claim was a false positive and is retracted.} The
+acceptance criterion used --- nonvanishing of a ``twist-robust'' intersection $V$ --- is too
+weak, and the correct per-eigenform test fails (Section~\ref{sec:refutation}). The structural
+results on $A$ and on $A[11]=\rho_1\oplus\rho_2$ (Sections~\ref{sec:surface}--\ref{sec:rep})
+are unaffected; the modularity of $\rho_1,\rho_2$ over $\bbQ(\sqrt5)$ is, at present,
+\emph{not} established by this computation.
 \end{abstract}
 
 \section{Introduction}
@@ -58,7 +66,7 @@ The point of the construction is that the abelian surface comes with a canonical
 structure (the $(1,11)$-polarization), which is exactly what makes $A[11]$ reducible into
 $2$-dimensional pieces and supplies interesting $\rhob$'s to test.
 
-\section{The abelian surface}
+\section{The abelian surface}\label{sec:surface}
 
 Let $K=\bbQ(\sqrt5)$, $\cO_K=\bbZ[\tfrac{1+\sqrt5}2]$, of class number $1$ and discriminant
 $5$. The prime $11$ splits in $K$.
@@ -89,7 +97,7 @@ of norm $66179$, at which $A$ has multiplicative reduction (conductor exponent $
 These are verified by computation: (i) via the geometric endomorphism algebra (CHIMP), (ii)
 and (iii) via the Igusa valuation criterion and conductor exponents.
 
-\section{The mod-11 representation}
+\section{The mod-11 representation}\label{sec:rep}
 
 Let $\rhob\colon\Gal(\bar K/K)\to\GSp_4(\bbF_{11})$ be the representation on $A[11]$, and let
 $\chicyc$ denote the mod-$11$ cyclotomic character. We summarize the structure, all of which
@@ -154,40 +162,71 @@ therefore intersect the twist-robust kernels: set
 V \;=\; \bigcap_{P}\ \Big[\ \ker\!\big(T_P^2 - \Tr_P\,T_P + \Nm_P\big)\;+\;
 \ker\!\big(T_P^2 + \Tr_P\,T_P + \Nm_P\big)\ \Big] \ \subseteq\ S_2(\mathfrak n)\otimes\bbF_{11}.
 \end{equation}
-A common eigenform realizing $\rho_i$ (up to twist) lies in $V$.
+Nonvanishing of $V$ was the (flawed) criterion used in the retracted version; we now show it
+is too weak.
 
-\begin{theorem}[computational]\label{thm:main}
-Take $\mathfrak n=\mathfrak p\cdot(2)$, of norm $264716=4\cdot 66179$; then
-$\dim S_2(\mathfrak n)=5514$. The space $V$ of \eqref{eq:V}, intersected over the primes $P$
-above $\{29,31,41,7,59\}$ (eight prime conditions), is
+\section{Refutation of the claimed match}\label{sec:refutation}
+
+\paragraph{The criterion is too weak.} For each $P$, $\ker\big((T_P^2-\Tr_P T_P+\Nm_P)
+(T_P^2+\Tr_P T_P+\Nm_P)\big)$ is the kernel of a degree-$4$ polynomial in $T_P$; over
+$\bbF_{11}$ its dimension is roughly $\tfrac{4}{11}\dim S_2(\mathfrak n)$. Intersecting a few
+such kernels can leave a nonzero $V$ for reasons unrelated to any eigenform whose twisted
+eigenvalues match the fingerprint \eqref{eq:fingerprint}. One must test the eigenforms in $V$
+directly.
+
+\paragraph{The dim-$2$ space does not realize $\rho_1\oplus\rho_2$.} At
+$\mathfrak n=\mathfrak p\cdot(2)$ one does find $\dim V=2$, but restricting $T_P$ to $V$ gives a
+$2\times2$ matrix $C_P/\bbF_{11}$ (script \texttt{refine\_serre3.m}) for which, at most primes,
 \[
-\dim V \;=\; 2,
+\det C_P \ne \Nm_P,\qquad \operatorname{charpoly}(C_P)\notin\{q_P^+,q_P^-\},
 \]
-stable: $\dim S_2(\mathfrak n)\otimes\bbF_{11}=5514\to 5\to 2\to 2\to\cdots\to 2$. By contrast
-$V=0$ at level $\mathfrak p$ alone, and $V=0$ at level $\mathfrak n$ if one keeps only the
-untwisted kernel.
-\end{theorem}
+indeed $\operatorname{charpoly}(C_P)\in\{q_P^+,q_P^-\}$ at only $2/25$ test primes (both
+degenerate, $\Nm_P=0$), and $C_P$ usually has a \emph{repeated} eigenvalue (e.g.\ $(y-7)^2$).
+So $V$ is not semisimple and is not a sum of two genuine Hecke eigenforms realizing
+$\rho_1,\rho_2$.
 
-The value $\dim V=2$ is exactly the number of pieces $\rho_1,\rho_2$. A $2$-dimensional space
-surviving eight independent constraints ``$a_P\in\{\pm t_P,\pm t_P'\}$'' is not an accident
-(each prime cuts the surviving dimension by a definite factor, as the trace shows).
+\paragraph{No eigenform matches, even up to twist.} The untwisted intersection
+$V^+:=\bigcap_P\ker(T_P^2-\Tr_P T_P+\Nm_P)$ vanishes at level $\mathfrak p$ and at
+$\mathfrak p\cdot(2)$ (scripts \texttt{refine\_serre4.m}, \texttt{refine\_serre5.m}). The unique
+twist-robust survivor at level $\mathfrak p$ is a \emph{single} eigenform $f$ ($\dim V=1$); its
+Hecke eigenvalue satisfies
+\[
+a_P \in \{\pm t_1,\pm t_2\}\quad\text{at all }120/120\text{ tested primes,}
+\]
+a genuine structural fact (probability $\approx(4/11)^{106}$ by chance). Writing
+$\varepsilon(P)=+1$ if $a_P$ is a root of $q_P^+$ and $-1$ if of $q_P^-$, the $94$ unambiguous
+signs are \emph{inconsistent with every quadratic ray-class character} of conductor supported
+in $\{2^{\le6},3,5,11,66179,\infty\}$ (script \texttt{refine\_charfit.m}); since $K$ has narrow
+class number $1$ there are no unramified quadratic characters either. So $\varepsilon$ is not a
+quadratic Hecke character.
 
-\begin{theorem}\label{thm:serre}
-The two $2$-dimensional mod-$11$ Galois representations $\rho_1,\rho_2$ attached to
-$\Jac(C)/\bbQ(\sqrt5)$ are modular: each is realized, up to a quadratic twist ramified at $2$,
-by a Hilbert modular eigenform of parallel weight $2$ and level $\mathfrak p\cdot(2)$ over
-$\bbQ(\sqrt5)$. Since a quadratic twist preserves modularity, $\rho_1,\rho_2$ themselves are
-modular, in agreement with Serre's conjecture over $\bbQ(\sqrt5)$.
-\end{theorem}
+\begin{proposition}\label{prop:no-match}
+No Hilbert modular eigenform of parallel weight $2$, trivial character, and level
+$\mathfrak p\cdot(2)^a$ realizes $\rho_1$ or $\rho_2$.
+\end{proposition}
+
+\begin{proof}[Reason]
+Such a form has $\det\rho_f=\chicyc=\det\rho_i$, so $\rho_f\cong\rho_i\otimes\chi$ forces
+$\chi^2=1$: the only admissible twist is quadratic. A non-trivial nebentypus would change the
+determinant and so cannot occur. But a quadratic twist relating $f$ to $\rho_i$ is exactly what
+is excluded above (the sign $\varepsilon$ is not a quadratic character), and the untwisted case
+is excluded by $V^+=0$.
+\end{proof}
+
+The residual relation $a_P^2\in\{t_1^2,t_2^2\}$ (the $120/120$ fact) is the twist-invariant,
+projective ($\mathrm{Sym}^2$) statement, with the square jumping between $\rho_1$ and $\rho_2$;
+it does \emph{not} imply that either $\rho_i$ is modular.
 
 \begin{remark}
-This is computational evidence, not a proof: the match in Theorem~\ref{thm:main} is verified
-over eight prime conditions, and the twist character $\varepsilon$ and the individual newforms
-have not yet been pinned down. The constructions and verifications are reproducible from the
-scripts accompanying this note (\texttt{mod11\_rep.m}, \texttt{match\_hmf\_twist.m}, with the
-fingerprint in \texttt{mod11\_trnm.txt}). The dimension computations alone determine $V$
-unconditionally; identifying $\varepsilon$ and the eigenforms, and extending the verification
-to several dozen primes, are the natural next steps.
+\textbf{Status.} The mod-$11$ Serre-modularity match for Curve~A is \emph{not} established.
+The structural content (Propositions~\ref{prop:A},~\ref{prop:struct}) stands and is the
+reusable output of this work. Natural next steps: a genuine newform decomposition with
+eigensystems compared in the correct residue field (recall $11$ \emph{splits} in $K$, so a
+matching newform would have $11$ split in its Hecke field and place both reductions in $V^+$,
+which is empty at the levels examined); searching other levels; and interpreting the
+$a_P^2$-relation. Reproducibility: \texttt{mod11\_rep.m}, \texttt{mod11\_trnm.txt} (target
+fingerprint), and the refutation scripts \texttt{refine\_serre[3,4,5].m},
+\texttt{refine\_charfit.m} with raw signs in \texttt{refine\_serre5\_signs.txt}.
 \end{remark}
 
 \end{document}

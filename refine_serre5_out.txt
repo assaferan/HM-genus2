@@ -1,0 +1,5 @@
+# refine_serre5: twist character analysis
+level Pbad norm 66179, cuspidal dim 1102
+dim Vtw = 1
+tested 120 primes, FAIL=0, sign points=94
+character search over support {p2^<=4, 3, 5, 11(both), Pbad}, with/without oo:

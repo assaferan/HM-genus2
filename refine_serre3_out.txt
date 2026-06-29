@@ -1,0 +1,58 @@
+# refine_serre3: per-prime eigenvalue diagnostic of V
+==== level Pbad*p2 (norm 264716) ====
+  cuspidal dim = 5514
+    [findV] N=29 dim=5
+    [findV] N=29 dim=2
+    [findV] N=31 dim=2
+    [findV] N=31 dim=2
+    [findV] N=41 dim=2
+    [findV] N=41 dim=2
+  dim V = 2
+  N=29 p=29: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 3, 4 ] tTr=7 tNm=1  cp-vs-q:NO
+  N=29 p=29: charpoly=y^2 + y + 3  Cevs=[ 5 ] (in+-roots:false)  q+roots=[ 3, 6 ] tTr=9 tNm=7  cp-vs-q:NO
+  N=31 p=31: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 1, 4 ] tTr=5 tNm=4  cp-vs-q:NO
+  N=31 p=31: charpoly=y^2 + 9*y + 1  Cevs=[ 1 ] (in+-roots:false)  q+roots=[ 1, 10 ] tTr=0 tNm=10  cp-vs-q:NO
+  N=41 p=41: charpoly=y^2  Cevs=[ 0 ] (in+-roots:false)  q+roots=[ 0, 9 ] tTr=9 tNm=0  cp-vs-q:NO
+  N=41 p=41: charpoly=y^2 + 3*y + 5  Cevs=[ 4 ] (in+-roots:false)  q+roots=[ 4, 9 ] tTr=2 tNm=3  cp-vs-q:NO
+  N=49 p=7: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 4, 5 ] tTr=9 tNm=9  cp-vs-q:NO
+  N=59 p=59: charpoly=y^2 + 5*y + 9  Cevs=[ 3 ] (in+-roots:false)  q+roots=[ 3, 5 ] tTr=8 tNm=4  cp-vs-q:NO
+  N=59 p=59: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 4, 6 ] tTr=10 tNm=2  cp-vs-q:NO
+  N=61 p=61: charpoly=y^2 + 10*y + 3  Cevs=[ 6 ] (in+-roots:false)  q+roots=[ 4, 5 ] tTr=9 tNm=9  cp-vs-q:NO
+  N=61 p=61: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 7 ] tTr=3 tNm=5  cp-vs-q:q+
+  N=71 p=71: charpoly=y^2 + 6*y + 9  Cevs=[ 8 ] (in+-roots:false)  q+roots=[ 6, 8 ] tTr=3 tNm=4  cp-vs-q:NO
+  N=71 p=71: charpoly=y^2 + 7*y + 4  Cevs=[ 2 ] (in+-roots:false)  q+roots=[ 2, 6 ] tTr=8 tNm=1  cp-vs-q:NO
+  N=79 p=79: charpoly=y^2 + 4*y + 4  Cevs=[ 9 ] (in+-roots:false)  q+roots=[ 2, 8 ] tTr=10 tNm=5  cp-vs-q:NO
+  N=79 p=79: charpoly=y^2  Cevs=[ 0 ] (in+-roots:false)  q+roots=[ 0, 3 ] tTr=3 tNm=0  cp-vs-q:NO
+  N=89 p=89: charpoly=y^2 + 9*y + 1  Cevs=[ 1 ] (in+-roots:false)  q+roots=[ 1, 2 ] tTr=3 tNm=2  cp-vs-q:NO
+  N=89 p=89: charpoly=y^2 + 5*y + 9  Cevs=[ 3 ] (in+-roots:false)  q+roots=[ 2, 3 ] tTr=5 tNm=6  cp-vs-q:NO
+  N=101 p=101: charpoly=y^2 + 9*y + 1  Cevs=[ 1 ] (in+-roots:false)  q+roots=[ 1, 3 ] tTr=4 tNm=3  cp-vs-q:NO
+  N=101 p=101: charpoly=y^2 + 10*y + 3  Cevs=[ 6 ] (in+-roots:false)  q+roots=[ 3, 6 ] tTr=9 tNm=7  cp-vs-q:NO
+  N=109 p=109: charpoly=y^2 + 10*y + 3  Cevs=[ 6 ] (in+-roots:false)  q+roots=[ 0, 5 ] tTr=5 tNm=0  cp-vs-q:NO
+  N=109 p=109: charpoly=y^2  Cevs=[ 0 ] (in+-roots:false)  q+roots=[ 0 ] tTr=0 tNm=0  cp-vs-q:q+
+  N=131 p=131: charpoly=y^2 + 8*y + 5  Cevs=[ 7 ] (in+-roots:false)  q+roots=[ 0, 7 ] tTr=7 tNm=0  cp-vs-q:NO
+  N=131 p=131: charpoly=y^2 + 6*y + 9  Cevs=[ 8 ] (in+-roots:false)  q+roots=[ 0, 8 ] tTr=8 tNm=0  cp-vs-q:NO
+  N=139 p=139: charpoly=y^2  Cevs=[ 0 ] (in+-roots:false)  q+roots=[ 0, 8 ] tTr=8 tNm=0  cp-vs-q:NO
+  N=139 p=139: charpoly=y^2  Cevs=[ 0 ] (in+-roots:false)  q+roots=[ 0, 3 ] tTr=3 tNm=0  cp-vs-q:NO
+  SUMMARY Pbad*p2: charpoly(C_P) in {q+,q-} at 2/25 primes
+==== level Pbad (norm 66179) ====
+  cuspidal dim = 1102
+    [findV] N=29 dim=1
+    [findV] N=29 dim=1
+    [findV] N=31 dim=1
+    [findV] N=31 dim=1
+    [findV] N=41 dim=1
+  dim V = 1
+  N=29 p=29: charpoly=y + 4  Cevs=[ 7 ] (in+-roots:true)  q+roots=[ 3, 4 ] tTr=7 tNm=1  cp-vs-q:NO
+  N=29 p=29: charpoly=y + 6  Cevs=[ 5 ] (in+-roots:true)  q+roots=[ 3, 6 ] tTr=9 tNm=7  cp-vs-q:NO
+  N=31 p=31: charpoly=y + 4  Cevs=[ 7 ] (in+-roots:true)  q+roots=[ 1, 4 ] tTr=5 tNm=4  cp-vs-q:NO
+  N=31 p=31: charpoly=y + 10  Cevs=[ 1 ] (in+-roots:true)  q+roots=[ 1, 10 ] tTr=0 tNm=10  cp-vs-q:NO
+  N=41 p=41: charpoly=y  Cevs=[ 0 ] (in+-roots:true)  q+roots=[ 0, 9 ] tTr=9 tNm=0  cp-vs-q:NO
+  N=41 p=41: charpoly=y + 7  Cevs=[ 4 ] (in+-roots:true)  q+roots=[ 4, 9 ] tTr=2 tNm=3  cp-vs-q:NO
+  N=49 p=7: charpoly=y + 4  Cevs=[ 7 ] (in+-roots:true)  q+roots=[ 4, 5 ] tTr=9 tNm=9  cp-vs-q:NO
+  N=59 p=59: charpoly=y + 8  Cevs=[ 3 ] (in+-roots:true)  q+roots=[ 3, 5 ] tTr=8 tNm=4  cp-vs-q:NO
+  N=59 p=59: charpoly=y + 4  Cevs=[ 7 ] (in+-roots:true)  q+roots=[ 4, 6 ] tTr=10 tNm=2  cp-vs-q:NO
+  N=61 p=61: charpoly=y + 5  Cevs=[ 6 ] (in+-roots:true)  q+roots=[ 4, 5 ] tTr=9 tNm=9  cp-vs-q:NO
+  N=61 p=61: charpoly=y + 4  Cevs=[ 7 ] (in+-roots:true)  q+roots=[ 7 ] tTr=3 tNm=5  cp-vs-q:NO
+  N=71 p=71: charpoly=y + 3  Cevs=[ 8 ] (in+-roots:true)  q+roots=[ 6, 8 ] tTr=3 tNm=4  cp-vs-q:NO
+  SUMMARY Pbad: charpoly(C_P) in {q+,q-} at 0/12 primes
+DONE.
