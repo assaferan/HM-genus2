@@ -1,0 +1,44 @@
+# refine_serre4: single-eigenform twist test
+==== level Pbad (norm 66179) ====
+  cuspidal dim = 1102
+    [find] N=29: dim V+=0 V-=1 Vtw=1
+    [find] N=29: dim V+=0 V-=1 Vtw=1
+    [find] N=31: dim V+=0 V-=1 Vtw=1
+    [find] N=31: dim V+=0 V-=1 Vtw=1
+    [find] N=41: dim V+=0 V-=1 Vtw=1
+    [find] N=41: dim V+=0 V-=0 Vtw=1
+    [find] N=49: dim V+=0 V-=0 Vtw=1
+    [find] N=59: dim V+=0 V-=0 Vtw=1
+    [find] N=59: dim V+=0 V-=0 Vtw=1
+    [find] N=61: dim V+=0 V-=0 Vtw=1
+    [find] N=61: dim V+=0 V-=0 Vtw=1
+    [find] N=71: dim V+=0 V-=0 Vtw=1
+    [find] N=71: dim V+=0 V-=0 Vtw=1
+    [find] N=79: dim V+=0 V-=0 Vtw=1
+  FINAL dims: V+(untwisted)=0  V-=0  Vtw=1
+  Vtw splits into 1 eigenline(s) via N=29
+  eigenline 1: a_P a (+-)root at 70/70 primes, FAIL 0; 53 sign points
+    twist eps: no 2/Pbad-power quadratic character fits
+==== level Pbad*p2 (norm 264716) ====
+  cuspidal dim = 5514
+    [find] N=29: dim V+=0 V-=5 Vtw=5
+    [find] N=29: dim V+=0 V-=2 Vtw=2
+    [find] N=31: dim V+=0 V-=2 Vtw=2
+    [find] N=31: dim V+=0 V-=2 Vtw=2
+    [find] N=41: dim V+=0 V-=2 Vtw=2
+    [find] N=41: dim V+=0 V-=0 Vtw=2
+    [find] N=49: dim V+=0 V-=0 Vtw=2
+    [find] N=59: dim V+=0 V-=0 Vtw=2
+    [find] N=59: dim V+=0 V-=0 Vtw=2
+    [find] N=61: dim V+=0 V-=0 Vtw=2
+    [find] N=61: dim V+=0 V-=0 Vtw=2
+    [find] N=71: dim V+=0 V-=0 Vtw=2
+    [find] N=71: dim V+=0 V-=0 Vtw=2
+    [find] N=79: dim V+=0 V-=0 Vtw=2
+  FINAL dims: V+(untwisted)=0  V-=0  Vtw=2
+  Vtw splits into 2 eigenline(s) via N=29
+  eigenline 1: a_P a (+-)root at 40/40 primes, FAIL 0; 33 sign points
+    twist eps: no 2/Pbad-power quadratic character fits
+  eigenline 2: a_P a (+-)root at 40/40 primes, FAIL 0; 33 sign points
+    twist eps: no 2/Pbad-power quadratic character fits
+DONE.

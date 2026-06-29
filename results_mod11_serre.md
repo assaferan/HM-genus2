@@ -1,5 +1,23 @@
 # Mod-11 Galois representations of the (1,11) curves — Serre modularity evidence
 
+> **⚠️ CORRECTION (2026-06-29): the modularity match claimed in the section
+> "THE MATCH — Serre evidence obtained" (below) is a FALSE POSITIVE and is RETRACTED.**
+> On refinement, the 2-dimensional space `V` does not realize `ρ₁⊕ρ₂`: restricting the
+> Hecke action to `V`, `charpoly(T_P|V) ∈ {q⁺,q⁻}` at only 2/25 primes, `det(T_P|V) ≠ Nm_P`
+> at most primes, and `V` is non-semisimple. The matcher's acceptance criterion
+> (`V = ⋂_P[ker q⁺(T_P)+ker q⁻(T_P)] ≠ 0`) is too weak — `ker` of a degree-4 polynomial in
+> `T_P` covers ~4/11 of the space mod 11, so a nonzero intersection does not imply an
+> eigenform with a consistent twist. The correct per-eigenform test fails: there is no
+> untwisted match (`⋂ ker q⁺ = 0` at every level), and the unique twisted survivor at level
+> `𝔭`, though it satisfies `a_P ∈ {±t₁,±t₂}` at 120/120 primes, has a twist sign `ε(P)` that
+> is provably **not** a quadratic Hecke character (any conductor in `{2^≤6,3,5,11,66179,∞}`).
+> Since a parallel-weight-2 trivial-character form forces `det ρ_f = χ₁₁ = det ρ_i`, a
+> non-quadratic twist is impossible, so no such eigenform realizes `ρ_i`.
+> **Status: the Serre match for Curve A is NOT established.** The *structural* findings
+> (Sections "Structural findings", "Friendlier-curve hunt") remain valid. See the
+> "Refutation" section at the end and scripts `refine_serre[2-5].m`, `refine_charfit.m`,
+> data `refine_serre5_signs.txt`.
+
 Goal: exhibit evidence for **Serre's modularity conjecture over the totally real field
 `K = Q(√5)`** by matching the 2-dimensional `mod 11` Galois representation attached to the
 `(1,11)` Gross–Popescu genus-2 curves (Curve A etc., over `Q(√5)`) to a Hilbert modular form.
@@ -113,7 +131,10 @@ construction gives intrinsically large conductors regardless of base field; the 
 less tractable. **Curve A (norm 66179, `Q(√5)`) remains the smallest target** — proceed with
 the bounded Hilbert modular forms computation there.
 
-## THE MATCH — Serre evidence obtained
+## THE MATCH — Serre evidence obtained  — ⚠️ RETRACTED, see "Refutation" below
+
+*(The following section is preserved as written but its conclusion is WRONG; see the
+correction banner at the top and the "Refutation" section at the end.)*
 
 The Hilbert modular forms computation is cheap, not heavy (I had overestimated):
 `HilbertCuspForms(Q(√5), level, [2,2])` at level norm 66179 has **cuspidal dim 1102**, builds
@@ -160,3 +181,55 @@ primes; the 2-part exponent of the level.
 | `mod11_frobdata.txt` | raw `L_P(T)` for 290 good primes (any mod-ℓ work) |
 | `mod11_apdata.txt`   | 132 `a_p mod 11` of the irreducible-quadratic factor (NB: conflates `ρ₁,ρ₂`) |
 | `mod11_trnm.txt`     | **the correct target**: `(Tr, Nm) mod 11` of `{ρ₁,ρ₂}` at all 290 primes |
+
+## Refutation (2026-06-29) — the match above is a false positive
+
+Refining the claim (pin down the twist, verify over more primes) required checking that the
+"matched" space `V` actually *realizes* `ρ₁⊕ρ₂`, not merely that `V ≠ 0`. It does not.
+
+**The acceptance criterion was too weak.** `V = ⋂_P [ker q_P⁺(T_P) + ker q_P⁻(T_P)]` uses the
+kernel of a *degree-4* polynomial in `T_P`; over `F₁₁` that kernel has dimension ≈ `(4/11)·dim`,
+so a nonzero intersection over a handful of primes is a weak condition and does **not** imply
+the existence of an eigenform whose twisted eigenvalues match the fingerprint.
+
+**Direct test of the dim-2 `V` (level `𝔭·(2)`).** Restricting each `T_P` to `V` gives a 2×2
+matrix `C_P` over `F₁₁` (`refine_serre3.m`). For a genuine `ρ₁⊕ρ₂` one needs
+`det C_P = Nm_P` and `charpoly C_P = q_P⁺` or `q_P⁻` at every prime. Instead:
+- `charpoly(C_P) ∈ {q⁺,q⁻}` at only **2/25** primes (both degenerate `tNm=0` cases);
+- `det(C_P) ≠ Nm_P` at most primes;
+- `C_P` typically has a **repeated** eigenvalue (e.g. `(y−7)²`) — `V` is non-semisimple, hence
+  not a sum of two genuine Hecke eigenforms.
+
+**Correct per-eigenform test (`refine_serre4.m`, `refine_serre5.m`).**
+- Untwisted intersection `V⁺ = ⋂_P ker q_P⁺(T_P) = 0` at level `𝔭` **and** `𝔭·(2)`: no
+  untwisted match anywhere. (Were a newform with `11` split in its Hecke field to realize
+  `ρ₁,ρ₂` as its two mod-11 reductions, both reductions would be roots of `q⁺`, i.e. lie in
+  `V⁺`; `V⁺=0` already argues against such a form at these levels.)
+- The twist-robust survivor at level `𝔭` is **1-dimensional** (a single eigenform `f`). Its
+  eigenvalue satisfies `a_P ∈ {±t₁,±t₂}` at **120/120** primes (`FAIL 0`) — a real structural
+  fact, not chance (`≈ (4/11)^{106}`). Define `ε(P)=+1` if `a_P` is a root of `q⁺`, `−1` if of
+  `q⁻`.
+- `ε` is **not a quadratic Hecke character.** The 94 unambiguous signs are inconsistent with
+  every quadratic ray-class character of conductor supported in `{2^{≤6},3,5,11,66179,∞}`
+  (`refine_charfit.m`). `K=Q(√5)` has narrow class number 1, so there are no unramified
+  quadratic characters either.
+
+**Why this is decisive.** A Hilbert eigenform of parallel weight 2 and *trivial* character has
+`det ρ_f = χ₁₁ = det ρ_i`. Hence `ρ_f ≅ ρ_i ⊗ χ` forces `χ² = 1`, i.e. the only admissible
+twist is quadratic — exactly what is ruled out above. (A non-trivial nebentypus would spoil
+`det = χ₁₁`, so it cannot help.) Therefore **no** parallel-weight-2 trivial-character
+eigenform of level `𝔭·(2)^a` realizes `ρ₁` or `ρ₂`.
+
+The residual `a_P² ∈ {t₁²,t₂²}` (120/120) is the *twist-invariant* (projective / Sym²)
+statement, with the square jumping between `ρ₁` and `ρ₂`; it does not imply either `ρ_i` is
+modular.
+
+**Bottom line: the mod-11 Serre-modularity match for Curve A is NOT established.** The
+structural results above (`A[11]=ρ₁⊕ρ₂`, irreducible, `det=χ₁₁`, `End=ℤ`, not twists) stand.
+
+| Refutation script | Role |
+|---|---|
+| `refine_serre3.m` | per-prime 2×2 `C_P=T_P|V`: eigenvalues, `det`, `charpoly` vs `q±` |
+| `refine_serre4.m` | per-eigenform test: `V⁺,V⁻,V_tw` dims; root-membership + twist fit |
+| `refine_serre5.m` | dumps `⟨N,p,a_P,t₁,t₂,ε⟩` over 120 primes (`refine_serre5_signs.txt`) |
+| `refine_charfit.m`| tests whether `ε` is a quadratic ray-class character (it is not) |

@@ -1,0 +1,65 @@
+# refine_serre: twist + verify + level-exponent
+level = Pbad*p2, norm 264716
+cuspidal dim = 5514
+PASS 1: locating V ...
+  N=29: dim(V)=5 (stable 0)
+  N=29: dim(V)=2 (stable 0)
+  N=31: dim(V)=2 (stable 1)
+  N=31: dim(V)=2 (stable 2)
+  N=41: dim(V)=2 (stable 3)
+  N=41: dim(V)=2 (stable 4)
+PASS 1 done: dim V = 2
+PASS 2: restricting T_P to V over up to 32 primes ...
+  N=29 p=29: det=5 (Nm=1 MISMATCH)  tr=3 tTr=7  eps=BAD(2)
+  N=29 p=29: det=3 (Nm=7 MISMATCH)  tr=10 tTr=9  eps=BAD(6)
+  N=31 p=31: det=5 (Nm=4 MISMATCH)  tr=3 tTr=5  eps=BAD(5)
+  N=31 p=31: det=1 (Nm=10 MISMATCH)  tr=2 tTr=0  eps=?
+  N=41 p=41: det=0 (Nm=0 OK)  tr=0 tTr=9  eps=BAD(0)
+  N=41 p=41: det=5 (Nm=3 MISMATCH)  tr=8 tTr=2  eps=BAD(4)
+  N=49 p=7: det=5 (Nm=9 MISMATCH)  tr=3 tTr=9  eps=BAD(4)
+  N=59 p=59: det=9 (Nm=4 MISMATCH)  tr=6 tTr=8  eps=BAD(9)
+  N=59 p=59: det=5 (Nm=2 MISMATCH)  tr=3 tTr=10  eps=BAD(8)
+  N=61 p=61: det=3 (Nm=9 MISMATCH)  tr=1 tTr=9  eps=BAD(5)
+  N=61 p=61: det=5 (Nm=5 OK)  tr=3 tTr=3  eps=+
+  N=71 p=71: det=9 (Nm=4 MISMATCH)  tr=5 tTr=3  eps=BAD(9)
+  N=71 p=71: det=4 (Nm=1 MISMATCH)  tr=4 tTr=8  eps=BAD(6)
+  N=79 p=79: det=4 (Nm=5 MISMATCH)  tr=7 tTr=10  eps=BAD(4)
+  N=79 p=79: det=0 (Nm=0 OK)  tr=0 tTr=3  eps=BAD(0)
+  N=89 p=89: det=1 (Nm=2 MISMATCH)  tr=2 tTr=3  eps=BAD(8)
+  N=89 p=89: det=9 (Nm=6 MISMATCH)  tr=6 tTr=5  eps=-
+  N=101 p=101: det=1 (Nm=3 MISMATCH)  tr=2 tTr=4  eps=BAD(6)
+  N=101 p=101: det=3 (Nm=7 MISMATCH)  tr=1 tTr=9  eps=BAD(5)
+  N=109 p=109: det=3 (Nm=0 MISMATCH)  tr=1 tTr=5  eps=BAD(9)
+  N=109 p=109: det=0 (Nm=0 OK)  tr=0 tTr=0  eps=?
+  N=131 p=131: det=5 (Nm=0 MISMATCH)  tr=3 tTr=7  eps=BAD(2)
+  N=131 p=131: det=9 (Nm=0 MISMATCH)  tr=5 tTr=8  eps=BAD(2)
+  N=139 p=139: det=0 (Nm=0 OK)  tr=0 tTr=8  eps=BAD(0)
+  N=139 p=139: det=0 (Nm=0 OK)  tr=0 tTr=3  eps=BAD(0)
+  N=149 p=149: det=3 (Nm=9 MISMATCH)  tr=1 tTr=9  eps=BAD(5)
+  N=149 p=149: det=1 (Nm=4 MISMATCH)  tr=9 tTr=6  eps=BAD(7)
+  N=151 p=151: det=5 (Nm=3 MISMATCH)  tr=8 tTr=2  eps=BAD(4)
+  N=151 p=151: det=3 (Nm=1 MISMATCH)  tr=10 tTr=8  eps=BAD(4)
+  N=169 p=13: det=1 (Nm=5 MISMATCH)  tr=2 tTr=6  eps=BAD(4)
+  N=179 p=179: det=4 (Nm=8 MISMATCH)  tr=4 tTr=5  eps=BAD(3)
+  N=179 p=179: det=3 (Nm=2 MISMATCH)  tr=1 tTr=10  eps=-
+PASS 2 done: det matched 6/32 primes (26 mismatch); 3 sign points
+IDENTIFY eps: searching quadratic characters of conductor p2^e ...
+  e=2: rk(R/2R)=2  inconsistent
+  e=3: rk(R/2R)=3  inconsistent
+  e=4: rk(R/2R)=3  inconsistent
+  e=5: rk(R/2R)=3  inconsistent
+  e=6: rk(R/2R)=3  inconsistent
+  e=7: rk(R/2R)=3  inconsistent
+  e=8: rk(R/2R)=3  inconsistent
+eps: no nontrivial quadratic char of 2-power conductor fits (check signs)
+LEVEL EXPONENT: checking dim V at level Pbad (norm 66179) ...
+  [Pbad] N=29: dim=1
+  [Pbad] N=29: dim=1
+  [Pbad] N=31: dim=1
+  [Pbad] N=31: dim=1
+  [Pbad] N=41: dim=1
+  [Pbad] N=41: dim=1
+  [Pbad] N=49: dim=1
+  [Pbad] N=59: dim=1
+LEVEL EXPONENT: dim V at Pbad = 1 (0 => 2-part exponent is exactly 1)
+DONE.

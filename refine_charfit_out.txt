@@ -1,0 +1,23 @@
+# refine_charfit: is eps a quadratic character?
+loaded 94 unambiguous sign points
+  no: support p2^4, oo=[ 1, 2 ], rk=3 inconsistent
+  no: support p2^4, oo=[], rk=1 inconsistent
+  no: support p2^4*3, oo=[ 1, 2 ], rk=4 inconsistent
+  no: support p2^4*3, oo=[], rk=2 inconsistent
+  no: support p2^4*P5, oo=[ 1, 2 ], rk=4 inconsistent
+  no: support p2^4*P5, oo=[], rk=2 inconsistent
+  no: support p2^4*11, oo=[ 1, 2 ], rk=5 inconsistent
+  no: support p2^4*11, oo=[], rk=3 inconsistent
+  no: support p2^4*Pbad, oo=[ 1, 2 ], rk=4 inconsistent
+  no: support p2^4*Pbad, oo=[], rk=2 inconsistent
+  no: support p2^4*3*P5, oo=[ 1, 2 ], rk=5 inconsistent
+  no: support p2^4*3*P5, oo=[], rk=3 inconsistent
+  no: support p2^4*3*P5*11, oo=[ 1, 2 ], rk=7 inconsistent
+  no: support p2^4*3*P5*11, oo=[], rk=5 inconsistent
+  no: support p2^4*3*P5*11*Pbad, oo=[ 1, 2 ], rk=8 inconsistent
+  no: support p2^4*3*P5*11*Pbad, oo=[], rk=6 inconsistent
+  no: support p2^6*3*P5*11*Pbad, oo=[ 1, 2 ], rk=8 inconsistent
+  no: support p2^6*3*P5*11*Pbad, oo=[], rk=6 inconsistent
+NO quadratic character of tried support reproduces eps.
+raw sign balance: + = 51, - = 43
+DONE.

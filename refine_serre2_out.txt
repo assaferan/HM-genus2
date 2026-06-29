@@ -1,0 +1,4 @@
+# refine_serre2: per-eigenvector twist test
+==== level Pbad*p2 (norm 264716) ====
+  cuspidal dim = 5514
+  dim V = 2
