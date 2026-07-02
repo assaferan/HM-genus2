@@ -1,0 +1,4 @@
+# identify_f
+level Pbad norm 66179
+cuspidal dim 1102; decomposing into newforms...
+  4 newform orbits, decomposition time 64.550

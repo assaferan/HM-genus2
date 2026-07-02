@@ -1,0 +1,38 @@
+# match_twisted
+g (twist) norm = 336004802232845362525566790498058422239861695442997826926519
+== level norm 66179 ==
+  dim 1102
+    N=29: V+=1 Vtw=1
+    N=29: V+=1 Vtw=1
+    N=31: V+=0 Vtw=1
+    N=31: V+=0 Vtw=1
+    N=41: V+=0 Vtw=1
+    N=41: V+=0 Vtw=1
+    N=49: V+=0 Vtw=1
+    N=59: V+=0 Vtw=1
+    N=59: V+=0 Vtw=1
+    N=61: V+=0 Vtw=1
+    N=61: V+=0 Vtw=1
+    N=71: V+=0 Vtw=1
+    N=71: V+=0 Vtw=1
+    N=79: V+=0 Vtw=1
+  => V+ = 0, Vtw = 1
+== level norm 264716 ==
+  dim 5514
+    N=29: V+=5 Vtw=5
+    N=29: V+=2 Vtw=2
+    N=31: V+=0 Vtw=2
+    N=31: V+=0 Vtw=2
+    N=41: V+=0 Vtw=2
+    N=41: V+=0 Vtw=2
+    N=49: V+=0 Vtw=2
+    N=59: V+=0 Vtw=2
+    N=59: V+=0 Vtw=2
+    N=61: V+=0 Vtw=2
+    N=61: V+=0 Vtw=2
+    N=71: V+=0 Vtw=2
+    N=71: V+=0 Vtw=2
+    N=79: V+=0 Vtw=2
+  => V+ = 0, Vtw = 2
+== level norm 1058864 ==
+  dim 22059

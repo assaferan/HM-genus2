@@ -1,0 +1,14 @@
+# minimize_prime
+=== p=499, prime norm 499, initial content val = 1 ===
+    Newton (v_P of coeffs c0..c6): [ 1, 1, 1, 1, 1, 1, 1 ]
+    after 1 steps: content val at P = 1 (still nonzero)
+=== p=13711, prime norm 13711, initial content val = 1 ===
+    Newton (v_P of coeffs c0..c6): [ 1, 1, 1, 1, 1, 1, 1 ]
+    after 1 steps: content val at P = 1 (still nonzero)
+=== p=88301, prime norm 88301, initial content val = 1 ===
+    Newton (v_P of coeffs c0..c6): [ 1, 1, 1, 1, 1, 1, 1 ]
+    after 1 steps: content val at P = 1 (still nonzero)
+=== p=231481, prime norm 231481, initial content val = 1 ===
+    Newton (v_P of coeffs c0..c6): [ 1, 1, 1, 1, 1, 1, 1 ]
+    after 1 steps: content val at P = 1 (still nonzero)
+DONE.

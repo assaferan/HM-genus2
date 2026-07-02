@@ -1,0 +1,3 @@
+# test_weights: non-parallel weight search
+==== weight [ 2, 12 ], level Pbad ====
+  dim = 12133 (build 951.260 s)

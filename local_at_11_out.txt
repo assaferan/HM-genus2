@@ -1,0 +1,22 @@
+# local_at_11: reduction type of A at primes above 11
+minimal twist factor -s5 + 10
+primes above 11: norms [ 11, 11 ]
+== prime of norm 11, residue field size 11 ==
+  L-poly: 121*x^4 + 33*x^3 + 18*x^2 + 3*x + 1
+  a1 = -33 (mod 11 = 0), a2 = 18 (mod 11 = 7)
+  Newton slopes at 11: []  => p-rank = 0
+  => SUPERSINGULAR (p-rank 0)
+  L mod 11 factors: [
+<t + 3, 1>,
+<t + 10, 1>
+]
+== prime of norm 11, residue field size 11 ==
+  L-poly: 121*x^4 - 44*x^3 + 14*x^2 - 4*x + 1
+  a1 = 44 (mod 11 = 0), a2 = 14 (mod 11 = 3)
+  Newton slopes at 11: []  => p-rank = 0
+  => SUPERSINGULAR (p-rank 0)
+  L mod 11 factors: [
+<t + 7, 1>,
+<t + 10, 1>
+]
+DONE.

@@ -1,0 +1,8 @@
+# test_level2: untwisted match at higher 2-part level, weight (2,2)
+==== level norm 1058864 ====
+  dim = 22059 (build 0.380 s)
+    N=29: dim V+=0 Vtw=11  (Hecke 800.450 s)
+    N=29: dim V+=0 Vtw=3  (Hecke 506.400 s)
+    N=31: dim V+=0 Vtw=3  (Hecke 512.990 s)
+    N=31: dim V+=0 Vtw=3  (Hecke 533.680 s)
+    N=41: dim V+=0 Vtw=3  (Hecke 478.220 s)

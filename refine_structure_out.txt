@@ -1,0 +1,10 @@
+# refine_structure
+factor types over 290 good primes:
+  [ 1, 1, 1, 1 ] : 158
+  [ 1, 1, 2 ] : 132
+both-pieces-irreducible (type [2,2]): 0   <-- 0 expected if 2+1+1 or correlated
+[1,1,2] primes: 132; of these, det-clean (lin prod = N AND quad const = N): 132
+lambda search (char of order | 10, lin root at every [1,1,2] prime):
+  best global-character fit: 82 / 132  (modulus P66179*p2^4*11, oo=[ 1, 2 ])
+  => NO rational line: structure is NOT 2+1+1; the never-[2,2] correlation has another source.
+DONE.

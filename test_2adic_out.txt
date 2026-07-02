@@ -1,0 +1,24 @@
+# test_2adic: pure 2-power levels, weight (2,2)
+==== level norm 4 ====
+  dim = 0
+  empty
+==== level norm 16 ====
+  dim = 0
+  empty
+==== level norm 64 ====
+  dim = 1
+    N=29: V+=0 Vtw=0
+  => norm 64: V+ = 0, Vtw = 0
+==== level norm 256 ====
+  dim = 5
+    N=29: V+=0 Vtw=0
+  => norm 256: V+ = 0, Vtw = 0
+==== level norm 1024 ====
+  dim = 21
+    N=29: V+=0 Vtw=0
+  => norm 1024: V+ = 0, Vtw = 0
+==== level norm 4096 ====
+  dim = 85
+    N=29: V+=0 Vtw=0
+  => norm 4096: V+ = 0, Vtw = 0
+DONE.

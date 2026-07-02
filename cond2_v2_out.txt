@@ -1,0 +1,8 @@
+# cond2_v2: conductor at 2 via monogenic field
+p2 norm 4; K.1 generates O_K: true
+ReducedModel unavailable/failed: Runtime error in 'ReducedModel': Bad argument types
+Argument types given: CrvHyp[FldNum[FldRat]]
+
+Conductor FAILED: Fibre blowups over number fields not yet implemented
+RegularModel FAILED: Fibre blowups over number fields not yet implemented
+DONE.

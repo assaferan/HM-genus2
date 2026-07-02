@@ -233,3 +233,50 @@ structural results above (`A[11]=ρ₁⊕ρ₂`, irreducible, `det=χ₁₁`, `E
 | `refine_serre4.m` | per-eigenform test: `V⁺,V⁻,V_tw` dims; root-membership + twist fit |
 | `refine_serre5.m` | dumps `⟨N,p,a_P,t₁,t₂,ε⟩` over 120 primes (`refine_serre5_signs.txt`) |
 | `refine_charfit.m`| tests whether `ε` is a quadratic ray-class character (it is not) |
+
+## The corrected modularity statement (derived, 2026-07-01)
+
+Having refuted the false match, we pin down what the correct statement **must** be, by
+elimination. Assuming Serre's conjecture over `Q(√5)` holds (as it should — each `ρ_i` is
+2-dimensional, irreducible, and odd), each `ρ_i` is modular by a Hilbert modular eigenform, and
+we can determine its weight, character, and level up to one bounded constant.
+
+> **Statement.** Each of `ρ₁, ρ₂` is modular over `K = Q(√5)` by a Hilbert modular eigenform of
+> **parallel weight `(2,2)`, trivial nebentypus, and level `𝔭·(2)^a`**, realized **untwisted**
+> (`det = χ₁₁`), where `𝔭` is the prime of norm 66179 and `a = a₂(ρ_i) ≥ 3` is the conductor
+> exponent of `ρ_i` at the inert prime 2.
+
+**How each parameter is forced:**
+
+| parameter | value | reason |
+|---|---|---|
+| determinant | `χ₁₁` | det-clean at 132/132 `[1,1,2]` primes (eigenvalue products `= N(P)`) |
+| nebentypus | trivial | `det ρ_f = ψ·χ_cyc^{k−1}`; weight 2 + `det=χ₁₁` ⇒ `ψ` trivial. Nebentypus `χ₁₁` gives `det χ₁₁²`, and `χ₁₁` (order 10) has **no square root** among its powers ⇒ obstruction (`cond2_v2.m`, determinant argument) |
+| weight | `(2,2)` | `A` is **ordinary at both primes `𝔩\|11`** (`L mod 11` has degree 2 = two unit roots; `local_at_11.m`). Ordinary + good reduction ⇒ peu-ramifiée; a subquotient of a finite-flat group scheme is finite-flat (`e=1<10`, Raynaud); `det=χ₁₁` forces HT weights `{0,1}` ⇒ weight 2. Companion weight 12 (and non-parallel `(2,12)`) unnecessary |
+| `𝔭`-part | `𝔭¹` | pure `(2)^a` levels (`a=1..6`) give `V⁺=Vtw=0` immediately (`test_2adic.m`) ⇒ `ρ_i` ramified at `𝔭` |
+| 2-part | `(2)^a, a≥3` | `V⁺=0` (untwisted, weight `(2,2)`) at `𝔭·(2)^{0,1,2}` (`refine_serre4.m`, `test_level2.m`, dim 22059 at `(2)²`) |
+| realization | untwisted | `det ρ_f = det ρ_i = χ₁₁` ⇒ if modular then `ρ_f ≅ ρ_i` directly; and no quadratic twist works (the `a_P²` sign is not a character) |
+
+**Consequences / bounds on the one open constant `a`.** Since `V⁺=0` at 2-part `≤2` for *both*
+pieces, `a₂(ρ₁), a₂(ρ₂) ≥ 3`. The Artin conductor is additive, so
+`a₂(A) = a₂(ρ₁) + a₂(ρ₂) ≥ 6`: heavy wild ramification at 2. Wild inertia `P₂` acts through a
+2-group of order `≤ 16` (the 2-Sylow of `GL₂(𝔽₁₁)`, `|GL₂(𝔽₁₁)|=2⁴·3·5²·11`).
+
+**The exact value of `a` is currently not computable.** Every route to `cond₂` is blocked:
+Magma has no genus-2 regular models / minimization over number fields ("fibre blowups over
+number fields not yet implemented" — kills `Conductor`, `RegularModel`, auto-`LSeries`);
+the Weil restriction `W=Res_{K/Q}(A)` gives the clean bridge `a₂(W) = 2·a_{𝔭₂}(A)` (2 inert)
+but `W` has no curve model; and the numerical functional-equation route needs a minimal model,
+whereas `Genus2CurveFromIgusa` returns a model whose content is divisible by ~20 primes
+(including `6.3×10²³`). This is the precise reason behind the earlier note that the 2-part "is
+not cheaply computable." Determining `a` requires either a genuine minimal model of Curve A
+(then the functional-equation computation) or the empirical weight-`(2,2)` Hecke test at
+`𝔭·(2)³` (dim ≈ 88000).
+
+| Derivation script | Role |
+|---|---|
+| `local_at_11.m` | reduction type of `A` at `𝔩₁,𝔩₂\|11` (ordinary ⇒ weight `(2,2)`) |
+| `test_2adic.m` | pure 2-power levels `(2)^a` empty ⇒ `ρ_i` ramified at `𝔭` |
+| `test_level2.m` | `V⁺=0` at `𝔭·(2)²` (dim 22059) |
+| `cond2_probe.m`, `cond2_v2.m` | conductor-at-2 attempts (all blocked; document the walls) |
+| `lseries_probe.m` | `LSeries(C/K)` hits the same number-field blowup wall |

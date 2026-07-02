@@ -47,7 +47,9 @@ acceptance criterion used --- nonvanishing of a ``twist-robust'' intersection $V
 weak, and the correct per-eigenform test fails (Section~\ref{sec:refutation}). The structural
 results on $A$ and on $A[11]=\rho_1\oplus\rho_2$ (Sections~\ref{sec:surface}--\ref{sec:rep})
 are unaffected; the modularity of $\rho_1,\rho_2$ over $\bbQ(\sqrt5)$ is, at present,
-\emph{not} established by this computation.
+\emph{not} established by this computation. What we \emph{can} do is derive, by elimination,
+the precise modularity statement that must hold (weight, character, level up to one bounded
+2-adic exponent); see Section~\ref{sec:derived}.
 \end{abstract}
 
 \section{Introduction}
@@ -227,6 +229,49 @@ which is empty at the levels examined); searching other levels; and interpreting
 $a_P^2$-relation. Reproducibility: \texttt{mod11\_rep.m}, \texttt{mod11\_trnm.txt} (target
 fingerprint), and the refutation scripts \texttt{refine\_serre[3,4,5].m},
 \texttt{refine\_charfit.m} with raw signs in \texttt{refine\_serre5\_signs.txt}.
+\end{remark}
+
+\section{The corrected modularity statement}\label{sec:derived}
+
+Although we cannot exhibit the eigenform, the structural computations pin down what the correct
+statement must be. Assuming Serre's conjecture over $K=\bbQ(\sqrt5)$ (each $\rho_i$ is
+$2$-dimensional, irreducible, and odd, so it applies), each $\rho_i$ is modular, and its weight,
+character and level are forced up to a single bounded constant.
+
+\begin{theorem}[conditional on Serre's conjecture over $\bbQ(\sqrt5)$]\label{thm:derived}
+Each of $\rho_1,\rho_2$ is modular by a Hilbert modular eigenform over $K$ of parallel weight
+$(2,2)$, trivial nebentypus, and level $\mathfrak p\cdot(2)^{a}$, realized untwisted
+($\det=\chicyc$), where $a=a_2(\rho_i)\ge 3$ is the conductor exponent at the inert prime $2$.
+\end{theorem}
+
+The parameters are forced as follows.
+\begin{itemize}
+\item\textbf{Determinant $\chicyc$:} the two Frobenius eigenvalues of each piece multiply to
+$N(P)$ at all $132$ primes of type $[1,1,2]$ (det-clean).
+\item\textbf{Trivial nebentypus:} $\det\rho_f=\psi\,\chicyc^{k_0-1}$, so weight $2$ with
+$\det=\chicyc$ forces $\psi$ trivial. Nebentypus $\chicyc$ would give $\det=\chicyc^{2}$; as
+$\chicyc$ has order $10$ it has no square root among its powers, so no twist of $\rho_i$ has that
+determinant.
+\item\textbf{Weight $(2,2)$:} $A$ is \emph{ordinary} at both primes above $11$ ($L_{\mathfrak
+l}\bmod 11$ has degree $2$, i.e.\ two unit roots). Ordinary $+$ good reduction $\Rightarrow$
+peu-ramifi\'ee; a subquotient of a finite-flat group scheme is finite-flat (as $e=1<11-1$, by
+Raynaud); and $\det=\chicyc$ forces Hodge--Tate weights $\{0,1\}$. Hence Serre weight $2$ at both
+primes.
+\item\textbf{Level $\mathfrak p\cdot(2)^{a}$:} pure $2$-power levels $(2)^{a}$ have empty match,
+so $\rho_i$ is ramified at $\mathfrak p$; and the untwisted match is empty at $\mathfrak
+p\cdot(2)^{0,1,2}$, so $a\ge 3$.
+\end{itemize}
+
+\begin{remark}[the one open constant]
+Since the untwisted match is empty at $2$-part $\le 2$ for both pieces, $a_2(\rho_1),a_2(\rho_2)
+\ge 3$, whence (Artin conductor is additive) $a_2(A)=a_2(\rho_1)+a_2(\rho_2)\ge 6$. Wild inertia
+at $2$ acts through a $2$-group of order $\le 16$ (the $2$-Sylow of $\mathrm{GL}_2(\bbF_{11})$).
+The exact value of $a$ is not accessible with current tooling: Magma implements neither regular
+models nor minimisation for genus $2$ over number fields, the Weil restriction $W=\mathrm
+{Res}_{K/\bbQ}A$ (for which $a_2(W)=2\,a_{\mathfrak p_2}(A)$, as $2$ is inert) has no curve
+model, and the reconstructed model of Curve~A has content divisible by some twenty primes,
+obstructing the functional-equation route until a minimal model is found. Determining $a$ is the
+natural remaining problem.
 \end{remark}
 
 \end{document}

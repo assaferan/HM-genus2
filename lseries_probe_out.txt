@@ -1,0 +1,7 @@
+# lseries_probe
+curve built over K
+LSeries(C) FAILED: Fibre blowups over number fields not yet implemented
+LSeries(Jacobian) FAILED: Runtime error in 'LSeries': Bad argument types
+Argument types given: JacHyp[FldNum[FldRat]]
+
+DONE.

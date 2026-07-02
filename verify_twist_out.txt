@@ -1,0 +1,5 @@
+# verify_twist
+residual content principal: true, factorization: [ <499, 1>, <13711, 1>, <88301, 1>, <231481, 1>, <582307529, 1>, <6535625039, 1>, <631328365888672061112161, 1> ]
+chi_g vs eps over 94 unambiguous primes: match 49, anti-match 45 (zeros 0)
+chi_g does not match eps; the twist is something else.
+DONE.
