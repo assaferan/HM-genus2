@@ -1,0 +1,9 @@
+# cfe_final2
+setup done
+FAIL p=66179 norm=66179
+precompute: 25981 factors, 1 failures
+CFE search (|CFE| small => correct c):
+  c=6 (N=169418240000): |CFE|=0.0996
+  c=7 (N=677672960000): |CFE|=0.293
+  c=8 (N=2710691840000): |CFE|=0.00195
+  c=9 (N=10842767360000): |CFE|=-0.227

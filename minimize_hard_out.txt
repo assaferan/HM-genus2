@@ -1,0 +1,8 @@
+# minimize_hard
+p=3 rid=-1: min v_P(disc) = 0
+  GOOD reduction; L_recon = 81*T^4 - 27*T^3 + 14*T^2 - 3*T + 1
+p=5 rid=0: min v_P(disc) = 60
+  still not smooth: deg 6 sqfree false
+p=19 rid=10: min v_P(disc) = 30
+  still not smooth: deg 6 sqfree false
+p=191 rid=177: min v_P(disc) = 0

@@ -1,0 +1,6 @@
+# cfe_conductor2
+setup done; g norm 336004802232845362525566790498058422239861695442997826926519
+  FAIL reduce p=3 rid=-1 norm=9
+  FAIL reduce p=5 rid=0 norm=5
+  FAIL reduce p=19 rid=10 norm=19
+  FAIL reduce p=191 rid=177 norm=191

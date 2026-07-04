@@ -1,0 +1,15 @@
+# cfe_ingredients
+g norm 336004802232845362525566790498058422239861695442997826926519; Fprim built (A_true, good at content primes)
+  p=7 (norm 49): A_true GOOD, L=2401*T^4 - 98*T^3 - 58*T^2 - 2*T + 1
+  p=13 (norm 169): A_true GOOD, L=28561*T^4 - 2873*T^3 + 376*T^2 - 17*T + 1
+  p=499 (norm 499): A_true GOOD, L=249001*x^4 + 1996*x^3 + 454*x^2 + 4*x + 1
+  p=499 (norm 499): A_true reduction NOT smooth (bad or hard)
+  p=13711 (norm 13711): A_true reduction NOT smooth (bad or hard)
+  p=13711 (norm 13711): A_true GOOD, L=187991521*t^4 + 4318965*t^3 + 50407*t^2 + 315*t + 1
+  p=88301 (norm 88301): A_true GOOD, L=7797066601*t^4 + 21633745*t^3 + 168818*t^2 + 245*t + 1
+  p=88301 (norm 88301): A_true reduction NOT smooth (bad or hard)
+  p=231481 (norm 231481): A_true reduction NOT smooth (bad or hard)
+  p=231481 (norm 231481): A_true GOOD, L=53583453361*t^4 + 101851640*t^3 + 181314*t^2 + 440*t + 1
+66179: fbar deg 6, sqfree false
+  gcd(fbar,fbar') deg = 5 (1 => single node/mult red)
+DONE.

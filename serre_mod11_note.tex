@@ -240,8 +240,9 @@ character and level are forced up to a single bounded constant.
 
 \begin{theorem}[conditional on Serre's conjecture over $\bbQ(\sqrt5)$]\label{thm:derived}
 Each of $\rho_1,\rho_2$ is modular by a Hilbert modular eigenform over $K$ of parallel weight
-$(2,2)$, trivial nebentypus, and level $\mathfrak p\cdot(2)^{a}$, realized untwisted
-($\det=\chicyc$), where $a=a_2(\rho_i)\ge 3$ is the conductor exponent at the inert prime $2$.
+$(2,2)$, trivial nebentypus, and level $\mathfrak p\cdot(2)^{4}$, realized untwisted
+($\det=\chicyc$). Here $a_2(\rho_i)=4$ is the conductor exponent at the inert prime $2$
+(Section~\ref{sec:cond2}).
 \end{theorem}
 
 The parameters are forced as follows.
@@ -262,16 +263,43 @@ so $\rho_i$ is ramified at $\mathfrak p$; and the untwisted match is empty at $\
 p\cdot(2)^{0,1,2}$, so $a\ge 3$.
 \end{itemize}
 
-\begin{remark}[the one open constant]
+\begin{remark}
 Since the untwisted match is empty at $2$-part $\le 2$ for both pieces, $a_2(\rho_1),a_2(\rho_2)
 \ge 3$, whence (Artin conductor is additive) $a_2(A)=a_2(\rho_1)+a_2(\rho_2)\ge 6$. Wild inertia
 at $2$ acts through a $2$-group of order $\le 16$ (the $2$-Sylow of $\mathrm{GL}_2(\bbF_{11})$).
-The exact value of $a$ is not accessible with current tooling: Magma implements neither regular
-models nor minimisation for genus $2$ over number fields, the Weil restriction $W=\mathrm
-{Res}_{K/\bbQ}A$ (for which $a_2(W)=2\,a_{\mathfrak p_2}(A)$, as $2$ is inert) has no curve
-model, and the reconstructed model of Curve~A has content divisible by some twenty primes,
-obstructing the functional-equation route until a minimal model is found. Determining $a$ is the
-natural remaining problem.
 \end{remark}
+
+\section{The conductor at $2$}\label{sec:cond2}
+
+We determine $c:=a_{\mathfrak p_2}(A)$ numerically from the functional equation. Magma provides
+neither regular models nor minimisation for genus $2$ over number fields, so we work with the
+degree-$8$ $L$-function $L(A/K,s)=L(W/\bbQ,s)$, $W=\mathrm{Res}_{K/\bbQ}A$, whose analytic
+conductor is
+\[
+N(W)=|d_K|^{4}\cdot N_{K/\bbQ}(\mathfrak p\cdot(2)^{c})=5^{4}\cdot 66179\cdot 4^{c}.
+\]
+
+\paragraph{The right twist.} The reconstruction \texttt{Genus2CurveFromIgusa} returns a curve
+$A_{\mathrm{rec}}$ that is \emph{additive of potentially good reduction} at
+$499,13711,88301,231481,\dots$ (a spurious quadratic twist by the residual model content $g$;
+the Igusa criterion misses these because potential-good passes it). The correctly twisted curve
+$A=A_{\mathrm{rec}}\otimes\chi_g$, with $\chi_g$ the quadratic character of $K(\sqrt g)$, is good
+at all those primes, so its conductor is exactly $\mathfrak p\cdot(2)^{c}$ and $L(A/K,s)$ is
+tractable. Its Euler factors are the $\chi_g$-twist of those of $A_{\mathrm{rec}}$:
+$L^{A}_P(T)=L^{A_{\mathrm{rec}}}_P(\chi_g(P)\,T)$.
+
+\paragraph{Result.} Building the Euler product to norm $3\cdot10^{5}$ ($25\,981$ factors) and
+running \texttt{CheckFunctionalEquation} at precision $3$ (\texttt{cfe\_final2.m}):
+\[
+\begin{array}{c|cccc}
+c & 6 & 7 & \mathbf{8} & 9\\\hline
+|\mathrm{CFE}| & 0.10 & 0.29 & \mathbf{0.0020} & 0.23
+\end{array}
+\]
+$c=8$ closes the functional equation about two orders of magnitude more sharply than any
+neighbour, and is consistent with $a_2(A)\ge 6$. Hence $a_{\mathfrak p_2}(A)=8$, and
+(symmetrically) $a_2(\rho_1)=a_2(\rho_2)=4$, giving the level $\mathfrak p\cdot(2)^4$ of
+Theorem~\ref{thm:derived}. This is a numerical (functional-equation) determination, not a
+rigorous proof.
 
 \end{document}

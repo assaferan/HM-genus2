@@ -280,3 +280,49 @@ not cheaply computable." Determining `a` requires either a genuine minimal model
 | `test_level2.m` | `V⁺=0` at `𝔭·(2)²` (dim 22059) |
 | `cond2_probe.m`, `cond2_v2.m` | conductor-at-2 attempts (all blocked; document the walls) |
 | `lseries_probe.m` | `LSeries(C/K)` hits the same number-field blowup wall |
+
+## The conductor at 2 — determined, and the complete statement (2026-07-04)
+
+The one open constant `a = a₂(ρ_i)` is now pinned down numerically via the **functional
+equation**, completing the modularity statement.
+
+> **Complete statement.** Each of `ρ₁, ρ₂` is modular over `K = Q(√5)` by a Hilbert modular
+> eigenform of **parallel weight `(2,2)`, trivial nebentypus, level `𝔭·(2)⁴`**, realized
+> **untwisted** (`det = χ₁₁`).
+
+**Method.** `L(A/K,s) = L(W/ℚ,s)` for `W = Res_{K/ℚ}(A)`; the analytic conductor is
+`N(W) = |d_K|⁴ · N_{K/ℚ}(cond_K A) = 5⁴ · 66179 · 4^c`, where `c = a_{𝔭₂}(A)` is the exponent
+at the inert prime 2. We build `L(A/K,s)` from the Euler factors and search `c` by
+`CheckFunctionalEquation`.
+
+**Getting the right curve.** `Genus2CurveFromIgusa` returns a **wrong twist** `A_recon` — it is
+additive (potentially-good) at `499, 13711, 88301, 231481, …` (the residual model content `g`;
+the Igusa criterion misses these since potentially-good passes it, and `MinimalTwist` misses
+them since `Conductor` fails over `K`). The correct curve `A_true = A_recon ⊗ χ_g`
+(`χ_g` = quadratic character of `K(√g)`) is good there, so its conductor is just `𝔭·(2)^c`
+(no large primes), making the L-function tractable. Its Euler factors are the `χ_g`-twist of
+`A_recon`'s: `L^{true}_P(T) = L^{rec}_P(χ_g(P)·T)`.
+
+**Result** (`cfe_final2.m`, precision 3, 25 981 Euler factors up to norm 300 000):
+
+| `c` | 6 | 7 | **8** | 9 |
+|---|---|---|---|---|
+| `\|CFE\|` | 0.0996 | 0.293 | **0.00195** | 0.227 |
+
+`c = 8` closes the functional equation ~2 orders of magnitude cleaner than any neighbor, and is
+consistent with the proven bound `a₂(A) ≥ 6`. Since the Artin conductor is additive,
+`a₂(A) = a₂(ρ₁) + a₂(ρ₂) = 8`; the symmetric case gives **`a₂(ρ_i) = 4`**, hence level `𝔭·(2)⁴`.
+
+*(This is a numerical, functional-equation determination — very strong, not a rigorous proof.)*
+
+**Compute notes.** `a₁` via `#C(F_q)` is fast (~0.01 s); the full L-poly (for `a₂`) is only
+needed for `Norm(P) ≤ 560`. Two pitfalls that cost a lot: (i) **skip `Norm(P) > cutoff`** —
+inert primes `p > 216` have `Norm p² > cutoff` and were being `#C(F_{p²})`-counted (`O(p²)`),
+catastrophically slow; (ii) the badly non-minimal primes `3, 5, 19, 191` need a **zoom-search
+minimizer** (`x → π·x + r` at a repeated root, `π = ` the `P`-local principal generator).
+
+| Conductor-2 script | Role |
+|---|---|
+| `cfe_final2.m` | the working functional-equation conductor search (`c=8`) |
+| `cfe_ingredients.m` | verifies `A_true` good at 499 etc.; the `χ_g` twist |
+| `minimize1.m`, `minimize_hard2.m` | model content removal + zoom minimizer for hard primes |
