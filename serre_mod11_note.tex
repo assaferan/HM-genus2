@@ -302,4 +302,34 @@ neighbour, and is consistent with $a_2(A)\ge 6$. Hence $a_{\mathfrak p_2}(A)=8$,
 Theorem~\ref{thm:derived}. This is a numerical (functional-equation) determination, not a
 rigorous proof.
 
+\section{An explicit form for $\rho_1$}\label{sec:explicit}
+
+The level-$\mathfrak p$ eigenform with $a_P^2\in\{t_1^2,t_2^2\}$, dismissed above as coincidental,
+is in fact a genuine twist of $\rho_1$; it was missed only because the character search there
+omitted the primes $499,13711,88301,231481$ where the reconstruction's spurious twist $\chi_g$
+ramifies. Sweeping the quadratic characters $\chi_d$ ramified only at $2$ and matching
+$A\otimes\chi_d$ by the untwisted filter, exactly one survives --- $\chi_{-1}$, the character of
+$K(i)/K$ --- and already at level $\mathfrak p$ (verified over $80$ primes).
+
+\begin{proposition}\label{prop:g}
+$\rho_1\cong \rho_{g}\otimes\chi$, where $\chi=\chi_g\cdot\chi_{-1}$ is the quadratic character of
+$K(\sqrt{-g})$ and $g$ is an explicit Hilbert modular newform over $K$ of weight $(2,2)$, trivial
+nebentypus, and level $\mathfrak p$ (norm $66179$): it is one of the four newform orbits of
+$S_2(\mathfrak p)$, with Hecke field $E=\bbQ[x]/(x^5+8x^4+19x^3+4x^2-32x-23)$, in which $11$ is
+totally ramified.
+\end{proposition}
+
+Since $11$ is totally ramified in $E$, $g$ has a single mod-$11$ reduction (residue field
+$\bbF_{11}$), which is $\rho_1\otimes\chi$; consistently, $a_2(\rho_1)=4=2\cdot(\text{conductor of
+}\chi_{-1}\text{ at }2)$, so the twist $\chi_{-1}$ undoes the wild $2$-ramification and lowers the
+level from $\mathfrak p\cdot(2)^4$ to $\mathfrak p$.
+
+\begin{remark}
+The two pieces behave differently at $2$: for $\rho_2$ no quadratic twist ramified at $2$ reaches
+level $\mathfrak p\cdot(2)^2$, i.e.\ $a_2(\rho_2\otimes\chi_d)\ge 3$ for all such $\chi_d$, so
+$\rho_2$ is twist-minimal (supercuspidal-like) at $2$. Its form lives at level $\mathfrak
+p\cdot(2)^3$ (dimension $\approx 88000$), where a single Hecke operator already exceeds available
+memory; $\rho_2$ is thus characterised but not yet exhibited.
+\end{remark}
+
 \end{document}

@@ -1,0 +1,3 @@
+# ro2_search3
+Part 1 done: V+(g)=1, t_2 at 24 primes
+Pbad*(2)^3: dim 88239 (build 0.370 s)

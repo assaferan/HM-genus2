@@ -1,0 +1,7 @@
+# ro2_search
+level Pbad: V+ (twist #7) dim = 1
+computed t_2 at 20 primes
+level Pbad*(2)^2 dim 22059; computing Hecke ops...
+  10 Hecke ops; sweeping 8 twists for rho_2...
+(no surviving twist for rho_2 at this level unless noted)
+DONE.

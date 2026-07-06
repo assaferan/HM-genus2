@@ -1,0 +1,13 @@
+# verify_twist7
+twist #7 functional on R/2R (rk 3): [ 0, 1, 1 ]
+level Pbad dim 1102; V+ with twist #7 over primes:
+  after 20 primes: dim V+ = 1
+  after 40 primes: dim V+ = 1
+  after 60 primes: dim V+ = 1
+  after 80 primes: dim V+ = 1
+=> V+ with twist #7 = 1 after 80 primes
+*** GENUINE MATCH: rho_i modular by an explicit level-Pbad form, up to the quadratic twist chi_g*chi_d7. ***
+    (the earlier a_P^2 'red herring' was mis-diagnosed: the twist is ramified at 499,13711,88301,231481,2 -- outside the conductor set tested by refine_charfit.)
+identifying chi_d7 (quadratic character ramified at 2):
+  chi_d7 = quadratic character of K(sqrt(-1))
+DONE.

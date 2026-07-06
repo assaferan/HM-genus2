@@ -326,3 +326,40 @@ minimizer** (`x → π·x + r` at a repeated root, `π = ` the `P`-local princip
 | `cfe_final2.m` | the working functional-equation conductor search (`c=8`) |
 | `cfe_ingredients.m` | verifies `A_true` good at 499 etc.; the `χ_g` twist |
 | `minimize1.m`, `minimize_hard2.m` | model content removal + zoom minimizer for hard primes |
+
+## An explicit form for `ρ₁`, and the `a_P²` "red herring" corrected (2026-07-04)
+
+The level-`𝔭` form `f` with `a_P(f)² ∈ {t₁², t₂²}` — earlier dismissed as a "red herring" — is
+in fact a **genuine twist of `ρ₁`**. The dismissal was wrong: `refine_charfit` only searched
+twist conductors in `{2^{≤6},3,5,11,66179}` and **never included the `χ_g` primes
+`499, 13711, 88301, 231481`**.
+
+**The twist sweep** (`twist_sweep.m`). We swept the 8 quadratic characters `χ_d` ramified only at
+2 (the ray-class group of modulus `𝔭₂⁶·∞`, `rk(R/2R)=3`), matching `A_true ⊗ χ_d` (fingerprint =
+`(χ_g·χ_d)`-twist of `mod11_trnm`) by the *untwisted* filter `V⁺`. **Only `χ_d = χ₋₁`
+(= `K(i)/K`) survives, and already at level `𝔭`** (2-part 0): `V⁺=1` over 80 primes
+(`verify_twist7.m`). Since a genuine eigenform's Galois trace cannot jump between the two pieces,
+surviving with a *fixed* character is a real twist match, not a coincidence.
+
+> **`ρ₁ = g ⊗ χ`**, where `χ = χ_g · χ₋₁` is the quadratic character of `K(√(−g))` (ramified at
+> `{499, 13711, 88301, 231481, …, 2}`), and `g` is an **explicit degree-5 Hilbert modular
+> newform** of weight `(2,2)`, trivial nebentypus, level `𝔭` (norm 66179).
+
+`g` is **orbit 2** of the 4 newform orbits of `S₂(𝔭)` (`identify_g.m`), with Hecke field
+`E = ℚ[x]/(x⁵ + 8x⁴ + 19x³ + 4x² − 32x − 23)`. **11 is totally ramified in `E`** (`[<1,5>]`), so
+`g` has a single mod-11 reduction (residue `𝔽₁₁`) — a 2-dim `𝔽₁₁`-rep, equal to `ρ₁ ⊗ χ`.
+Consistent with `a₂(ρ₁)=4 = 2·(cond of χ₋₁ at 2)`: the twist `χ₋₁` exactly undoes `ρ₁`'s wild
+2-ramification, dropping its level from `𝔭·(2)⁴` to `𝔭`.
+
+**The two pieces differ at 2.** For `ρ₂`, **no** 2-ramified twist reaches level `𝔭·(2)²`
+(`ro2_search.m`): `a₂(ρ₂ ⊗ χ_d) ≥ 3` for every `χ_d`. So `ρ₂` is twist-minimal /
+supercuspidal-like at 2, unlike `ρ₁` — a genuine asymmetry of the polarization-induced splitting.
+`ρ₂`'s form lives at level `𝔭·(2)³` (dim ≈ 88000); computing a single Hecke operator there
+exceeds the machine's memory (`ro2_search3.m`), so `ρ₂` is characterized but not yet exhibited.
+
+| script | role |
+|---|---|
+| `twist_sweep.m` | sweep 8 two-ramified twists; only `χ₋₁` survives, at level `𝔭` |
+| `verify_twist7.m` | `V⁺=1` over 80 primes ⇒ genuine; identifies `χ_d = K(√−1)` |
+| `identify_g.m` | `g` = orbit 2 of `S₂(𝔭)`, degree-5 Hecke field, 11 totally ramified |
+| `ro2_search.m` / `ro2_search3.m` | `ρ₂` search at `𝔭·(2)²` (empty) / `𝔭·(2)³` (dim ~88k, OOM) |
