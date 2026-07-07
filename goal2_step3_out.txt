@@ -1,0 +1,13 @@
+# goal2_step3: precise images of sigma_A, rho_f in GL_2(F_49)
+=== sigma_A (from A[7]) ===
+  155 Frobenius traces; trace field = F_49
+  transvection (order-7) present: true
+  element-type census: [ <"unipotent(x scalar)", 18>, <"nonsplit-ss", 50>, <"split-ss", 87> ]
+
+=== rho_f (orbit 10 mod lambda|7) ===
+  100 traces (split primes); trace field = F_49
+
+CONCLUSION: sigma_A trace field F_49, rho_f trace field F_49.
+If both = F_49 and both irreducible with a transvection => both images
+contain SL_2(F_49) (Dickson).  det = chi_7 surjects onto F_7^*, so
+im = { g in GL_2(F_49) : det g in F_7^* } (mod exact index) -- BIG, matching.

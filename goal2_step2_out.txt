@@ -1,0 +1,15 @@
+# goal2_step2: sigma_A = rho_f over F=Q(sqrt10)
+building HilbertCuspForms(1500,[2,2]) and locating orbit 10 ...
+  orbit 10 ready, residue field F_49  (25.8 s)
+SPLIT primes of F: 34 tested, 0 multiset mismatches
+INERT primes of F (l<=45): 5 tested, 0 mismatches
+   l=11 (norm 121): tr sigma_A=5  a_(l)(f)=5  OK
+   l=17 (norm 289): tr sigma_A=2  a_(l)(f)=2  OK
+   l=19 (norm 361): tr sigma_A=6  a_(l)(f)=6  OK
+   l=23 (norm 529): tr sigma_A=0  a_(l)(f)=0  OK
+   l=29 (norm 841): tr sigma_A=0  a_(l)(f)=0  OK
+
+>>> sigma_A and rho_f have identical traces at ALL tested primes of F
+    (split multisets + inert single values).  This is the trace-agreement
+    input for the Faltings-Serre certificate over F; combined with big image
+    (Step 1) it drives sigma_A = rho_f, hence A[7] = Ind(rho_f).

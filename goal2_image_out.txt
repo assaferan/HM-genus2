@@ -1,0 +1,14 @@
+# goal2_image: mod-7 image of A[7]=Ind(sigma), idx 33
+primes up to 3000: 202 split, 224 inert
+INDUCED CHECK: inert primes with a1 != 0 mod 7 = 0 (want 0)
+split primes where sigma-traces stayed in F_49\F_7 unresolved: 0
+collected 404 sigma-traces (at split primes, in F_49)
+(2) dihedral test: trace=0 at 8/404 primes (frac 0.0198); dihedral ~ 0.5
+(3) exceptional test: #distinct projective traces t^2/l = 24 (bounded for A4/S4/A5)
+(4) unipotent element (t^2/l = 4 seen) => transvection in image: true
+(5) some sigma-trace lies in F_49 \ F_7 (image not F_7-rational): true
+
+VERDICT: sigma not dihedral + many projective traces + transvection present
+=> projective image of sigma contains PSL_2(F_7) (BIG IMAGE).
+This is the residual big-image hypothesis needed for BCGP automorphy lifting
+in the induced setting; combined with A[7] = Ind(sigma) it drives modularity of A.
