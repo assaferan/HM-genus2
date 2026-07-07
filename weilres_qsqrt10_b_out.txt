@@ -1,0 +1,47 @@
+# weilres_qsqrt10_b -- mod-7 reduction of all orbits
+42 split test primes up to 500
+level norm 1500
+15 orbits (28.9 s)
+
+orbit  1 (Hecke deg  2), lambda|7 res deg2: 41/42 fail
+orbit  2 (Hecke deg  2), lambda|7 res deg2: 41/42 fail
+orbit  3 (Hecke deg  4), lambda|7 res deg2: 42/42 fail
+orbit  3 (Hecke deg  4), lambda|7 res deg2: 42/42 fail
+orbit  4 (Hecke deg 10), lambda|7 res deg10: 42/42 fail
+orbit  5 (Hecke deg 10), lambda|7 res deg10: 42/42 fail
+orbit  6 (Hecke deg 12), lambda|7 res deg2: 42/42 fail
+orbit  6 (Hecke deg 12), lambda|7 res deg2: 40/42 fail
+orbit  6 (Hecke deg 12), lambda|7 res deg2: 40/42 fail
+orbit  6 (Hecke deg 12), lambda|7 res deg6: 42/42 fail
+orbit  7 (Hecke deg 12), lambda|7 res deg2: 39/42 fail
+orbit  7 (Hecke deg 12), lambda|7 res deg2: 42/42 fail
+orbit  7 (Hecke deg 12), lambda|7 res deg2: 39/42 fail
+orbit  7 (Hecke deg 12), lambda|7 res deg6: 42/42 fail
+orbit  8 (Hecke deg 14), lambda|7 res deg2: 41/42 fail
+orbit  8 (Hecke deg 14), lambda|7 res deg12: 42/42 fail
+orbit  9 (Hecke deg 14), lambda|7 res deg2: 42/42 fail
+orbit  9 (Hecke deg 14), lambda|7 res deg12: 42/42 fail
+orbit 10 (Hecke deg 18), lambda|7 res deg2: *** MATCH ***
+orbit 10 (Hecke deg 18), lambda|7 res deg16: 42/42 fail
+orbit 11 (Hecke deg 18), lambda|7 res deg2: 18/42 fail
+orbit 11 (Hecke deg 18), lambda|7 res deg16: 42/42 fail
+orbit 12 (Hecke deg 20), lambda|7 res deg10: 42/42 fail
+orbit 12 (Hecke deg 20), lambda|7 res deg10: 42/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 41/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 39/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 40/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 42/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 42/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg2: 40/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg6: 42/42 fail
+orbit 13 (Hecke deg 24), lambda|7 res deg6: 42/42 fail
+orbit 14 (Hecke deg 28), lambda|7 res deg2: 42/42 fail
+orbit 14 (Hecke deg 28), lambda|7 res deg2: 42/42 fail
+orbit 14 (Hecke deg 28), lambda|7 res deg12: 42/42 fail
+orbit 14 (Hecke deg 28), lambda|7 res deg12: 42/42 fail
+orbit 15 (Hecke deg 36), lambda|7 res deg2: 26/42 fail
+orbit 15 (Hecke deg 36), lambda|7 res deg2: 26/42 fail
+orbit 15 (Hecke deg 36), lambda|7 res deg16: 42/42 fail
+orbit 15 (Hecke deg 36), lambda|7 res deg16: 42/42 fail
+
+DONE.

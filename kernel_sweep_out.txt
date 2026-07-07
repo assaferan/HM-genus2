@@ -1,0 +1,77 @@
+# kernel_sweep: ENTRY idx d p realnorm -> status (trueSurv/ctrlSurv)
+ENTRY 0 d3 p5 realnorm3750 -> MATCH  (true 20 / ctrl 0)  dim 650  inert [ 7, 17, 19, 29, 31, 41 ]  [86.7s]
+ENTRY 1 d3 p5 realnorm3750 -> MATCH  (true 20 / ctrl 0)  dim 650  inert [ 7, 17, 19, 29, 31, 41 ]  [91.4s]
+ENTRY 2 d3 p5 realnorm3750 -> MATCH  (true 20 / ctrl 0)  dim 650  inert [ 7, 17, 19, 29, 31, 41 ]  [78.3s]
+ENTRY 3 d3 p5 realnorm3750 -> MATCH  (true 20 / ctrl 0)  dim 650  inert [ 7, 17, 19, 29, 31, 41 ]  [80.8s]
+ENTRY 4 d3 p5 realnorm3750 -> MATCH  (true 20 / ctrl 0)  dim 650  inert [ 7, 17, 19, 29, 31, 41 ]  [81.3s]
+ENTRY 5 d2 p5 realnorm5000 -> MATCH  (true 12 / ctrl 0)  dim 325  inert [ 3, 11, 13, 19, 29, 37 ]  [35.1s]
+ENTRY 6 d2 p5 realnorm5000 -> MATCH  (true 12 / ctrl 0)  dim 325  inert [ 3, 11, 13, 19, 29, 37 ]  [36.1s]
+ENTRY 7 d2 p5 realnorm5000 -> MATCH  (true 12 / ctrl 0)  dim 325  inert [ 3, 11, 13, 19, 29, 37 ]  [35.7s]
+ENTRY 8 d2 p5 realnorm10000 -> MATCH  (true 36 / ctrl 0)  dim 649  inert [ 3, 11, 13, 19, 29, 37 ]  [44.0s]
+ENTRY 9 d2 p5 realnorm10000 -> MATCH  (true 36 / ctrl 0)  dim 649  inert [ 3, 11, 13, 19, 29, 37 ]  [43.9s]
+ENTRY 10 d2 p5 realnorm10000 -> MATCH  (true 36 / ctrl 0)  dim 649  inert [ 3, 11, 13, 19, 29, 37 ]  [43.8s]
+ENTRY 11 d2 p5 realnorm11250 -> MATCH  (true 12 / ctrl 0)  dim 815  inert [ 11, 13, 19, 29, 37, 43 ]  [77.1s]
+ENTRY 12 d2 p5 realnorm90000 -> MATCH  (true 60 / ctrl 0)  dim 6499  inert [ 11, 13, 19, 29, 37, 43 ]  [388.9s]
+ENTRY 13 d2 p5 realnorm101250 -> MATCH  (true 24 / ctrl 0)  dim 7315  inert [ 11, 13, 19, 29, 37, 43 ]  [449.0s]
+ENTRY 14 d2 p5 realnorm101250 -> MATCH  (true 40 / ctrl 0)  dim 7315  inert [ 11, 13, 19, 29, 37, 43 ]  [444.0s]
+ENTRY 15 d2 p5 realnorm101250 -> MATCH  (true 24 / ctrl 0)  dim 7315  inert [ 11, 13, 19, 29, 37, 43 ]  [446.9s]
+ENTRY 16 d3 p5 realnorm101250 -> MATCH  (true 24 / ctrl 0)  dim 17550  inert [ 7, 17, 19, 29, 31, 41 ]  [1250.1s]
+ENTRY 17 d3 p5 realnorm101250 -> MATCH  (true 24 / ctrl 0)  dim 17550  inert [ 7, 17, 19, 29, 31, 41 ]  [1261.4s]
+ENTRY 18 d2 p5 realnorm101250 -> MATCH  (true 36 / ctrl 0)  dim 7315  inert [ 11, 13, 19, 29, 37, 43 ]  [458.5s]
+ENTRY 19 d2 p5 realnorm101250 -> MATCH  (true 40 / ctrl 0)  dim 7315  inert [ 11, 13, 19, 29, 37, 43 ]  [457.2s]
+ENTRY 20 d3 p5 realnorm360000 -> SKIP-BIG dim 62398
+ENTRY 21 d3 p5 realnorm360000 -> SKIP-BIG dim 62398
+ENTRY 22 d2 p5 realnorm405000 -> MATCH  (true 48 / ctrl 0)  dim 29251  inert [ 11, 13, 19, 29, 37, 43 ]  [3251.6s]
+ENTRY 23 d2 p5 realnorm405000 -> MATCH  (true 48 / ctrl 0)  dim 29251  inert [ 11, 13, 19, 29, 37, 43 ]  [3269.7s]
+ENTRY 24 d3 p5 realnorm480000 -> SKIP-BIG dim 83198
+ENTRY 25 d3 p5 realnorm480000 -> SKIP-BIG dim 83198
+ENTRY 26 d2 p5 realnorm810000 -> SKIP-BIG dim 58499
+ENTRY 27 d3 p5 realnorm810000 -> SKIP-BIG dim 140398
+ENTRY 28 d3 p5 realnorm810000 -> SKIP-BIG dim 140398
+ENTRY 29 d2 p5 realnorm810000 -> SKIP-BIG dim 58499
+ENTRY 30 d2 p5 realnorm911250 -> SKIP-BIG dim 65815
+ENTRY 31 d3 p5 realnorm911250 -> SKIP-BIG dim 157950
+ENTRY 32 d3 p5 realnorm911250 -> SKIP-BIG dim 157950
+ENTRY 33 d10 p7 realnorm1500 -> MATCH  (true 8 / ctrl 0)  dim 4198  inert [ 11, 17, 19, 23, 29 ]  [197.1s]
+ENTRY 34 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 35 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 36 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 37 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 38 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 39 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 40 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 41 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 42 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 43 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 44 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 45 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 46 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 47 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 48 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 49 d2 p5 realnorm1440000 -> SKIP-BIG dim 103999
+ENTRY 50 d3 p5 realnorm3240000 -> SKIP-BIG dim 561598
+ENTRY 51 d3 p5 realnorm3240000 -> SKIP-BIG dim 561598
+ENTRY 52 d3 p5 realnorm3240000 -> SKIP-BIG dim 561598
+ENTRY 53 d10 p7 realnorm6000 -> MATCH  (true 32 / ctrl 0)  dim 16798  inert [ 11, 17, 19, 23, 29 ]  [694.6s]
+ENTRY 54 d10 p7 realnorm6000 -> MATCH  (true 32 / ctrl 0)  dim 16798  inert [ 11, 17, 19, 23, 29 ]  [718.1s]
+ENTRY 55 d3 p5 realnorm7680000 -> SKIP-BIG dim 1331198
+ENTRY 56 d3 p5 realnorm7680000 -> SKIP-BIG dim 1331198
+ENTRY 57 d3 p5 realnorm8201250 -> SKIP-BIG dim 1421550
+ENTRY 58 d2 p5 realnorm8201250 -> SKIP-BIG dim 592315
+ENTRY 59 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 60 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 61 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 62 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 63 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 64 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 65 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 66 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 67 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 68 d2 p5 realnorm12960000 -> SKIP-BIG dim 935999
+ENTRY 69 d3 p5 realnorm12960000 -> SKIP-BIG dim 2246398
+ENTRY 70 d3 p5 realnorm12960000 -> SKIP-BIG dim 2246398
+ENTRY 71 d3 p5 realnorm12960000 -> SKIP-BIG dim 2246398
+ENTRY 72 d3 p5 realnorm12960000 -> SKIP-BIG dim 2246398
+ENTRY 73 d10 p7 realnorm40500 -> SKIP-BIG dim 113398
+ENTRY 74 d10 p7 realnorm162000 -> SKIP-BIG dim 453598
+# kernel_sweep pass done

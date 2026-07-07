@@ -1,0 +1,30 @@
+# weilres_qsqrt10_c -- full L-poly (charpoly) comparison mod 7
+building HilbertCuspForms(level 1500, [2,2]) ...
+  15 orbits (25.2 s); using orbit 10
+  lambda|7 residue field F_49
+  p=11   inert  charpoly OK
+  p=13   split  charpoly OK
+  p=17   inert  charpoly OK
+  p=19   inert  charpoly OK
+  p=23   inert  charpoly OK
+  p=29   inert  charpoly OK
+  p=31   split  charpoly OK
+  p=37   split  charpoly OK
+  p=41   split  charpoly OK
+  p=43   split  charpoly OK
+  p=47   inert  charpoly OK
+  p=53   split  charpoly OK
+  p=59   inert  charpoly OK
+  p=61   inert  charpoly OK
+  p=67   split  charpoly OK
+  p=71   split  charpoly OK
+  p=73   inert  charpoly OK
+  p=79   split  charpoly OK
+  p=83   split  charpoly OK
+  p=89   split  charpoly OK
+  p=97   inert  charpoly OK
+  p=101  inert  charpoly OK
+  p=103  inert  charpoly OK
+  p=107  split  charpoly OK
+  p=109  inert  charpoly OK
+  p=113  inert  charpoly OK

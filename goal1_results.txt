@@ -1,0 +1,54 @@
+# Goal-1 sweep results: ENTRY <idx> d<D> p<P> serre<N> -> <status>
+ENTRY 0 d3 p5 serre6 -> MATCH  ideal#1(norm 3750)  orbit 18  HeckeDeg 4  res F_25  tests 20/20  [11.7s]
+ENTRY 1 d3 p5 serre6 -> MATCH  ideal#1(norm 3750)  orbit 19  HeckeDeg 4  res F_25  tests 20/20  [10.9s]
+ENTRY 2 d3 p5 serre6 -> MATCH  ideal#1(norm 3750)  orbit 18  HeckeDeg 4  res F_25  tests 20/20  [11.4s]
+ENTRY 3 d3 p5 serre6 -> MATCH  ideal#1(norm 3750)  orbit 19  HeckeDeg 4  res F_25  tests 20/20  [12.1s]
+ENTRY 4 d3 p5 serre6 -> MATCH  ideal#1(norm 3750)  orbit 19  HeckeDeg 4  res F_25  tests 20/20  [12.1s]
+ENTRY 5 d2 p5 serre8 -> MATCH  ideal#1(norm 5000)  orbit 6  HeckeDeg 2  res F_25  tests 20/20  [5.7s]
+ENTRY 6 d2 p5 serre8 -> MATCH  ideal#1(norm 5000)  orbit 6  HeckeDeg 2  res F_25  tests 20/20  [5.2s]
+ENTRY 7 d2 p5 serre8 -> MATCH  ideal#1(norm 5000)  orbit 10  HeckeDeg 2  res F_25  tests 20/20  [5.6s]
+ENTRY 8 d2 p5 serre16 -> MATCH  ideal#1(norm 10000)  orbit 18  HeckeDeg 2  res F_25  tests 20/20  [9.3s]
+ENTRY 9 d2 p5 serre16 -> MATCH  ideal#1(norm 10000)  orbit 18  HeckeDeg 2  res F_25  tests 20/20  [9.6s]
+ENTRY 10 d2 p5 serre16 -> MATCH  ideal#1(norm 10000)  orbit 23  HeckeDeg 2  res F_25  tests 20/20  [11.7s]
+ENTRY 11 d2 p5 serre18 -> MATCH  ideal#1(norm 11250)  orbit 31  HeckeDeg 4  res F_25  tests 20/20  [16.9s]
+ENTRY 12 d2 p5 serre144 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 13 d2 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 14 d2 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 15 d2 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 16 d3 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 17 d3 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 18 d2 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 19 d2 p5 serre162 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 20 d3 p5 serre576 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 21 d3 p5 serre576 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 22 d2 p5 serre648 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 23 d2 p5 serre648 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 24 d3 p5 serre768 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 25 d3 p5 serre768 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 26 d2 p5 serre1296 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 27 d3 p5 serre1296 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 28 d3 p5 serre1296 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 29 d2 p5 serre1296 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 30 d2 p5 serre1458 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 31 d3 p5 serre1458 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 32 d3 p5 serre1458 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 33 d10 p7 serre1500 -> MATCH  ideal#1(norm 1500)  orbit 10  HeckeDeg 18  res F_49  tests 20/20  [47.9s]
+ENTRY 34 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 35 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 36 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 37 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 38 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 39 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 40 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 41 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 42 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 43 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 44 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 45 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 46 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 47 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 48 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 49 d2 p5 serre2304 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 50 d3 p5 serre5184 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 51 d3 p5 serre5184 -> DEFERRED (final level norm > 12000; pbad=true)
+ENTRY 52 d3 p5 serre5184 -> DEFERRED (final level norm > 12000; pbad=true)

@@ -1,0 +1,47 @@
+# kernel_match: mod-p inert kernel intersection
+
+===== idx 12  d2 p5  level norm 90000 (pbad=true) =====
+  5 inert conditions (l): [ 11, 13, 19, 29, 37 ]
+  built space: dim 6499  (0.5 s)
+    l=11 (c=1): kerdim 309  cumulative 309   [Hecke 41.2s]
+    l=13 (c=2): kerdim 362  cumulative 108   [Hecke 16.2s]
+    l=19 (c=4): kerdim 472  cumulative 60   [Hecke 36.9s]
+    l=29 (c=3): kerdim 672  cumulative 60   [Hecke 71.3s]
+    l=37 (c=1): kerdim 840  cumulative 60   [Hecke 105.1s]
+  >>> surviving mod-5 eigenspace dim = 60   (nonzero => MATCH)
+  total time 271.2s
+
+===== idx 13  d2 p5  level norm 101250 (pbad=true) =====
+  5 inert conditions (l): [ 11, 13, 19, 29, 37 ]
+  built space: dim 7315  (1.2 s)
+    l=11 (c=2): kerdim 706  cumulative 706   [Hecke 43.3s]
+    l=13 (c=3): kerdim 725  cumulative 170   [Hecke 19.3s]
+    l=19 (c=2): kerdim 569  cumulative 24   [Hecke 36.5s]
+    l=29 (c=0): kerdim 318  cumulative 24   [Hecke 85.5s]
+    l=37 (c=1): kerdim 974  cumulative 24   [Hecke 131.7s]
+  >>> surviving mod-5 eigenspace dim = 24   (nonzero => MATCH)
+  total time 317.5s
+
+===== idx 16  d3 p5  level norm 101250 (pbad=true) =====
+  5 inert conditions (l): [ 7, 17, 19, 29, 31 ]
+  built space: dim 17550  (2.0 s)
+    l=7 (c=0): kerdim 1238  cumulative 1238   [Hecke 162.4s]
+    l=17 (c=4): kerdim 1306  cumulative 224   [Hecke 99.5s]
+    l=19 (c=3): kerdim 1486  cumulative 48   [Hecke 110.8s]
+    l=29 (c=3): kerdim 1372  cumulative 24   [Hecke 200.0s]
+    l=31 (c=3): kerdim 942  cumulative 24   [Hecke 231.5s]
+  >>> surviving mod-5 eigenspace dim = 24   (nonzero => MATCH)
+  total time 806.1s
+
+===== idx 17  d3 p5  level norm 101250 (pbad=true) =====
+  5 inert conditions (l): [ 7, 17, 19, 29, 31 ]
+  built space: dim 17550  (5.2 s)
+    l=7 (c=0): kerdim 1238  cumulative 1238   [Hecke 160.9s]
+    l=17 (c=4): kerdim 1306  cumulative 224   [Hecke 108.5s]
+    l=19 (c=3): kerdim 1486  cumulative 48   [Hecke 118.8s]
+    l=29 (c=3): kerdim 1372  cumulative 24   [Hecke 207.4s]
+    l=31 (c=3): kerdim 942  cumulative 24   [Hecke 225.4s]
+  >>> surviving mod-5 eigenspace dim = 24   (nonzero => MATCH)
+  total time 826.1s
+
+DONE.
