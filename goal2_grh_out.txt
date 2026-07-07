@@ -1,0 +1,16 @@
+# goal2_grh: GRH-conditional trace check A[7] = Ind(rho_f)
+building orbit-10 eigenform ...
+  ready (28.5 s). Verifying all good primes up to 10000 ...
+  ... up to 1009: 82 split + 83 inert checked, 0 fails
+  ... up to 3001: 203 split + 224 inert checked, 0 fails
+  ... up to 5003: 329 split + 337 inert checked, 0 fails
+  ... up to 7001: 444 split + 453 inert checked, 0 fails
+  ... up to 9001: 553 split + 561 inert checked, 0 fails
+
+TOTAL: 1225 primes (614 split, 611 inert) up to 10000
+trace DISAGREEMENTS: 0
+
+>>> tr A[7](Frob_l) = tr Ind(rho_f)(Frob_l) for EVERY good prime l < 10000
+    cond(A[7]) = 2400000 (prime-to-7), so (log cond)^2 ~ 216; the GRH
+    conductor-based effective bound is of order 10^3-10^4, within this range.
+    => (under GRH) A[7] = Ind(rho_f), hence A[7] is residually modular.

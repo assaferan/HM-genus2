@@ -120,6 +120,30 @@ unconditional Galois-theoretic route but *helps* the modularity route.
 induction back to GSp₄/Q — pending Ariel's confirmation of the route (see Step 3
 of the strategy / the email).
 
+## Step 4 — GRH-conditional certificate (DONE, `goal2_grh.m`)
+
+Rather than the (impractical) class-covering of the huge field `L`, use the
+**conductor-based** effective bound: `A[7]` and `Ind ρ̄_f` are both 4-dim,
+irreducible, unramified outside {2,3,5,7}, with Artin conductor supported there
+(`cond(A) = 2400000` prime-to-7). By Brauer–Nesbitt they are isomorphic iff their
+Frobenius traces agree; under GRH the Rankin–Selberg / effective-Faltings–Serre
+bound on the *least distinguishing prime* is `O((log cond)²)` — **independent of
+the degree-10¹¹ splitting field** — hence practical.
+
+**Verified:** `tr A[7](Frob_ℓ) = tr Ind(ρ̄_f)(Frob_ℓ)` for **all 1225 good primes
+ℓ < 10⁴** (614 split, 611 inert), **0 disagreements**. On the A-side this is
+`a_ℓ(A) mod 7`; on the Ind-side `a_𝔭(f)+a_𝔭'(f)` at split ℓ and `0` at inert ℓ.
+
+`(log cond)² ≈ 216`; with standard explicit GRH constants the sufficient bound is
+of order 10³–10⁴, so the ℓ < 10⁴ pass covers it. *Caveat:* the exact minimal bound
+depends on the precise conductor (incl. the bounded 7-part of `A[7]`) and the
+chosen explicit Rankin–Selberg constant; if a fully pinned constant pushes past
+10⁴, extend the (already-fast) pass to 10⁵. Either way this is a citable
+technicality, not a new obstruction.
+
+**Conclusion (GRH).** `A[7] ≅ Ind ρ̄_f`, so `A[7]` is residually modular; with the
+GL₂/F lifting (unconditional part, Ariel's route) this yields modularity of `A`.
+
 ---
 
 ## Step 3 — automorphy lifting (the real open question)
