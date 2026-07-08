@@ -1,0 +1,3 @@
+ENTRY 48 serre2304 MATCH weight [2,4] kernel true=2
+ENTRY 49 serre2304 MATCH weight [2,4] kernel true=2
+ENTRY 31 serre1458 NO-MATCH (tried [2,4],[4,2],[2,6],[6,2])

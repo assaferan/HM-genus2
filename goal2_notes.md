@@ -176,3 +176,53 @@ allows imprimitive residual image?
 ## Artifacts
 - `goal2_image.m` / `goal2_image_out.txt` — Step 1 (image + induced structure).
 - `weilres_qsqrt10_c.m` — the char-polynomial residual match (Step 2 evidence).
+
+## Step 5 — vast/tidy via BCGP, and the residue-degree-2 subtlety (from Ariel's reply)
+
+**Lemma 7.5.22 [BCGP, arXiv:1812.09269] is our exact situation** (their F↔ℚ,
+K↔Q(√10), r↔σ_A, ρ=Ind r↔A[7], p=7). Hypotheses verified from our data:
+- p=7≥3; K=Q(√10) unramified at 7 (7∤disc=40); ✓
+- σ_A|_{G_{K(ζ₇)}} has image SL₂(F₄₉) (im σ_A ⊇ SL₂(F₄₉), det=χ₇ trivial there); ✓
+- det σ_A = det σ_A^τ = χ₇ = ε⁻¹; ✓
+- Proj σ_A^τ ≇ Proj σ_A: verified (31/37 split primes have t₂ ∉ {±t₁}, so σ_A^τ is
+  not a quadratic twist of σ_A); ✓
+- #k=49>3 → clean branch, no p=3 condition.
+⇒ Lemma 7.5.22 gives: **Ind σ_A is vast and tidy** (over k=F₄₉).
+
+**SUBTLETY (flag for Ariel).** σ_A is valued in GL₂(**F₄₉**) (residue degree 2).
+BCGP Prop 10.1.3's induced cases are p=3 (from GL₂(F₃)) and p=5 (from GL₂(F₅)) —
+both residue degree 1; there is NO p=7 / residue-degree-2 case, because 10.1.3's
+proof establishes residual modularity of ϱ abstractly (Langlands–Tunnell for p=3;
+ϱ as 5-torsion of a modular elliptic curve for p=5), both degree-1 arguments.
+Also 7.5.22 gives vast/tidy for the F₄₉-object Ind σ_A, whereas Prop 10.1.1 uses
+ρ_{A,7}: G_F → GSp₄(F₇); the image sits in GSp₄(F₇) via the F₄₉/F₇ restriction-of-
+scalars symplectic embedding SL₂(F₄₉) ↪ Sp₄(F₇). Whether the vast/tidy definitions
+transfer across this base-field change needs confirming.
+
+**GOOD NEWS.** We do NOT need 10.1.3's abstract residual-modularity argument:
+Goal 1 gives the explicit modular form (σ_A = ρ̄_f, orbit 10). So residual modularity
+of A[7] follows from [BLGG13, Thm A] + automorphic induction from Q(√10)
+(unramified at 7, preserving ordinarity), feeding **Prop 10.1.1** directly:
+  vast+tidy (✓ mod the base-field check) + good ordinary at 7 + distinct unit roots
+  (Ariel ✓) + polarization degree 1 prime to 7 (principal ✓) + residual modularity
+  (our f + auto. induction, GRH-cond.)  ⇒  A modular (GRH-conditional).
+
+## Step 6 — the mod-5 weight tradeoff = a NORMALIZATION, not a nebentypus (Ariel's point 1)
+
+Ariel's `mod-5-match.txt`: curve y²+x³y = −2x⁶−5x⁵−5x⁴+5x²+4x, F=Q(√2), level
+p2⁴=(4) norm 16, weight **[2,4]**, TRIVIAL nebentypus, component 1, Hecke field
+Q(√2), λ|5 residue F₂₅. Match uses **t_P = Norm(P)·a_P(f) mod λ**.
+
+CORRECTION to an earlier wrong analysis: raising the weight needs a NORMALIZATION,
+NOT a nebentypus. At weight [2,4] the Galois-trace normalization relative to the
+Hecke eigenvalue is `Norm(P)^1`; matching raw a_P(f) (as the first rescue_scan.m
+did) fails. Reproduced Ariel's full table (ariel_validate.m): rho(from A) =
+Norm(P)·a_P(f) at every prime 3..113, trivial nebentypus. My "det χ₅² ⇒ nebentypus
+χ₅⁻¹" reasoning was the red herring (the non-parallel Serre-weight normalization is
+the real subtlety Ariel flagged).
+
+Correct rescue test = small (prime-to-5) Serre level, raised weight [k₁,k₂], trivial
+nebentypus, with t_P = Norm(P)^d · a_P(f) (d ≈ (k₀−2)/2; try d∈{0,1,2}). idx 20's
+non-match at trivial-nebentypus raised weight (best 9/16) was WITH THE WRONG
+NORMALIZATION, so it is inconclusive — re-run with the Norm(P)^d twist before
+concluding any SKIP-BIG entry is truly stuck.

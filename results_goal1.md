@@ -80,19 +80,34 @@ lie in `F_{p²}`.) Building `M` is fast (≤ 5 s even at dim 17550); the cost is
 
 ---
 
-## Feasibility wall (why 50 are out of reach)
+## Feasibility (weight [2,2] view — SUPERSEDED, see correction below)
 
-Space dimension grows ~linearly in the level norm, with a field-dependent slope:
-`Q(√2)` ≈ `0.072 × norm`, `Q(√3)` ≈ `0.173 × norm`. Dense `F_p` linear algebra is
-feasible to dim ~30000 (≈ 1 GB per Hecke matrix). This cuts a clean line:
+At **weight [2,2]** the mod-5 level is Serre × 5⁴, and space dimension grows
+~linearly in that (inflated) norm (`Q(√2)` ≈ `0.072×`, `Q(√3)` ≈ `0.173×`). Dense
+`F_p` linear algebra is feasible to dim ~30000, which at weight [2,2] leaves the
+`serre = 2304, 20736, …` buckets out of reach (dims up to 2.25M).
 
-- **reachable:** mod-5 up to norm ~405000 over `Q(√2)` / ~101250 over `Q(√3)`;
-  the three small-to-mid mod-7 entries.
-- **out of reach:** the `serre = 2304`, `20736`, … buckets (real norms
-  1.4M – 13M, dims up to 2.25M), plus the two large mod-7 entries (idx 73 norm
-  40500 already dim 113398; idx 74 norm 162000). No mathematical shortcut removes
-  the ×625, so these need a **custom sparse mod-p Hecke implementation**
-  (Dembélé–Voight over `F_p` with the inert-kernel conditions) to go further.
+## CORRECTION — the ×625 wall was a weight-choice artifact
+
+Prompted by Ariel: the same residual rep is matched at the **small prime-to-5
+Serre level** with a **raised weight** (e.g. [2,4]), trivial nebentypus, using the
+normalization `t_P = Norm(P)·a_P(f) mod λ` (twist power d ≈ (k₀−2)/2). This avoids
+the ×625 blow-up entirely. Validated by reproducing Ariel's [2,4]/level-16 match
+(`ariel_validate.m`) and rescuing former `SKIP-BIG` entries at their tiny Serre
+levels (`rescue_scan2.m`; e.g. idx 20 at norm 576, dim 288, vs infeasible ×625 =
+360000, dim 62398).
+
+**Combined coverage now 32/70 mod-5** (up from 22): the [2,4] pass
+(`goal1_sweep_w24.m` → `goal1_w24_results.txt`) rescued 10 former SKIP-BIG entries
+(idx 20,21,24,25,26,27,28,29,30,34). The remaining entries are almost all just
+*unprocessed* at [2,4] (the decompositions run ~30 min each at large levels, a
+day-scale batch), plus idx 31,32 which need a Serre weight above [2,4]. So the
+"50 out of reach" claim above is **wrong**: SKIP-BIG is a compute-budget question,
+not a mathematical wall. (The two large mod-7 entries idx 73/74 remain heavy since
+there weight [2,2] is already correct — no p-part to trade to weight.)
+
+The earlier "custom sparse mod-p Hecke" suggestion is therefore unnecessary for
+mod-5 coverage; the weight tradeoff is the practical route.
 
 ---
 
@@ -117,3 +132,27 @@ feasible to dim ~30000 (≈ 1 GB per Hecke matrix). This cuts a clean line:
 - `goal1_sweep.m` → `goal1_results.txt` — newform decomposition (Hecke degrees, small levels).
 - `weilres_qsqrt10_*.m` — the idx-33 deep dive (trace + full char-poly confirmation).
 - `goal1_data.m` — `sorted_output.jsonl` parsed to Magma (sorted by level).
+
+## Update — niveau-1 vs niveau-2, and the fast classifier
+
+The mod-5 entries are of two local types at 5:
+- **niveau-1** (ordinary at 5): a small prime-to-5 Serre-level realization exists at
+  raised weight **[2,4]** (trivial nebentypus, t_P = Norm(P)·a_P(f)). Every
+  raised-weight match found is at [2,4]/[4,2] — none needs [2,6] or higher.
+- **niveau-2** (supercuspidal at 5): NO small-level realization at any raised weight;
+  lives only at the ×625/[2,2] level (feasible only for small Serre conductor).
+
+**Fast classifier + matcher (kernel_wt.m):** one kernel-method call at [2,4] over the
+weight field Q(zeta_8) (reduce mod a prime above 5 -> F_25; no decomposition). Match
+=> niveau-1 (done); no-match => niveau-2. This replaces the slow decomposition and
+the multi-weight search.
+
+**Final combined coverage: 43/70 mod-5** (x625 [2,2] union raised-weight [2,4]),
+plus all 5 mod-7. niveau-2 confirmed for idx 4,7,10,13,14,15,19 (matched only at
+x625). The remaining unmatched are niveau-2 with SKIP-BIG x625 levels -- a genuine
+hard tail, NOT a weight-choice artifact.
+
+Conductor-only predictor is only partial: v_5(conductor_2d)=4 => niveau-2, but
+idx 0-4 share conductor invariants yet split (0-3 niveau-1, 4 niveau-2), so niveau
+is a curve-specific local property at 5. Scripts: kernel_w24.m, kernel_wt.m,
+kernel_sweep_wt.py.

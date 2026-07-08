@@ -1,0 +1,9 @@
+# rescue_scan: SKIP-BIG mod-5 at small level + raised weight
+
+===== idx 20  d3 p5  Serre level norm 576 =====
+  weight [ 2, 2 ]: dim 94, 7 orbits -> best 11/16 fail (orbit 6 deg 2 resF_25)  [3.5s]
+  weight [ 2, 4 ]: dim 288, 19 orbits -> best 9/16 fail (orbit 17 deg 2 resF_25)  [31.0s]
+  weight [ 4, 2 ]: dim 288, 19 orbits -> best 9/16 fail (orbit 14 deg 2 resF_25)  [33.0s]
+  weight [ 2, 6 ]: dim 480, 26 orbits -> best 12/16 fail (orbit 1 deg 2 resF_25)  [216.3s]
+  weight [ 6, 2 ]: dim 480, 26 orbits -> best 12/16 fail (orbit 11 deg 2 resF_25)  [235.4s]
+  weight [ 4, 4 ]: dim 864, 40 orbits -> best 9/16 fail (orbit 9 deg 1 resF_5)  [215.8s]

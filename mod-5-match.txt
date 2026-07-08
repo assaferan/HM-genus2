@@ -1,0 +1,60 @@
+Mod-5 match table
+=================
+
+Abelian surface:
+  A = Jac(C)
+  C: y^2 + x^3*y = -2*x^6 - 5*x^5 - 5*x^4 + 5*x^2 + 4*x
+
+Local factor convention:
+  L_p(A,T) = 1 - a_p*T + b_p*T^2 - p*a_p*T^3 + p^2*T^4
+
+Hilbert modular form:
+  F = Q(sqrt(2))
+  level = p2^4 = (4), norm 16
+  weight = [2,4]
+  Magma identifier:
+    component 1 of NewformDecomposition(NewSubspace(HilbertCuspForms(F,p2^4,[2,4])))
+  component dimension = 1
+  Hecke field = Q(sqrt(2))
+  lambda = the prime above 5
+  residue field = F_25 = F_5[u]/(u^2 - 2)
+  matching normalisation:
+    t_P = Norm(P)*a_P(f) mod lambda
+
+Table conventions:
+  A       = (a_p,b_p)
+  rho     = reconstructed trace(s) of the 2-dimensional representation over F, mod 5
+  f       = raw HMF a_P(f) mod lambda
+  t       = normalised HMF trace Norm(P)*a_P(f) mod lambda
+  For split primes, the two entries are unordered.
+
+  p  type   A=(a_p,b_p)  rho                 f                   t=Norm*a            ok 
+---  -----  -----------  ------------------  ------------------  ------------------  ---
+  3  inert  (0,4)        [1]                 [4]                 [1]                 yes
+  7  split  (2,2)        [1+3u, 1+2u]        [3+4u, 3+u]         [1+3u, 1+2u]        yes
+ 11  inert  (0,10)       [0]                 [0]                 [0]                 yes
+ 13  inert  (0,12)       [3]                 [2]                 [3]                 yes
+ 17  split  (-4,16)      [3+4u, 3+u]         [4+2u, 4+3u]        [3+4u, 3+u]         yes
+ 19  inert  (5,31)       [4]                 [4]                 [4]                 yes
+ 23  split  (6,22)       [3+3u, 3+2u]        [1+u, 1+4u]         [3+3u, 3+2u]        yes
+ 29  inert  (-5,45)      [0]                 [0]                 [0]                 yes
+ 31  split  (-1,-27)     [2+3u, 2+2u]        [2+3u, 2+2u]        [2+3u, 2+2u]        yes
+ 37  inert  (-10,74)     [1]                 [4]                 [1]                 yes
+ 41  split  (-3,31)      [1+4u, 1+u]         [1+4u, 1+u]         [1+4u, 1+u]         yes
+ 43  inert  (-10,70)     [0]                 [0]                 [0]                 yes
+ 47  split  (10,66)      [2u, 3u]            [u, 4u]             [2u, 3u]            yes
+ 53  inert  (0,32)       [3]                 [2]                 [3]                 yes
+ 59  inert  (15,145)     [0]                 [0]                 [0]                 yes
+ 61  inert  (-10,66)     [4]                 [4]                 [4]                 yes
+ 67  inert  (0,-28)      [3]                 [2]                 [3]                 yes
+ 71  split  (11,99)      [3+4u, 3+u]         [3+u, 3+4u]         [3+u, 3+4u]         yes
+ 73  split  (2,74)       [1+3u, 1+2u]        [2+4u, 2+u]         [1+2u, 1+3u]        yes
+ 79  split  (-2,-114)    [4+2u, 4+3u]        [1+3u, 1+2u]        [4+2u, 4+3u]        yes
+ 83  inert  (10,74)      [1]                 [4]                 [1]                 yes
+ 89  split  (4,70)       [2+u, 2+4u]         [3+4u, 3+u]         [2+u, 2+4u]         yes
+ 97  split  (-4,36)      [3+4u, 3+u]         [4+2u, 4+3u]        [3+4u, 3+u]         yes
+101  inert  (-10,138)    [2]                 [2]                 [2]                 yes
+103  split  (4,152)      [2+3u, 2+2u]        [4+4u, 4+u]         [2+2u, 2+3u]        yes
+107  inert  (10,210)     [0]                 [0]                 [0]                 yes
+109  inert  (-5,107)     [3]                 [3]                 [3]                 yes
+113  split  (2,174)      [1+3u, 1+2u]        [2+u, 2+4u]         [1+3u, 1+2u]        yes

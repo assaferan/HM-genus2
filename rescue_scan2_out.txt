@@ -1,0 +1,29 @@
+# rescue_scan2: small level + raised weight + Norm(P)^d normalization
+
+===== idx 8  d2  Serre level norm 16 =====
+  weight [ 2, 4 ]: dim 3, 1 orbits -> *** MATCH *** (orbit 1 deg 2 resF_25 d=1)
+  weight [ 4, 2 ]: dim 3, 1 orbits -> *** MATCH *** (orbit 1 deg 2 resF_25 d=1)
+  weight [ 2, 6 ]: dim 5, 1 orbits -> best 12/14 (orbit 1 deg 2 resF_25 d=0)
+  weight [ 6, 2 ]: dim 5, 1 orbits -> best 12/14 (orbit 1 deg 2 resF_25 d=0)
+  weight [ 4, 4 ]: dim 9, 2 orbits -> best 14/14 (orbit 1 deg 1 resF_5 d=0)
+
+===== idx 0  d3  Serre level norm 6 =====
+  weight [ 2, 4 ]: dim 2, 2 orbits -> *** MATCH *** (orbit 1 deg 2 resF_25 d=1)
+  weight [ 4, 2 ]: dim 2, 2 orbits -> *** MATCH *** (orbit 2 deg 2 resF_25 d=1)
+  weight [ 2, 6 ]: dim 6, 2 orbits -> best 13/14 (orbit 1 deg 2 resF_25 d=1)
+  weight [ 6, 2 ]: dim 6, 2 orbits -> best 13/14 (orbit 1 deg 2 resF_25 d=1)
+  weight [ 4, 4 ]: dim 10, 2 orbits -> best 11/14 (orbit 2 deg 1 resF_5 d=2)
+
+===== idx 20  d3  Serre level norm 576 =====
+  weight [ 2, 2 ]: dim 94, 7 orbits -> best 11/14 (orbit 6 deg 2 resF_25 d=0)
+  weight [ 2, 4 ]: dim 288, 19 orbits -> *** MATCH *** (orbit 17 deg 2 resF_25 d=1)
+  weight [ 4, 2 ]: dim 288, 19 orbits -> *** MATCH *** (orbit 14 deg 2 resF_25 d=1)
+  weight [ 2, 6 ]: dim 480, 26 orbits -> best 12/14 (orbit 2 deg 2 resF_25 d=0)
+  weight [ 6, 2 ]: dim 480, 26 orbits -> best 12/14 (orbit 4 deg 2 resF_25 d=2)
+  weight [ 4, 4 ]: dim 864, 40 orbits -> best 11/14 (orbit 12 deg 2 resF_25 d=0)
+
+===== idx 24  d3  Serre level norm 768 =====
+  weight [ 2, 2 ]: dim 126, 16 orbits -> best 13/14 (orbit 2 deg 1 resF_5 d=1)
+  weight [ 2, 4 ]: dim 384, 36 orbits -> *** MATCH *** (orbit 3 deg 2 resF_25 d=1)
+  weight [ 4, 2 ]: dim 384, 36 orbits -> *** MATCH *** (orbit 22 deg 2 resF_25 d=1)
+  weight [ 2, 6 ]: dim 640, 48 orbits -> best 11/14 (orbit 7 deg 2 resF_25 d=2)
