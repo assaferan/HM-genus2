@@ -39,7 +39,7 @@ t0 := Cputime();
 M := HilbertCuspForms(F, lev, [k1,k2]); dm := Dimension(M);
 printf "idx %o: level norm %o, [%o,%o] dim %o (built %.1os)\n", idx, Norm(lev), k1, k2, dm, Cputime(t0);
 if dm eq 0 then printf "NO-MATCH (empty)\n"; exit; end if;
-if dm gt 12000 then printf "SKIP-BIG dim %o (kernel over weight field too big)\n", dm; exit; end if;
+if dm gt 26000 then printf "SKIP-BIG dim %o (kernel over weight field too big)\n", dm; exit; end if;
 
 // weight field and a prime above 5
 T0 := HeckeOperator(M, conds[1][1]);
