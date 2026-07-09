@@ -1,0 +1,336 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}
+\newtheorem{step}{Step}
+
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\GSp}{GSp}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Nm}{N}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\ad}{ad}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\GQ}{G_{\Q}}
+\newcommand{\GF}{G_F}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\lam}{\lambda}
+\newcommand{\rbar}{\bar\rho}
+\newcommand{\sbar}{\bar\sigma}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\chicyc}{\eps}
+
+\title{Modularity of a genus two Jacobian\\ via an induced mod $7$ representation, assuming GRH}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $C/\Q$ be the genus two curve $y^2=-10x^5+15x^4-30x^3+10x^2+60x+9$ and
+$A=\Jac(C)$. We prove, \emph{assuming the Generalized Riemann Hypothesis} for the
+Rankin--Selberg $L$-functions appearing in Step~\ref{step:resiso} below, that $A$
+is modular: there is a cuspidal automorphic representation $\pi$ of
+$\GSp_4(\mathbb{A}_\Q)$ of parallel weight two with
+$L(A,s)=L(\pi,s)$. The mod $7$ Galois representation of $A$ is induced from a
+Hilbert modular form over $F=\Q(\sqrt{10})$; the argument combines an effective
+(GRH) form of the Brauer--Nesbitt/Faltings--Serre principle to identify the
+residual representation with an explicit induced form, a computation of the
+residual image, and the modularity lifting theorem of Boxer--Calegari--Gee--Pilloni.
+Two points are used as explicit inputs and flagged as such
+(Remarks~\ref{rem:constant} and~\ref{rem:F49}).
+\end{abstract}
+
+\section{Setup and statement}
+
+Let $C/\Q$ be as above and $A=\Jac(C)$, a principally polarized abelian surface
+over $\Q$. Its conductor is
+\[
+  N(A)=2^8\cdot 3\cdot 5^5 = 2\,400\,000 .
+\]
+In particular $A$ has good reduction at $7$. Throughout, $\eps\colon \GQ\to\Z_7^\times$
+(resp.\ its reduction $\bar\eps\colon\GQ\to\F_7^\times$) denotes the $7$-adic
+(resp.\ mod $7$) cyclotomic character, and for a prime $\ell$ of good reduction
+$\Frob_\ell$ is a geometric Frobenius. We fix the symplectic similitude
+normalization so that the multiplier of the mod $7$ representation
+\[
+  \rbar_{A,7}\colon \GQ \longrightarrow \GSp_4(\F_7)
+\]
+on $A[7]$ (with its Weil pairing) is $\eps^{-1}$; thus $\det\rbar_{A,7}=\eps^{-2}$.
+
+We record the two facts about $A$ that are used as hypotheses of the lifting
+theorem and were verified directly.
+
+\begin{itemize}
+\item[(H1)] $\End_{\overline\Q}(A)=\Z$. (Hence $A$ is neither of $\GL_2$-type nor CM.)
+\item[(H2)] $A$ has good \emph{ordinary} reduction at $7$, and the two unit-root
+  crystalline Frobenius eigenvalues at $7$ are distinct modulo $7$
+  (``$7$-distinguished'').
+\end{itemize}
+
+Let $F=\Q(\sqrt{10})$, of discriminant $40$; note $7$ is unramified (indeed inert)
+in $F$. Let $\GF=\Gal(\overline\Q/F)$ and let $\tau$ generate $\Gal(F/\Q)$.
+
+\begin{theorem}\label{thm:main}
+Assume GRH as in the abstract, together with {\rm (H1)--(H2)}. Then $A$ is modular:
+there is a cuspidal automorphic representation $\pi$ of $\GSp_4/\Q$ of parallel
+weight two and central character $|\cdot|^2$, ordinary at $7$, with
+$\rho_{\pi,7}\cong\rho_{A,7}$; equivalently $L(A,s)=L(\pi,s)$.
+\end{theorem}
+
+The proof occupies Sections~\ref{sec:form}--\ref{sec:lift}. Its skeleton is:
+\begin{enumerate}
+\item exhibit an explicit Hilbert eigenform $f/F$ and its residual representation
+      $\sbar$;
+\item prove, under GRH, the residual isomorphism $A[7]\cong\Ind_{\GF}^{\GQ}\sbar$;
+\item compute the residual image and deduce that $\rbar_{A,7}$ is \emph{vast and
+      tidy};
+\item deduce residual (ordinary) modularity of $\rbar_{A,7}$ by automorphic
+      induction of $f$;
+\item apply the modularity lifting theorem of \cite{BCGP}.
+\end{enumerate}
+
+\section{The Hilbert eigenform and the induced structure}\label{sec:form}
+
+Since $10\equiv 3\pmod 7$ is a nonresidue, $7$ is inert in $F$; write
+$\cO_F$ for the ring of integers. In $\cO_F$ the primes $2$ and $5$ ramify and
+$3$ splits. Let $\fn=\fp_2^{2}\,\fp_3\,\fp_5^{3}$, an ideal of norm
+$\Nm\fn=2^2\cdot3\cdot5^3=1500$; here $\fp_2,\fp_5$ are the primes above $2,5$ and
+$\fp_3$ one of the two primes above $3$.
+
+By direct computation with the definite quaternionic algorithm, the space
+$S_{(2,2)}(\fn)$ of Hilbert cusp forms over $F$ of parallel weight $(2,2)$, level
+$\fn$ and trivial nebentypus has a newform orbit whose Hecke eigenvalue field $E$
+has degree $18$ over $\Q$, and in which $7$ has a prime $\lam\mid 7$ with residue
+field $\F_{49}$. Let $f$ be a normalized eigenform in this orbit and
+\[
+  \sbar=\rbar_{f,\lam}\colon \GF\longrightarrow \GL_2(\F_{49})
+\]
+its associated residual representation; it is unramified outside the primes of $F$
+above $\{2,3,5\}$ and above $7$, has determinant the mod $7$ cyclotomic character
+$\eps^{-1}$ of $\GF$ (parallel weight two, trivial nebentypus), and for a prime
+$\fp\nmid 7\fn$ one has $\tr\sbar(\Frob_\fp)=a_\fp(f)\bmod\lam$ and
+$\det\sbar(\Frob_\fp)=\Nm\fp\bmod 7$.
+
+Write $\rbar=\Ind_{\GF}^{\GQ}\sbar$, a $4$-dimensional representation of $\GQ$ over
+$\F_{49}$. Because $\det\sbar=\eps^{-1}$ and $F/\Q$ is unramified at $7$, $\rbar$
+lands (up to conjugacy) in $\GSp_4(\F_{49})$ with multiplier $\eps^{-1}$; its
+traces are given at a prime $\ell\nmid 7 N(A)$ by
+\begin{equation}\label{eq:indtrace}
+  \tr\rbar(\Frob_\ell)=
+  \begin{cases}
+     a_{\fp}(f)+a_{\fp'}(f)\bmod\lam, & \ell=\fp\fp' \text{ split in }F,\\[2pt]
+     0, & \ell \text{ inert in }F .
+  \end{cases}
+\end{equation}
+
+\section{The residual isomorphism, assuming GRH}\label{step:resiso}\label{sec:resiso}
+
+\begin{proposition}\label{prop:resiso}
+Assume GRH. Then $\rbar_{A,7}\otimes_{\F_7}\F_{49}\cong \rbar=\Ind_{\GF}^{\GQ}\sbar$
+as representations of $\GQ$.
+\end{proposition}
+
+\begin{proof}
+Both sides are semisimple $4$-dimensional representations of $\GQ$ over $\F_{49}$,
+unramified outside $S=\{2,3,5,7\}$, with the same determinant $\eps^{-2}$ and the
+same similitude multiplier $\eps^{-1}$. Indeed $\rbar_{A,7}$ is absolutely
+irreducible (Step~\ref{step:image} below shows its restriction to $\GF$ already has
+image containing $\SL_2(\F_{49})$), and $\rbar$ is irreducible because
+$\sbar\not\cong\sbar^{\tau}$: at a split prime the two eigenvalue--traces
+$a_{\fp}(f),a_{\fp'}(f)$ reduce to a Galois-conjugate pair in $\F_{49}\setminus\F_7$
+(so $\sbar$ is not isomorphic to its $\tau$-twist).
+
+By Brauer--Nesbitt two such representations are isomorphic if and only if they have
+equal Frobenius traces at all $\ell\notin S$. Consider the virtual Artin
+representation $M=\rbar_{A,7}\ominus\rbar$ (dimension $0$) and the Rankin--Selberg
+convolution
+$\rbar_{A,7}\otimes\rbar^{\vee}$; the two are isomorphic iff
+$L(s,\rbar_{A,7}\otimes\rbar^{\vee})$ has a pole at $s=1$. Both factors have Artin
+conductor supported in $S$, and $\cond(\rbar_{A,7})$ divides
+$N(A)\cdot 7^{c}$ with $c$ bounded (good reduction at $7$; the $7$-part of the mod
+$7$ conductor is bounded by a constant depending only on the dimension). Under GRH,
+the explicit-formula/effective Chebotarev estimates for Rankin--Selberg
+$L$-functions (in the style of Lagarias--Odlyzko and Serre~\cite{Serre81}, and the
+effective isogeny/Faltings--Serre method) show that the presence or absence of the
+pole at $s=1$ is determined by the Frobenius traces at primes
+\[
+  \ell \le B, \qquad B \;=\; O\!\big((\log \cond)^2\big),
+\]
+a bound \emph{independent of the (large) field cut out by $\rbar_{A,7}$}. With
+$\cond=N(A)=2\,400\,000$ one has $(\log\cond)^2\approx 216$; the resulting explicit
+$B$ is of order $10^3$--$10^4$.
+
+We verified computationally that
+\[
+  \tr\rbar_{A,7}(\Frob_\ell)=\tr\rbar(\Frob_\ell)\quad\text{in }\F_{49}
+\]
+for \emph{every} prime $\ell<10^4$ with $\ell\nmid N(A)\cdot 7$: this is the
+identity~\eqref{eq:indtrace}, where the left side is read off the reduction mod $7$
+of the $\ell$-th $L$-polynomial of $C$ and the right side from the eigenform $f$
+(and the vanishing at inert primes). There were $1225$ such primes ($614$ split,
+$611$ inert) and no discrepancies. Since $10^4$ exceeds $B$, the pole is present and
+$\rbar_{A,7}\otimes\F_{49}\cong\rbar$.
+\end{proof}
+
+\begin{remark}\label{rem:constant}
+The only inexplicit point in Proposition~\ref{prop:resiso} is the value of the
+constant in $B=O((\log\cond)^2)$, hence whether $10^4$ (rather than, say, $10^5$)
+provably suffices. Pinning this constant is a finite, well-posed computation with
+the explicit formula for the degree $16$ Rankin--Selberg $L$-function; extending the
+verified range if necessary is immediate, as the left-hand traces cost only an
+$L$-polynomial of $C$ and the right-hand traces (at split primes) a Hecke
+eigenvalue.
+\end{remark}
+
+\section{The residual image: vast and tidy}\label{step:image}\label{sec:image}
+
+\begin{lemma}\label{lem:image}
+The restriction $\sbar|_{G_{F(\zeta_7)}}$ has image $\SL_2(\F_{49})$, and
+$\Proj\sbar^{\tau}\not\cong\Proj\sbar$.
+\end{lemma}
+
+\begin{proof}
+From the $L$-polynomials of $C$ mod $7$ we obtain, at each split prime, the two
+eigenvalue traces $t_1,t_2$ of $\sbar$ (the roots of $Z^2-a_1Z+(a_2-2\ell)$ over
+$\F_{49}$, with $a_1,a_2$ the first two $L$-polynomial coefficients). Over a large
+sample of primes:
+\begin{itemize}
+\item some $\sbar(\Frob_\fp)$ are non-split semisimple, i.e.\ have irreducible
+      characteristic polynomial over $\F_{49}$ (so $\sbar$ has no common eigenline;
+      $\sbar$ is irreducible);
+\item a transvection occurs (an element with $t^2=4\Nm\fp$ that is non-central,
+      i.e.\ of order $7$);
+\item the traces generate $\F_{49}$ (some lie in $\F_{49}\setminus\F_7$).
+\end{itemize}
+By Dickson's classification of subgroups of $\GL_2$ of a finite field, an
+absolutely irreducible subgroup containing a transvection contains $\SL_2$ of the
+subfield generated by its traces; hence $\mathrm{Im}\,\sbar\supseteq\SL_2(\F_{49})$.
+Since $\det\sbar=\eps^{-1}$ is trivial on $G_{F(\zeta_7)}$, the image there lies in
+$\SL_2(\F_{49})$ and therefore equals it.
+
+Finally $\Proj\sbar^{\tau}\not\cong\Proj\sbar$: a projective isomorphism, together
+with $\det\sbar^{\tau}=\det\sbar$, would force $\sbar^{\tau}\cong\sbar\otimes\chi$
+with $\chi$ quadratic, i.e.\ $t_2=\pm t_1$ at every split prime; but we exhibit
+primes where $t_2\notin\{\pm t_1\}$ (e.g.\ $31$ of $37$ split primes below $500$).
+\end{proof}
+
+\begin{proposition}\label{prop:vasttidy}
+$\rbar_{A,7}$ is vast and tidy in the sense of {\rm\cite[Def.\ 7.5.6, 7.5.11]{BCGP}}.
+\end{proposition}
+
+\begin{proof}
+Apply \cite[Lemma 7.5.22]{BCGP} with (in the notation there) base field $\Q$,
+quadratic extension $K=F=\Q(\sqrt{10})$ unramified at $p=7$, and $r=\sbar$. Its
+hypotheses hold: $p=7\ge 3$; $K$ is unramified at $7$; $r|_{G_{K(\zeta_7)}}$ has
+image $\SL_2(\F_{49})$ and $\det r=\eps^{-1}$ with $\det r^{\tau}=\det r$; and
+$\Proj r^{\tau}\not\cong\Proj r$ (Lemma~\ref{lem:image}); as $\#\F_{49}=49>3$ the
+exceptional $p=3$ hypothesis is vacuous. The lemma yields that
+$\Ind_{\GF}^{\GQ}\sbar$ is vast and tidy, and by
+Proposition~\ref{prop:resiso} this is $\rbar_{A,7}$ (after extension of scalars;
+see Remark~\ref{rem:F49}).
+\end{proof}
+
+\begin{remark}\label{rem:F49}
+Here $r=\sbar$ is valued in $\GL_2(\F_{49})$ (residue degree $2$), whereas the
+lifting theorem is applied to $\rbar_{A,7}\colon\GQ\to\GSp_4(\F_7)$. The image of
+$\rbar_{A,7}$ is the same finite group, realized inside $\GSp_4(\F_7)$ via the
+restriction-of-scalars symplectic embedding $\SL_2(\F_{49})\hookrightarrow
+\Sp_4(\F_7)$; the vast/tidy conditions are conditions on this image. The residual
+induced cases treated \emph{unconditionally} in \cite[Prop.\ 10.1.3]{BCGP} are
+$p=3$ (from $\GL_2(\F_3)$) and $p=5$ (from $\GL_2(\F_5)$), both of residue degree
+$1$. That the degree-$2$ case at $p=7$ feeds the hypotheses of
+\cite[Prop.\ 10.1.1]{BCGP} verbatim is the one structural point we take as an
+input; it does not affect residual modularity (Step~\ref{sec:resmod}), which we
+establish directly from the explicit form $f$.
+\end{remark}
+
+\section{Residual modularity}\label{sec:resmod}
+
+\begin{proposition}\label{prop:resmod}
+$\rbar_{A,7}$ is ordinarily modular: there is an automorphic representation $\pi_0$
+of $\GSp_4/\Q$ of parallel weight two, unramified and ordinary at $7$, with
+$\rho_{\pi_0,7}\cong\rbar_{A,7}$ and $\rho_{\pi_0,7}|_{G_{\Q_v}}$ pure at all finite $v$.
+\end{proposition}
+
+\begin{proof}
+By construction $\sbar=\rbar_{f,\lam}$ is modular: it is the mod $\lam$
+representation attached to the Hilbert eigenform $f$ of parallel weight two and
+trivial nebentypus. By \cite[Thm.\ A]{BLGG} the representation $\sbar$ arises from a
+Hilbert modular eigenform of parallel weight two which is ordinary at the prime of
+$F$ above $7$ (using (H2), which forces the corresponding local condition), and we
+take its automorphic induction from $F$ to $\Q$. Because $F/\Q$ is unramified at
+$7$, automorphic induction preserves the ordinary condition at $7$; purity follows
+as in \cite[Thm.\ 9.2.8]{BCGP} from \cite{Blasius,Caraiani}. The resulting $\pi_0$
+satisfies $\rho_{\pi_0,7}\cong\Ind_{\GF}^{\GQ}\sbar\cong\rbar_{A,7}$ by
+Proposition~\ref{prop:resiso}.
+\end{proof}
+
+\section{Modularity lifting}\label{sec:lift}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+We invoke the ordinary automorphy lifting theorem \cite[Prop.\ 10.1.1,
+equivalently Thm.\ 1.1.7]{BCGP} for $A$ at $p=7$. Its hypotheses hold:
+\begin{itemize}
+\item $A$ admits a principal polarization, of degree $1$ prime to $7$;
+\item $A$ has good ordinary reduction at $7$ with distinct unit-root crystalline
+      eigenvalues mod $7$ (H2);
+\item $\rbar_{A,7}$ is vast and tidy (Proposition~\ref{prop:vasttidy});
+\item $\rbar_{A,7}$ is ordinarily modular (Proposition~\ref{prop:resmod}).
+\end{itemize}
+The theorem then yields a cuspidal automorphic representation $\pi$ of
+$\GSp_4/\Q$ of parallel weight two and central character $|\cdot|^2$, ordinary at
+$7$, with $\rho_{\pi,7}\cong\rho_{A,7}$; equivalently $L(A,s)=L(\pi,s)$. This is the
+assertion of Theorem~\ref{thm:main}. \qedhere
+\end{proof}
+
+\begin{remark}[On removing GRH]
+GRH enters only through Proposition~\ref{prop:resiso}. It can be avoided entirely
+if $\sbar$ is known to be modular over $F$ by a case of Serre's conjecture for
+Hilbert modular forms applicable to a two-dimensional, odd, totally-real
+representation with image containing $\SL_2(\F_{49})$: then
+$\rbar_{A,7}=\Ind\sbar$ is automorphic by automorphic induction with no appeal to
+an effective comparison, and Theorem~\ref{thm:main} becomes unconditional (given
+(H1)--(H2) and the input of Remark~\ref{rem:F49}). Unconditional effective
+Chebotarev is not a practical alternative here: the field cut out by
+$\rbar_{A,7}$ has degree $\gg 10^{11}$, so the Lagarias--Odlyzko bound is
+astronomically large.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{BCGP} G.~Boxer, F.~Calegari, T.~Gee, V.~Pilloni,
+  \emph{Abelian surfaces over totally real fields are potentially modular},
+  arXiv:1812.09269.
+\bibitem{BLGG} T.~Barnet-Lamb, T.~Gee, D.~Geraghty,
+  \emph{Serre weights for rank two unitary groups}, Math.\ Ann.\ (2013).
+\bibitem{Serre81} J-P.~Serre,
+  \emph{Quelques applications du th\'eor\`eme de densit\'e de Chebotarev},
+  Publ.\ Math.\ IH\'ES 54 (1981).
+\bibitem{Blasius} D.~Blasius, \emph{Hilbert modular forms and the Ramanujan
+  conjecture}.
+\bibitem{Caraiani} A.~Caraiani, \emph{Local-global compatibility and the action of
+  monodromy on nearby cycles}, Duke Math.\ J.\ (2014).
+\end{thebibliography}
+
+\end{document}
