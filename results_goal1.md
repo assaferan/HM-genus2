@@ -156,3 +156,15 @@ Conductor-only predictor is only partial: v_5(conductor_2d)=4 => niveau-2, but
 idx 0-4 share conductor invariants yet split (0-3 niveau-1, 4 niveau-2), so niveau
 is a curve-specific local property at 5. Scripts: kernel_w24.m, kernel_wt.m,
 kernel_sweep_wt.py.
+
+## Final coverage (with the cluster predictor + giant confirmation)
+
+**54/75 total: 49/70 mod-5 + all 5 mod-7.**  The niveau predictor (cluster picture of
+4f+h^2 mod 5) confirmed on fresh data: of the 8 unmatched giants it flagged niveau-1,
+6 (idx 59-64, Q(sqrt2), dim 4320) MATCH at [2,4] (control-validated, ~36 min each);
+the other 2 (idx 69,70, Q(sqrt3), dim 10368) are the same niveau-1 type but time out
+(kernel over the deg-4 weight field too slow at a 100-min cap -- compute-limited, not
+a predictor failure).  The remaining 19 unmatched are predicted niveau-2 (supercuspidal
+at 5) -- genuinely stuck at the x625/[2,2] level, no small-level realization.  So the
+tail is fully characterized: 49 matched, 2 niveau-1 (reachable with more compute),
+19 niveau-2 (mathematically stuck).  Giant runs: giants_n1_results.txt (kernel_wt.m).

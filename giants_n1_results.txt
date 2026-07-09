@@ -1,0 +1,28 @@
+=== idx 60 [2,4] ===
+idx 60: level norm 20736, [2,4] dim 4320 (built 154.6s)
+>>> idx 60 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2168.5s]
+=== idx 61 [2,4] ===
+idx 61: level norm 20736, [2,4] dim 4320 (built 150.9s)
+>>> idx 61 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2152.6s]
+=== idx 62 [2,4] ===
+idx 62: level norm 20736, [2,4] dim 4320 (built 152.0s)
+>>> idx 62 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2307.5s]
+=== idx 63 [2,4] ===
+idx 63: level norm 20736, [2,4] dim 4320 (built 154.4s)
+>>> idx 63 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2252.7s]
+=== idx 64 [2,4] ===
+idx 64: level norm 20736, [2,4] dim 4320 (built 158.2s)
+>>> idx 64 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2136.5s]
+=== idx 69 [2,4] ===
+idx 69: level norm 20736, [2,4] dim 10368 (built 492.3s)
+=== idx 70 [2,4] ===
+idx 70: level norm 20736, [2,4] dim 10368 (built 531.0s)
+# giants done
+=== idx 59 [2,4] (rerun, higher cap) ===
+idx 59: level norm 20736, [2,4] dim 4320 (built 148.7s)
+>>> idx 59 [2,4] kernel: MATCH (true 6 / ctrl 0)  [2105.0s]
+=== idx 69 [2,4] (rerun, higher cap) ===
+idx 69: level norm 20736, [2,4] dim 10368 (built 523.3s)
+=== idx 70 [2,4] (rerun, higher cap) ===
+idx 70: level norm 20736, [2,4] dim 10368 (built 569.2s)
+# giants rerun done
