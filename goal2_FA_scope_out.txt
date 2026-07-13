@@ -34,3 +34,21 @@ AnalyticJacobian(C) + BigPeriodMatrix: built in 0.3s (2x4 period matrix).
 - CONCLUSION: F_A is a genuine numerical project of the same order as F_f; the
   torsion-field route to drop GRH is heavy on BOTH sides for this example.  The
   Serre-conjecture-over-Q(sqrt10) route (needs neither) remains the better bet.
+
+=== numerical pipeline test + the End=Z obstruction (goal2_FA_numprobe.m) ===
+AnalyticJacobian(C : Precision:=100) + BigPeriodMatrix + FromAnalyticJacobian:
+WORKS -- a 7-torsion point z=(1/7)*lattice-vector maps back to its degree-2 divisor
+{P1,P2} on C with recognizable-in-principle complex coordinates.
+
+BUT the clean degree-50 resolvent (matching F_f's PSL_2(F_49) field) needs the
+F_49-line structure, i.e. the element J with J^2 = 3 giving F_49-multiplication on
+A[7].  J is a mod-7 arithmetic accident of the Galois image, NOT a geometric
+endomorphism (End(A)=Z), so it is invisible to the numerical geometry.  Without J
+the only resolvents formable from the raw F_7-structure are degree 400 (P^3(F_7)
+lines) or 2400 (all torsion) -- too large to recognize over Q(sqrt10).
+
+CRUX: the van Bommel et al. method fundamentally applies to RM abelian varieties.
+B_f (form side) HAS RM (deg-18 field) -> F_f structured but dim-18 heavy.  A (curve
+side) has End=Z, NO RM -> F_A resolvent blows up.  So the torsion-field comparison
+is blocked on BOTH sides, for complementary reasons.  It is the right idea but does
+not escape the big-image difficulty for this example.
