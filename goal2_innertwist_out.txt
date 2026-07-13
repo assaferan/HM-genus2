@@ -1,0 +1,16 @@
+# inner twists of orbit-10 (deg-18 Hilbert newform)
+building HilbertCuspForms(1500,[2,2]) ...
+  orbit 10, Hecke field E of degree 18 (30.8 s)
+  E totally real: true
+  #Aut(E) = 1
+  computed 46 Hecke eigenvalues a_P (split primes)
+
+  automorphism | inner twist? | sign pattern (on nonzero a_P)
+  aut  1        | YES          | +1 at 46, -1 at 0 (of 46)
+
+  inner-twist group order |Gamma| = 1
+  fixed field E_0 = E^Gamma has degree [E_0:Q] = 18
+  => B_f ~ B_0^{1} with dim B_0 = 18
+  ==> building block still of dimension 18.
+  E_0 defining polynomial: x^18 - x^17 - 38*x^16 + 36*x^15 + 589*x^14 - 516*x^13 - 4837*x^12 + 3892*x^11 + 22706*x^10 - 17013*x^9 - 60854*x^8 + 44110*x^7 + 86695*x^6 - 64560*x^5 - 52940*x^4 + 43930*x^3 + 4705*x^2 - 5475*x - 275
+DONE.
