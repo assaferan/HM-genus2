@@ -1,0 +1,36 @@
+# F_A scoping (idx 33)
+=== target: image and projective resolvent ===
+  |GL_2(F_49)| = 5644800,  |SL_2(F_49)| = 117600
+  im(sigma_A) = { g in GL_2(F_49) : det g in F_7^* },  order 705600
+  projective image = PSL_2(F_49),  order 58800
+  PSL_2(F_49) acts on P^1(F_49) = 50 points (transitive), stabilizer order 1176
+  => F_A projective resolvent: degree 50 over F=Q(sqrt10), Galois group PSL_2(F_49),
+     ramified only at {2,3,5,7}; over Q the tau-swap extends it by Frob_{F49/F7}.
+  (full 7-torsion field has degree |image A[7]| = 1411200 over Q.)
+
+=== probe: 7-torsion tooling ===
+  Jacobian built.
+  KummerSurface built (0.1 s).
+  DivisionPolynomial(J,7) not available: Runtime error in 'DivisionPolynomial': Bad argument types
+Argument types given: JacHyp[FldRat], RngIntElt
+
+DONE.
+
+=== numerical route (probed separately) ===
+AnalyticJacobian(C) + BigPeriodMatrix: built in 0.3s (2x4 period matrix).
+=> numerical 7-torsion (2401 points = (1/7)Lambda/Lambda) is recoverable; the
+   period/theta route (as in arXiv:2411.07857) is the realistic path.
+
+=== honest feasibility assessment ===
+- Target F_A is precisely pinned: degree-50 resolvent / PSL_2(F_49) / ramified {2,3,5,7}.
+- No genus-2 division polynomial in Magma; algebraic route is frontier-level.
+- Numerical foundation (periods) is fine.  BUT:
+  * the degree-50 resolvent needs the F_49-structure (the element J defining
+    F_49-multiplication on A[7](x)F49) -- this is ARITHMETIC (A has End=Z, so J is
+    not a geometric endomorphism), entangled with the field we are computing;
+  * the raw degree-400 resolvent (P^3(F_7) lines, no J needed) is computable from
+    numerical torsion but large, and recognizing a degree-400 polynomial over
+    Q(sqrt10) needs very high precision.
+- CONCLUSION: F_A is a genuine numerical project of the same order as F_f; the
+  torsion-field route to drop GRH is heavy on BOTH sides for this example.  The
+  Serre-conjecture-over-Q(sqrt10) route (needs neither) remains the better bet.
