@@ -1,0 +1,49 @@
+# F_A degree-400 resolvent feasibility spike (idx 33)
+precision = 80 digits, rho = 3
+period matrix built (0.3 s)
+enumerated 400 lines of P^3(F_7)
+per-Kummer-eval time ~ 0.032 s  (12/12 clean on probe)
+=> full 400 lines x 3 Kummer pts = 1200 evals ~ 38.0 s projected
+  ... 50/400 lines (50 clean, 0 skipped, 6. s)
+  ... 100/400 lines (100 clean, 0 skipped, 10. s)
+  ... 150/400 lines (150 clean, 0 skipped, 15. s)
+  ... 200/400 lines (200 clean, 0 skipped, 19. s)
+  ... 250/400 lines (250 clean, 0 skipped, 23. s)
+  ... 300/400 lines (300 clean, 0 skipped, 27. s)
+  ... 350/400 lines (350 clean, 0 skipped, 32. s)
+  ... 400/400 lines (400 clean, 0 skipped, 36. s)
+theta_line computed: 400 clean, 0 skipped (36.5 s)
+theta_line magnitude: mean 10^1.39, max 10^3.25 (n=400)
+
+resolvent degree = 400 (clean lines)
+max |coefficient| ~ 10^556.2  <-- precision floor to even REPRESENT it
+(theory: a degree-400 product peaks near 10^(120 + 200*meanmag) = 10^398.)
+
+trace (sum theta_line) ~ 199.869114 + -3.536511E-75 i
+  |Im(trace)| = 10^-74.5 (should be ~0 if genuinely rational)
+  trace best rational approx: 88972412015642328210594340571584877736368/445153381686886845827560522957201359915
+
+=== VERDICT ===
+degree 400, max coeff ~ 10^556..  Recognizing R(X) in Q[X] needs precision
+>~ 557 digits (plus denominator height at {2,3,5,7}).  Compare: prec 80 here.
+DONE.
+
+=== high-precision trace recognition (prec 300, /tmp/trace_hp.m) ===
+trace e_1 = sum over all 1200 nonzero Kummer 7-torsion pts of s1(=x1+x2).
+Im(trace) = 10^-295  => genuinely real (Galois-correct).  But BestApproximation
+does NOT stabilize: err ~ 10^(-2*bound) at every bound 10^20..10^120 (generic
+continued-fraction behavior, no lock-on) => height(e_1) > 10^120.
+Since e_1 is the LOWEST-height coefficient and max|coeff| ~ 10^556, recognizing
+R(X) in Q[X] needs ~1000-digit precision + LLL on 400 coeffs of ~500-digit height.
+
+=== UNIFIED VERDICT ===
+- Construction of the degree-400 F_A resolvent is CHEAP (37s, 400 clean lines).
+- The P^3(F_7)-line action is FAITHFUL, so degree-400 cuts out the SAME field F_A
+  as the degree-50 P^1(F_49) presentation would -- it is a bulkier presentation of
+  the right field, NOT a different field.  (Corrects the earlier "wrong field" note.)
+- End(A)=Z does not literally forbid computing F_A; it forbids the RECOGNIZABLE
+  (low-height, degree-50) presentation, which needs the F_49-element J.  The only
+  J-free presentation (degree 400) has coefficient heights ~10^120..10^556 --
+  impractical to recognize.
+- So F_A is blocked in practice by height, degree-50 by End=Z: same root cause.
+- Operative bottleneck for the unconditional comparison remains F_f (dim-18 B_f).
