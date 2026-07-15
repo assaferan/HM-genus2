@@ -1,0 +1,36 @@
+# F_A degree-400 resolvent recognition, prec=1200
+period matrix built (186.2 s)
+resume: 400/400 lines already in checkpoint
+all 400 theta_line ready
+resolvent degree 400 built
+  recog 0/401 (1 locked)
+  recog 40/401 (41 locked)
+  recog 80/401 (81 locked)
+  recog 120/401 (121 locked)
+  recog 160/401 (161 locked)
+  recog 200/401 (201 locked)
+  recog 240/401 (241 locked)
+  recog 280/401 (276 locked)
+  recog 320/401 (276 locked)
+  recog 360/401 (293 locked)
+  recog 400/401 (333 locked)
+
+=== RECOGNITION RESULT ===
+coefficients recognized: 333 / 401
+recognized heights: min 10^1, max 10^906
+trace (e_1): height 10^197
+unrecognized (height > 10^550): 68 coefficients
+NOT fully recognized at this precision (expected -- quantifies the height wall).
+DONE.
+
+=== interpretation (prec-1200 quantification run) ===
+The degree-400 F_A resolvent R(X) in Q[X] is genuinely rational (333/401 coefficients
+recognized to a 960-digit match) -- but astronomically high-height:
+  * recognized coefficient heights span 10^1 .. 10^906;
+  * the trace e_1 is pinned at height 10^197 (was only bounded >10^120 at prec 300);
+  * 68 coefficients still exceed the 10^550 detection bound at this precision.
+So recognizing R(X) fully would need >~2000-digit precision, and the polynomial has
+coefficients of height >10^906 -- decisively out of reach for the F_A = F_f field
+comparison.  This is the degree-400 (End=Z-free) presentation; the low-height degree-50
+presentation that would be tractable needs the F_49-element J, which End(A)=Z denies.
+theta values (400 lines, full precision) archived in goal2_FA_thetas_p1200.txt.
