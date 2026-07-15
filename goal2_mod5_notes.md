@@ -103,7 +103,47 @@ abelian surface lying in a **known 2-dimensional family** of explicitly
 parametrized RM-by-√3 Jacobians, so an equation is in-principle reachable. That is
 exactly the tractability gain the mod-5 route was expected to give.
 
+## Chasing an explicit equation (`bfs_family.m`, `goal2_mod5_search*.m`)
+
+**Family obtained and validated.** Transcribed the Bruin–Flynn–Shnidman explicit
+family (arXiv:2102.04319, Section 3, "√3 over the ground field"):
+`C_{a,b,c}: y² = G₁(x)² + λ₁H₁(x)³`, with `G₁,H₁,λ₁ ∈ Z[a,b,c]` (leading term of
+G₁ is `b(a−c)²(a²−4ac−b²+c²)q₄²x³` — note the (a−c)², a transcription trap), q₄ =
+Q(c,b,a), t₃ = Q(a,ζb,c)Q(a,ζ²b,c), Q(X,Y,Z)=X²+X(Y−Z)+(Y−Z)²−3XZ. Validated
+against the paper's sample: (a,b,c)=(1,2,−1) reproduces `y²=8x⁵−3x⁴−2x³−7x²+4x+20`
+(IsIsomorphic = true). The fast mod-ℓ point-counter is validated against Magma.
+Machine-readable source: `math.huji.ac.il/~shnidman/BFScode.sage`.
+
+**Moduli search — not yet pinned.** Target: (a:b:c) ∈ P²(Q(√2)) with Jac ≅ B_f,
+filtered by |trace| (twist-invariant) at split primes 7,17,23,31,41,47 against the
+fingerprint (targets s_ℓ = −2,6,14,6,−8,0). Searched: (i) blind box a,b,c∈Z[√2],
+height ≤3 — 0 hits; (ii) {2,5}-S-unit set, c=1, a,b over 432 S-units — 0 hits;
+(iii) blind box height ≤6 — running.
+
+**The obstruction (why the clean shortcuts fail).** The BFS family requires full
+**√3-level structure**. B_f arises from the mod-**5** representation, so it has no
+reason to carry rational √3-level structure over Q(√2); hence B_f is a family
+member only up to a **quadratic twist by some d ∈ Q(√2)\***, and d's conductor need
+not be {2,5}. That breaks the S-unit shortcut (the untwisted C_{a,b,c} has bad
+reduction at d's primes, so a,b,c are NOT {2,5}-units) and leaves the moduli
+point's height unknown. |trace|-matching still finds it (twist-invariant), but only
+once the box reaches the right height.
+
+**Robust next steps** (either finishes it): (a) **reduction–CRT recognition** —
+for each ℓ scan (ā:b̄:c̄)∈P²(F_ℓ) with |trace|=|s_ℓ|, giving B_f's reduction (up to
+the S₄/twist symmetries), then CRT + rational reconstruction over Q(√2)
+(height-independent; combinatorial bookkeeping of the symmetries is the work); or
+(b) **analytic periods** — compute B_f's period matrix from the Hilbert eigenform,
+get Igusa invariants (twist-invariant), recognize the curve via CHIMP's
+`ReconstructCurve` (this repo's own tooling) — blocked only by the lack of a Magma
+routine for Hilbert-modular-form periods. Status: family + search infrastructure
+in place and validated; the moduli point is not yet exhibited.
+
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
 - `goal2_mod5_idx5_cert2.m` / `goal2_mod5_idx5_cert2_out.txt` — GRH pass [5000,12000].
 - `goal2_mod5_Bf.m` / `goal2_mod5_Bf_out.txt` — B_f data: K_f=Q(√3), LMFDB `2.2.8.1-5000.1-j`, L-poly fingerprint.
+- `bfs_family.m` — the validated BFS RM-by-√3 family (C_{1,2,−1} = sample check).
+- `goal2_mod5_search.m` — blind box moduli search over Z[√2] (|trace| filter).
+- `goal2_mod5_search2.m` — {2,5}-S-unit moduli search (c=1).
+- `search_validate.m` — validates the fast point-counter against Magma.
