@@ -1,0 +1,10 @@
+# cert2: resume GRH check for idx 5, primes [5000,12000]
+orbit-6 eigenform ready, residue F_25. Verifying [5000,12000] ...
+  ... up to 6007: 56 split + 59 inert checked, 0 fails
+  ... up to 7001: 113 split + 119 inert checked, 0 fails
+  ... up to 8009: 166 split + 173 inert checked, 0 fails
+  ... up to 9001: 220 split + 229 inert checked, 0 fails
+  ... up to 10007: 272 split + 289 inert checked, 0 fails
+  ... up to 11003: 320 split + 347 inert checked, 0 fails
+
+[5000,12000]: 769 good primes (375 split, 394 inert), 0 disagreements

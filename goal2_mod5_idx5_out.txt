@@ -1,0 +1,18 @@
+# goal2_mod5_idx5: Goal-2 analog for a mod-5 example (idx 5)
+===== STEP 1: mod-5 image of A[5] =====
+induced structure : 155 / 155 inert primes have a_l == 0 mod 5
+irreducibility    : 121 / 146 split primes give sigma-trace in F_25\F_5 (nonsplit-ss)
+dihedral test     : tr == 0 at 183 / 301 primes (60.8%; dihedral ~ 50%)
+exceptional test  : 12 distinct projective traces t^2/l (A4/S4/A5 would be few)
+transvection      : true (order-5 unipotent present)
+>>> STEP 1 verdict: induced + irreducible + big image SL_2(F_25) : true
+
+===== STEP 4: GRH certificate  A[5] = Ind(rho_f) =====
+building orbit-6 eigenform (level norm 5000, weight [2,2]) ...
+  space built (2.8 s), 18 newform orbits; taking orbit 6
+  Hecke field degree 2
+  reduced at lambda|5, residue field F_25
+verifying all good primes up to 10000 ...
+  ... up to 1009: 81 split + 86 inert checked, 0 fails
+  ... up to 3001: 211 split + 218 inert checked, 0 fails
+  ... up to 5003: 332 split + 336 inert checked, 0 fails

@@ -1,0 +1,109 @@
+# Goal-2 for a mod-5 example (idx 5) — the tractable analog of idx 33
+
+**Motivation.** The mod-7 flagship (idx 33) gave a GRH-conditional modularity
+certificate but its unconditional route was blocked because the matching newform
+has a **degree-18 Hecke field**, so `B_f` is an irreducible dim-18 abelian
+variety — not constructible. The mod-5 matches all have **degree-2 Hecke fields**,
+so `B_f` is an **abelian surface** and `Res_{F/Q}(B_f)` is 4-dimensional, exactly
+the regime of van Bommel–Costa–Elkies–Keller–Schiavone–Voight (arXiv:2411.07857).
+This note runs the idx-33 Goal-2 pipeline on a mod-5 example to see how far it goes.
+
+**Example (idx 5).** `F = Q(√2)`, `p = 5`,
+`C: y² = 5 − 10x + 10x² + 5x⁴ + 2x⁵`, `cond(A) = 1 600 000 = 2⁹·5⁵`.
+Goal-1 match: **orbit 6** of `HilbertCuspForms(F, 𝔫, [2,2])`,
+`𝔫 = P₂³·P₅²` (norm 5000, P₂ the ramified prime over 2, P₅ the inert prime over 5),
+Hecke field degree 2, reduced at `λ|5` with residue field **F₂₅**.
+Note 5 is a **bad** prime here (5 | cond), so the level carries `P₅²` — unlike
+idx 33 where 7 was good and the level was the Serre ideal exactly.
+
+## Step 1 — image of A[5] (`goal2_mod5_idx5.m`, DONE)
+
+From A's char polynomial of Frobenius mod 5, primes up to 2000:
+- **Induced**: 155/155 primes inert in F have `a_ℓ ≡ 0 (mod 5)` (the swap-coset
+  signature). 0 failures.
+- **Irreducible**: 121/146 split primes give the σ-trace pair as a conjugate pair
+  in `F₂₅∖F₅` (nonsplit-semisimple), so `σ ≇ σᵗ` ⟹ `Ind σ` irreducible.
+- **Big image**: an order-5 transvection is present and there are 12 distinct
+  projective traces `t²/ℓ`; by **Dickson**, `im(σ) ⊇ SL₂(F₂₅)`. (The raw
+  "tr = 0 at 60.8%" line in the log is dominated by the 155 forced-zero *inert*
+  primes; among split primes only 28/146 ≈ 19% — the transvection alone excludes
+  the dihedral/normalizer-of-torus case.)
+
+## Step 4 — GRH-conditional certificate (`goal2_mod5_idx5.m` + `..._cert2.m`, DONE)
+
+`A[5]` and `Ind(ρ̄_f)` are both 4-dim, irreducible, unramified outside `S = {2,5}`,
+with Artin conductor supported there. By Brauer–Nesbitt they are isomorphic iff
+their Frobenius traces agree; under GRH the conductor-based effective bound on the
+least distinguishing prime is `O((log cond)²)` — here `(log 1.6e6)² ≈ 205`, so a
+pass to `10³–10⁴` suffices, **independent** of the huge splitting field.
+
+**Verified** `tr A[5](Frob_ℓ) = tr Ind(ρ̄_f)(Frob_ℓ)` for **all good primes ℓ < 12000**
+(≈1437 primes; A-side `a_ℓ(A) mod 5`, Ind-side `a_𝔭(f)+a_𝔭'(f)` at split ℓ and 0 at
+inert ℓ), **0 disagreements** (run 1: ℓ<5003, 668 primes; run 2: 5000≤ℓ<12000, 769
+primes). This exceeds idx-33's 1225-primes-to-10⁴ pass.
+
+**⇒ Under GRH, `A[5] ≅ Ind(ρ̄_f)`**, so `A[5]` is residually modular. With GL₂/F
+automorphy lifting (as in idx 33, Ariel's route) this yields GRH-conditional
+modularity of A.
+
+## Where mod 5 genuinely helps — and where it does not
+
+The torsion-field route to drop GRH (van Bommel et al.) has **two walls**; mod 5
+removes one:
+
+- **B_f side — REMOVED.** `B_f` is a degree-2-RM **abelian surface** over `Q(√2)`,
+  `Res_{F/Q}(B_f)` is dim 4 — constructible in principle and within the paper's
+  precedent. The *modular object is now concretely exhibitable* (idx 33's dim-18
+  `B_f` was not).
+- **A side — STILL PRESENT.** The projective 5-torsion resolvent `F_A` blows up
+  because **End(A) = Z** (no RM to expose the F₂₅-rational structure) — a property
+  of A, independent of reducing mod 5 vs mod 7. Same wall as idx 33.
+
+Also BCGP Prop 10.1.3's clean *p=5* induced case wants **residue degree 1** (F₅);
+our form has 5 inert in its Hecke field `Q(√2)` ⟹ residue field **F₂₅**, the same
+residue-degree-2 subtlety as idx-33's F₄₉.
+
+**Net.** mod 5 buys a cleaner, faster certificate and — the real new thing — a
+*constructible* modular abelian surface `B_f`. It does **not** by itself deliver
+unconditional modularity: the A-side End=Z wall and the residue-degree-2 subtlety
+remain. Next step: actually construct `B_f`.
+
+## Constructing B_f (`goal2_mod5_Bf.m`, DONE up to identification)
+
+**B_f identified as a named modular object.** The orbit-6 eigenform is **LMFDB
+Hilbert newform `2.2.8.1-5000.1-j`** (verified: Hecke field `x²+2x−2 = Q(√3)`,
+and `a_P` at norms 7/17/23 are `{−e−2, e}`, `{−2e+1, 2e+5}`, `{−e+6, e+8}`,
+matching our Magma fingerprint exactly). So
+
+> **B_f = the abelian surface over Q(√2) with RM by Q(√3) attached to
+> `2.2.8.1-5000.1-j`**, conductor 𝔫 (norm 5000), GL₂-type.
+
+(LMFDB form `-f` is `x²−2x−2` giving `1±√3` — a *different* newform; `-g,-h,-i`
+have Hecke field Q(√2). Only `-j` matches A.)
+
+**Exact Frobenius fingerprint** (`goal2_mod5_Bf_out.txt`): at a good prime P,
+Frob on B_f has char poly `x² − a_P x + NP` with `a_P ∈ Z[√3]`, and the degree-4
+Q-L-polynomial is `Norm_{Q(√3)/Q}(1 − a_P T + NP T²) = NP²T⁴ − NP·s T³ +
+(2NP+n)T² − s T + 1`, `s = Tr(a_P)`, `n = Nm(a_P)`. Tabulated for 21 good primes;
+at inert P (norm ℓ²) `a_P ∈ Z`, at split P the two primes give Galois-conjugate
+`a_P` — the RM signature.
+
+**No explicit model is tabulated anywhere** (LMFDB: "L-function not available",
+no related genus-2 curve / abelian variety). Producing a defining equation needs
+the **discriminant-12 Humbert/Hilbert-modular-surface parametrization** (Bruin–
+Flynn–Shnidman `Y_(12)[√3]`; Elkies–Kumar `H_12`; generic models arXiv:2403.03191,
+a 3-parameter family `y² = Nm_{L/K}φ(x)`, `L = k[r]/(r³−3(a²−3b²)r+2(a²−3b²))`,
+with a conic obstruction) **plus a moduli-point search over Q(√2)** for the point
+whose Jacobian reproduces the fingerprint above. This is the well-defined but heavy
+next step; the explicit f₁₂ lives in that paper's electronic supplement.
+
+**Why this is the payoff vs idx 33.** idx-33's B_f is an irreducible **dim-18**
+variety — not in any parametrized family, not constructible. Here B_f is an
+abelian surface lying in a **known 2-dimensional family** of explicitly
+parametrized RM-by-√3 Jacobians, so an equation is in-principle reachable. That is
+exactly the tractability gain the mod-5 route was expected to give.
+
+## Artifacts
+- `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
+- `goal2_mod5_idx5_cert2.m` / `goal2_mod5_idx5_cert2_out.txt` — GRH pass [5000,12000].
+- `goal2_mod5_Bf.m` / `goal2_mod5_Bf_out.txt` — B_f data: K_f=Q(√3), LMFDB `2.2.8.1-5000.1-j`, L-poly fingerprint.
