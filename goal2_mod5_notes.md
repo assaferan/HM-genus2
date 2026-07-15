@@ -129,15 +129,36 @@ reduction at d's primes, so a,b,c are NOT {2,5}-units) and leaves the moduli
 point's height unknown. |trace|-matching still finds it (twist-invariant), but only
 once the box reaches the right height.
 
-**Robust next steps** (either finishes it): (a) **reduction–CRT recognition** —
-for each ℓ scan (ā:b̄:c̄)∈P²(F_ℓ) with |trace|=|s_ℓ|, giving B_f's reduction (up to
-the S₄/twist symmetries), then CRT + rational reconstruction over Q(√2)
-(height-independent; combinatorial bookkeeping of the symmetries is the work); or
-(b) **analytic periods** — compute B_f's period matrix from the Hilbert eigenform,
-get Igusa invariants (twist-invariant), recognize the curve via CHIMP's
-`ReconstructCurve` (this repo's own tooling) — blocked only by the lack of a Magma
-routine for Hilbert-modular-form periods. Status: family + search infrastructure
-in place and validated; the moduli point is not yet exhibited.
+**DECISIVE DIAGNOSIS (`goal2_mod5_igusaset.m`): B_f is NOT a quadratic twist of any
+BFS family member.** For each split prime ℓ we scanned ALL of P²(F_ℓ) and kept
+curves whose Jacobian L-poly equals B_f's target L-poly *up to quadratic twist*
+(L_target or its s→−s twin). Result:
+  ℓ=17: 32 matching points (8 distinct Igusa tuples);
+  ℓ=7, 23, 31: **0 matching points**.
+If B_f were a quadratic twist of some C_{a,b,c}, its reduction mod every good prime
+would be a matching family point — in particular a smooth F₇-point, of which there
+are none. So no (a:b:c)∈P²(Q(√2)) has Jac(C_{a,b,c}) a quadratic twist of B_f.
+
+**Root cause.** The BFS family requires full **√3-level structure** (the order-3
+subgroups D₁,D₂ rational). B_f comes from the mod-**5** representation and carries
+no such structure, and a quadratic twist cannot supply it. Relatedly, the modular
+surface B_f attached to a Hilbert eigenform is **generally not principally
+polarized** (BFS note their A/B_{a,b,c} are not PP), i.e. B_f need not be a
+Jacobian at all — only isogenous to one. So the BFS (level-structured) family is
+structurally the wrong parametrization here; the earlier height/S-unit search
+failures were symptoms of this, not just large height.
+
+**Correct tool + remaining work.** Use the **Humbert surface H₁₂** (Elkies–Kumar,
+arXiv:1209.3527), which parametrizes RM-by-√3 Jacobians *without* level structure
+via Igusa–Clebsch invariants (I₂:I₄:I₆:I₁₀) as rational functions of 2 parameters.
+A PP genus-2 Jacobian isogenous to B_f (if one exists over Q(√2)) is a point of
+H₁₂; pin it by matching L-polys / reconstructing its Igusa invariants (the ℓ=17
+foothold gives 8 candidate Igusa tuples mod 17). Alternatively the **analytic
+period** route: period matrix of B_f from the Hilbert eigenform → Igusa invariants
+→ CHIMP `ReconstructCurve` (blocked only by the missing Hilbert-form-period
+routine in Magma). Status: family + search infrastructure validated; the structural
+obstruction to the BFS route is now understood; an explicit model needs H₁₂ or
+analytic periods.
 
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
@@ -147,3 +168,4 @@ in place and validated; the moduli point is not yet exhibited.
 - `goal2_mod5_search.m` — blind box moduli search over Z[√2] (|trace| filter).
 - `goal2_mod5_search2.m` — {2,5}-S-unit moduli search (c=1).
 - `search_validate.m` — validates the fast point-counter against Magma.
+- `goal2_mod5_igusaset.m` — per-prime P²(F_ℓ) scan: the decisive "not a quad twist of the family" diagnostic (0 matches at ℓ=7,23,31; 32 at ℓ=17).
