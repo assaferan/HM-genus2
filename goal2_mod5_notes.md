@@ -224,6 +224,33 @@ its inner twist descends to. That is a genuinely different (and lower-dimensiona
 construction. NOTE: this building-block structure is itself the reason the earlier
 "field of moduli Q / rational (e,f)" heuristic held.
 
+## Q-curve descent (the route to an equation) — `goal2_mod5_qcurve*.m`
+
+Since B_f is a building block, by Ribet it descends to a classical GL₂/Q object.
+**The descent target is explicit:** the inner twist `a_{Pσ}=τ(a_P)` makes the
+symmetric functions `s_ℓ=Tr(a_P)`, `n_ℓ=Nm(a_P)` rational at split ℓ, and these are
+the L-data of a **weight-2 newform g over Q with Hecke field Q(√3)** and L-polynomial
+`ℓ²T⁴−ℓs_ℓT³+(2ℓ+n_ℓ)T²−s_ℓT+1`. Naively a_ℓ(g)=a_P(f) = −1±√3, 3±2√3, 7±√3 at
+ℓ=7,17,23. `A_g/Q` is a modular abelian surface with an explicit genus-2 model, and
+B_f is its twist over Q(√2) — so **g's genus-2 curve is (a twist of) the equation.**
+
+**Searched and NOT naively found.** Magma search of weight-2 newforms with Hecke
+field Q(√3):
+ - trivial nebentypus (Γ₀), levels 2^a·5^b ≤ 16000 — no match;
+ - quadratic nebentypus, levels 2^a·5^b ≤ 2000 — no match.
+
+**Why (the precise remaining step).** In Ribet–Quer descent the eigenvalues do NOT
+descend naively: `a_ℓ(g) = a_P(f) / c(ℓ)` where **c is a splitting character**
+determined by the inner-twist 2-cocycle `{c_σ}`. So `a_ℓ(g) ≠ a_P(f)` in general
+(off by c, which can be ramified outside {2,5}), which is exactly why the naive
+eigenvalue match finds nothing. The concrete next step is **Quer's descent
+algorithm**: (1) read off the inner-twist characters from the fingerprint; (2) solve
+`c² = ξ` (ξ the class of the cocycle) for the splitting character c; (3) form the
+twisted eigenvalues `a_P(f)/c(P)`, which ARE the a_ℓ(g) of a classical newform g of
+computable level/nebentypus; (4) recover A_g's genus-2 model (LMFDB / modular
+symbols), giving B_f up to a Q(√2)-twist. This is well-defined and finite but is a
+genuine Q-curve-descent computation (the splitting character is the crux).
+
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
 - `goal2_mod5_idx5_cert2.m` / `goal2_mod5_idx5_cert2_out.txt` — GRH pass [5000,12000].
@@ -239,3 +266,4 @@ construction. NOTE: this building-block structure is itself the reason the earli
 - `goal2_mod5_crtQ.m` — rational CRT reconstruction of the H₁₂ moduli point (∏|M| method, height reach ~10⁵; blocked, see above).
 - `goal2_mod5_curve.m` — build/verify a curve from a candidate (e,f).
 - `goal2_mod5_loo2.m` — FAST builder (trace-prune) + leave-k-out + fresh-prime scoring; the run proving B_f is a building block on the H₁₂ badlocus (best score 3/7).
+- `goal2_mod5_qcurve.m` / `goal2_mod5_qcurve2.m` — search for the descended weight-2 Q(√3) newform g (trivial / quadratic nebentypus); no naive match ⟹ splitting-character descent needed.
