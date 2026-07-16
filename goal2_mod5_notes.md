@@ -194,10 +194,35 @@ match-set scans (|M| up to 116 at ℓ=97) are prohibitively slow; needs a faster
 match-set builder (e.g. only over the ordinary/generic locus, or point-count L-poly
 without full Mestre reconstruction). That is the concrete next step.
 
-**Status.** Right family found and confirmed; explicit Igusa–Clebsch parametrization
-in hand; reconstruction pipeline validated; B_f's moduli point pinned down to a
-rational point of moderate-to-large height blocked by a badlocus prime — one
-leave-one-out sweep (with a faster M_ℓ builder) should finish it.
+**RESOLUTION (`goal2_mod5_loo2.m`, the fast builder): B_f is a BUILDING BLOCK,
+lying on the H₁₂ badlocus — so it is NOT reachable by the generic 2-parameter model.**
+The fast match-set builder (trace-prune: cheap #C(F_ℓ) first, expensive #C(F_{ℓ²})
+norm check only on the few trace-matches) cut match-set construction from ~700 s to
+~19 s, making an exhaustive search feasible. Result:
+ - rational CRT reconstruction over pool {7,23,17,31,41,73,79} reaches height 10⁵;
+ - **drop-0, all drop-1, and drop-2** reconstructions were scored by how many of 7
+   fresh primes each candidate matches — the **global best is 3/7 (chance level)**.
+So B_f's moduli point is reconstructed by NO subset — not a height/single-badlocus
+issue.
+
+**Why:** the fingerprint shows an **inner twist** — `a_{Pσ} = τ(a_P)` (σ = Gal(Q(√2)/Q),
+τ = Gal(Q(√3)/Q)) at *every* conjugate prime pair (e.g. −1∓√3 at the primes over 7).
+By Ribet's theory of Q-surfaces/building blocks, a Hilbert eigenform with an inner
+twist has `End_{Q̄}(B_f) ⊋ Z[√3]` (quaternionic or product type) — i.e. B_f is a
+**building block with extra endomorphisms**, hence a point on the H₁₂ **badlocus**
+(the "extra-endomorphism / rank-increase" component
+`f⁶−f⁴−18ef²+27e²+16e`). Its reductions land on the badlocus at *every* prime, so
+they are excluded from every M_ℓ; the generic curves in M_ℓ merely *share* B_f's
+Frobenius trace (up to twist) without being B_f. This is the structural obstruction,
+consistent with all the failed reconstructions.
+
+**Status (final for this route).** The generic H₁₂ model provably cannot produce
+B_f. Constructing it requires parametrizing the **badlocus itself** — the
+1-dimensional locus of RM-by-√3 building blocks (a QM/Shimura-curve-type moduli
+problem), or building B_f directly as a Q-surface from the elliptic building block
+its inner twist descends to. That is a genuinely different (and lower-dimensional)
+construction. NOTE: this building-block structure is itself the reason the earlier
+"field of moduli Q / rational (e,f)" heuristic held.
 
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
@@ -213,3 +238,4 @@ leave-one-out sweep (with a faster M_ℓ builder) should finish it.
 - `goal2_mod5_mcount.m` — |M_ℓ| counts (find small-|M| primes: 7,23 → 2).
 - `goal2_mod5_crtQ.m` — rational CRT reconstruction of the H₁₂ moduli point (∏|M| method, height reach ~10⁵; blocked, see above).
 - `goal2_mod5_curve.m` — build/verify a curve from a candidate (e,f).
+- `goal2_mod5_loo2.m` — FAST builder (trace-prune) + leave-k-out + fresh-prime scoring; the run proving B_f is a building block on the H₁₂ badlocus (best score 3/7).

@@ -1,0 +1,41 @@
+# fast leave-one-out reconstruction
+l=7 |M|=2  [5.0E-2 s]
+l=23 |M|=2  [0.2 s]
+l=17 |M|=6  [0.2 s]
+l=31 |M|=10  [0.5 s]
+l=41 |M|=10  [0.9 s]
+l=73 |M|=26  [3.3 s]
+l=79 |M|=30  [6.0 s]
+l=47 |M|=70  [7.6 s]
+l=89 |M|=66  [11.4 s]
+l=97 |M|=116  [16.8 s]
+l=103 |M|=58  [22.1 s]
+l=113 |M|=14  [26.2 s]
+l=127 |M|=26  [33.9 s]
+l=137 |M|=16  [41.4 s]
+drop [] | recon 366042 | best fresh-score 3 / 7
+drop [ 7 ] | recon 241916 | best fresh-score 3 / 7
+drop [ 23 ] | recon 206132 | best fresh-score 3 / 7
+drop [ 17 ] | recon 67188 | best fresh-score 2 / 7
+drop [ 31 ] | recon 38528 | best fresh-score 2 / 7
+drop [ 41 ] | recon 37358 | best fresh-score 2 / 7
+drop [ 73 ] | recon 13300 | best fresh-score 2 / 7
+drop [ 79 ] | recon 11218 | best fresh-score 2 / 7
+drop [ 7, 23 ] | recon 131244 | best fresh-score 3 / 7
+drop [ 7, 17 ] | recon 46078 | best fresh-score 3 / 7
+
+=== GLOBAL BEST fresh-score 3 / 7, 14 candidate(s) ===
+  (e,f) = (-5122/4945, 7199/418)  [passes [ 47, 97, 127 ]]
+  (e,f) = (11905/6977, 14344/18965)  [passes [ 47, 89, 97 ]]
+  (e,f) = (-76634/40371, -6287/76907)  [passes [ 47, 97, 103 ]]
+  (e,f) = (33318/157, 5016/33127)  [passes [ 89, 97, 113 ]]
+  (e,f) = (33021/36871, -27065/9336)  [passes [ 47, 103, 127 ]]
+  (e,f) = (25011/33127, -12088/36213)  [passes [ 89, 97, 103 ]]
+  (e,f) = (11905/6977, -14344/18965)  [passes [ 47, 89, 97 ]]
+  (e,f) = (-8007/8018, -307/4421)  [passes [ 89, 103, 127 ]]
+  (e,f) = (-5122/4945, -7199/418)  [passes [ 47, 97, 127 ]]
+  (e,f) = (33318/157, -5016/33127)  [passes [ 89, 97, 113 ]]
+  (e,f) = (33021/36871, 27065/9336)  [passes [ 47, 103, 127 ]]
+  (e,f) = (25011/33127, 12088/36213)  [passes [ 89, 97, 103 ]]
+  (e,f) = (-76634/40371, 6287/76907)  [passes [ 47, 97, 103 ]]
+  (e,f) = (-8007/8018, 307/4421)  [passes [ 89, 103, 127 ]]
