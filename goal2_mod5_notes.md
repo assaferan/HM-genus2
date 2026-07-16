@@ -160,6 +160,45 @@ routine in Magma). Status: family + search infrastructure validated; the structu
 obstruction to the BFS route is now understood; an explicit model needs H₁₂ or
 analytic periods.
 
+## The H₁₂ route (the correct family) — `goal2_mod5_h12.m`, `..._crtQ.m`, `..._curve.m`
+
+**H₁₂ confirmed as the right family.** From the Elkies–Kumar ancillary data
+(arXiv:1209.3527, `12/igusa12.txt`) the discriminant-12 Humbert surface has a clean
+**2-parameter** model: with `A1=f−1, A=−(f⁴+15ef+9e)/3, B1=(2f³−2f²−3f+3e+3)/3,
+B=(2f⁶−63ef³−81ef²−54e²)/27, B2=e³`, the Igusa–Clebsch invariants are
+`[I2,I4,I6,I10] = [−24B1/A1, −12A, 96(A/A1)B1−36B, −4A1B2]` (bad locus
+`e·f·(f²−1)·(e−f²)·(8f⁴−9ef²−3e)·(f⁶−f⁴−18ef²+27e²+16e)`). Unlike BFS, this needs
+**no √3-level structure**, so it contains B_f's isogeny class. Per-prime scan
+(`goal2_mod5_h12.m`): B_f's L-poly is matched (up to twist) at **every** split
+prime 7,17,23,31 — the exact opposite of BFS's 0-matches. ✓
+
+**Reconstruction machinery built and run** (`goal2_mod5_targets.m` extends the
+fingerprint to 20 split primes; `goal2_mod5_mcount.m` finds small-|M| primes;
+`goal2_mod5_crtQ.m` does the CRT). Key idea: at each split prime the true (e,f)
+reduces into the small match-set M_ℓ; CRT + rational reconstruction across primes
+recovers it. **Structural finding:** the two spurious survivors that first appeared
+were *rational* — consistent with f having an **inner twist** (a_{P^σ}=τ(a_P) at
+conjugate primes, seen in the fingerprint), i.e. B_f's field of moduli is Q, so
+(e,f) ∈ Q² and the CRT needs only ∏|M_ℓ| combinations (not ∏|M_ℓ|²).
+
+**Moduli point NOT yet reconstructed — the remaining wall.** Reconstruction was
+pushed to height reach ~2730 (over Q(√2)) and **~10⁵ (rational, `crtQ` with primes
+7,23,17,31,41,73,79)** — always **0 true survivors** (only twist/L-poly false
+positives that die at fresh primes). A height >10⁵ for a conductor-5000 moduli
+point is implausible, so the likely cause is a **badlocus collision**: B_f's
+reduction lands on the H₁₂ extra-endomorphism / model-degeneration locus at one of
+the small-|M| CRT primes (7,23,17,31), which *excludes* its residue from M_ℓ, so no
+modulus can recover it. The clean fix is **leave-one-out** reconstruction (drop each
+prime; the run omitting the bad ℓ₀ succeeds) — attempted but the large-prime F_ℓ²
+match-set scans (|M| up to 116 at ℓ=97) are prohibitively slow; needs a faster
+match-set builder (e.g. only over the ordinary/generic locus, or point-count L-poly
+without full Mestre reconstruction). That is the concrete next step.
+
+**Status.** Right family found and confirmed; explicit Igusa–Clebsch parametrization
+in hand; reconstruction pipeline validated; B_f's moduli point pinned down to a
+rational point of moderate-to-large height blocked by a badlocus prime — one
+leave-one-out sweep (with a faster M_ℓ builder) should finish it.
+
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
 - `goal2_mod5_idx5_cert2.m` / `goal2_mod5_idx5_cert2_out.txt` — GRH pass [5000,12000].
@@ -169,3 +208,8 @@ analytic periods.
 - `goal2_mod5_search2.m` — {2,5}-S-unit moduli search (c=1).
 - `search_validate.m` — validates the fast point-counter against Magma.
 - `goal2_mod5_igusaset.m` — per-prime P²(F_ℓ) scan: the decisive "not a quad twist of the family" diagnostic (0 matches at ℓ=7,23,31; 32 at ℓ=17).
+- `goal2_mod5_h12.m` — Elkies–Kumar H₁₂ per-prime confirmation (matches at ALL of 7,17,23,31).
+- `goal2_mod5_targets.m` / `goal2_mod5_targets_out.txt` — B_f (s,n) fingerprint at 20 split primes.
+- `goal2_mod5_mcount.m` — |M_ℓ| counts (find small-|M| primes: 7,23 → 2).
+- `goal2_mod5_crtQ.m` — rational CRT reconstruction of the H₁₂ moduli point (∏|M| method, height reach ~10⁵; blocked, see above).
+- `goal2_mod5_curve.m` — build/verify a curve from a candidate (e,f).

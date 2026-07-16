@@ -1,0 +1,14 @@
+# rational CRT reconstruction of B_f moduli point
+l=7 |M|=2
+l=23 |M|=2
+l=17 |M|=6
+l=31 |M|=10
+l=41 |M|=10
+l=73 |M|=26
+l=79 |M|=30
+combining 1872000 tuples, modulus 20061818609 (height < 100154) ...
+reconstructed 366042 rational (e,f); fast membership filter at 47,79 ...
+  |M_47|=71
+  |M_89|=66
+102 pass 47 & 89; confirming at 89,97,103,113,127,137,151 ...
+=== 0 survivors passing ALL 16 fresh primes ===
