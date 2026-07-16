@@ -239,17 +239,39 @@ field Q(√3):
  - trivial nebentypus (Γ₀), levels 2^a·5^b ≤ 16000 — no match;
  - quadratic nebentypus, levels 2^a·5^b ≤ 2000 — no match.
 
-**Why (the precise remaining step).** In Ribet–Quer descent the eigenvalues do NOT
-descend naively: `a_ℓ(g) = a_P(f) / c(ℓ)` where **c is a splitting character**
-determined by the inner-twist 2-cocycle `{c_σ}`. So `a_ℓ(g) ≠ a_P(f)` in general
-(off by c, which can be ramified outside {2,5}), which is exactly why the naive
-eigenvalue match finds nothing. The concrete next step is **Quer's descent
-algorithm**: (1) read off the inner-twist characters from the fingerprint; (2) solve
-`c² = ξ` (ξ the class of the cocycle) for the splitting character c; (3) form the
-twisted eigenvalues `a_P(f)/c(P)`, which ARE the a_ℓ(g) of a classical newform g of
-computable level/nebentypus; (4) recover A_g's genus-2 model (LMFDB / modular
-symbols), giving B_f up to a Q(√2)-twist. This is well-defined and finite but is a
-genuine Q-curve-descent computation (the splitting character is the crux).
+**Quer's construction, worked out — it is the HARD (irreducible-induction) case,
+NOT a clean elliptic Q-curve.** The inner twist is `ρ_f^σ ≅ τ(ρ_f)`. Whether the
+descent is easy hinges on whether this is a *character* twist, i.e. whether
+`a_{Pσ}/a_P` is a root of unity. It is NOT: `a_{Pσ}/a_P = −2+√3` at 7,
+`−7−4√3` at 17, … — **infinite-order units of Z[√3]**, not roots of unity. So
+`ρ_f^σ ≇ ρ_f⊗χ` for any character χ, hence **Ind_{K/Q}(ρ_f) is irreducible**, and
+`Res_{K/Q}(B_f)` is a **simple modular abelian FOURFOLD `A_g`** for a weight-2
+newform g/Q with a **degree-4 Hecke field** (containing Q(√3)) — not a degree-2
+Q(√3) form, and not an elliptic Q-curve.
+
+**g's fingerprint = a trace form supported on split primes.** `Tr a_ℓ(g) = s_ℓ` at
+ℓ split in Q(√2), `= 0` at ℓ inert (nebentypus χ₈); conductor `= cond(Res B_f) =
+disc(Q(√2))²·Nm(cond B_f) = 8²·5000 = 320000 = 2⁹·5⁴`. Searched (`goal2_mod5_descent.m`,
+any Hecke degree, quadratic nebentypus, levels 2^a·5^b ≤ 3200): **no match** —
+consistent with the conductor being 320000 (beyond both LMFDB's complete range and a
+quick Magma newform computation).
+
+**Consequences / honest assessment.**
+ - This is a genuine building block of the *irreducibly-induced* type; the "elliptic
+   Q-curve descent" I'd hoped for does not apply (that needs a character twist).
+ - Even finding g does NOT hand over a genus-2 equation: B_f is only a **2-dim Q̄-factor
+   of the 4-dim A_g**, so A_g's model isn't a genus-2 curve for B_f.
+ - Computing g means a weight-2, level-320000 newform computation (feasible but heavy,
+   dimension in the thousands) — and it yields A_g, not B_f directly.
+ - **The cleanest route to an actual explicit equation for B_f remains the analytic
+   one**: numerically compute B_f's period matrix from the Hilbert eigenform f →
+   Igusa invariants → recognize the genus-2 curve (this repo's own reconstruction
+   machinery). The only missing piece is a routine for periods of a Hilbert modular
+   form / its abelian variety, which Magma does not provide out of the box.
+
+Net: the construction problem is now fully characterized on every route (generic H₁₂:
+high-height/badlocus; Q-curve descent: irreducible-induction ⟹ deg-4/cond-320000,
+gives A_g not B_f; analytic periods: the right route, blocked only by tooling).
 
 ## Artifacts
 - `goal2_mod5_idx5.m` / `goal2_mod5_idx5_out.txt` — Step 1 + GRH pass (ℓ<5003 before timeout).
