@@ -22,6 +22,17 @@ survivors.m
 
 # run progress logs
 *_progress.txt
+
+# ES eigenvalue-cache transients (keep the merged es_eig/<label>.txt + PROGRESS.md)
+es_eig/*.part.*
+es_eig/chunk_*.log
+es_eig/*.fast
+hp_run.log
+
+# diagnostic / run outputs (some older *_out.txt remain tracked from before this rule)
+*_out.txt
+*_out*.txt
+search_results*.txt
 email_ariel_draft.md
 email_ariel_reply2.md
 modularity_idx33.aux
