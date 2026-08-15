@@ -112,7 +112,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
 
 - **level** norm 7048  =  [ <2, 3>, <881, 1> ]
 - **weight** [2,2], trivial nebentypus
-- **orbit dim** 18, **Hecke field** Q[y]/(y^18 - 54y^16 - 6y^15 + 1124y^14 + 184y^13 - 11538y^12 - 2264y^11 + 61687y^10 + 13681y^9 - 166924y^8 - 35569y^7 + 203946y^6 + 26001y^5 - 95812y^4 - 10226y^3 + 12624y^2 + 2360y - 16)
+- **orbit dim** 18; **Hecke field** deg 18, totally real, Galois group S_18, disc = 2^3·11·1709·(29-digit prime) — **not in LMFDB**. Defining poly Q[y]/(y^18 - 54y^16 - 6y^15 + 1124y^14 + 184y^13 - 11538y^12 - 2264y^11 + 61687y^10 + 13681y^9 - 166924y^8 - 35569y^7 + 203946y^6 + 26001y^5 - 95812y^4 - 10226y^3 + 12624y^2 + 2360y - 16)
 - **Hecke cutters** — minpoly of `a_P`:
     - `P (norm 9, (3)):  minpoly(a_P) = y^18 + 17y^17 + 74y^16 - 245y^15 - 2532y^14 - 1981y^13 + 26272y^12 + 51570y^11 - 117427y^10 - 345154y^9 + 187821y^8 + 1035589y^7 + 216747y^6 - 1366380y^5 - 969569y^4 + 442423y^3 + 699359y^2 + 251552y + 27232`
     - `P (norm 25, (5)):  minpoly(a_P) = y^18 + 33y^17 + 319y^16 - 1162y^15 - 43547y^14 - 260171y^13 + 469115y^12 + 12033929y^11 + 44501109y^10 - 56316999y^9 - 852721809y^8 - 2067056351y^7 + 607748975y^6 + 10349900301y^5 + 12588696758y^4 - 8439753640y^3 - 24066987640y^2 - 8013182592y + 4208944064`
@@ -128,7 +128,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
 
 - **level** norm 14303  =  [ <14303, 1> ]
 - **weight** [2,2], trivial nebentypus
-- **orbit dim** 5, **Hecke field** Q[y]/(y^5 - 2y^4 - 5y^3 + 13y^2 - 7y + 1)
+- **orbit dim** 5; **Hecke field** = **LMFDB [5.5.14641.1](https://www.lmfdb.org/NumberField/5.5.14641.1)** — the cyclic quintic of conductor 11 (= Q(ζ_11)^+), disc 11^4. Generator here: Q[y]/(y^5 - 2y^4 - 5y^3 + 13y^2 - 7y + 1) (LMFDB polredabs: x^5 + x^4 - 4x^3 + 3x^2 + 3x - 1)
 - **Hecke cutters** — minpoly of `a_P`:
     - `P (norm 2, (-a)):  minpoly(a_P) = y^5 - 2y^4 - 5y^3 + 13y^2 - 7y + 1`
     - `P (norm 9, (3)):  minpoly(a_P) = y^5 + y^4 - 15y^3 - 14y^2 + 3y + 1`
