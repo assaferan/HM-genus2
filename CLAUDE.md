@@ -117,10 +117,17 @@ Magma is proprietary, so it cannot run on a GitHub-hosted runner.
    **repo Settings → Actions → Runners → New self-hosted runner**, complete the
    setup, then add the label **`magma`** (the workflow uses
    `runs-on: [self-hosted, magma]`).
-2. For the full-pipeline `test.m` to run rather than skip, check out **CHIMP as a
-   sibling** of the repo (`../CHIMP`); see Dependencies.
+2. For the full-pipeline `test.m` to run rather than skip, set the repo **variable
+   `CHIMP_DIR`** (Settings → Secrets and variables → Actions → Variables) to an
+   existing CHIMP checkout on the runner. CI symlinks it to `../CHIMP`; unset/invalid
+   ⇒ that test skips. (CHIMP has ~30 submodules, so we reuse a checkout rather than
+   clone it fresh in CI.)
 
 Until a runner is registered, the workflow is defined but nothing executes it.
+
+New runner picked up jobs only after its label matched; note that jobs **queued
+before** a matching runner exists are stamped unmatchable and won't auto-run — push
+a fresh commit (or re-dispatch) once the runner/label is in place.
 
 ## Conventions & gotchas
 
