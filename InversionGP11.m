@@ -97,7 +97,12 @@ function FindTauFast11(qs, dqs, tau0, zs, CC : iters := 60, verbose := false,
         Js := ZeroMatrix(CC, 3, m);
         for i in [1..m], k in [1..3] do Js[k,i] := Conjugate(J[i,k]); end for;
         JsJ := Js*J;
-        if Rank(JsJ) lt 3 then
+        // Rank() can itself throw "Error in precision in numerical linear algebra" when JsJ
+        // is severely ill-conditioned (typically at low precision on a near-degenerate
+        // surface); treat that, like an honest rank drop, as a singular normal matrix.
+        rk := 0;
+        try rk := Rank(JsJ); catch e; rk := 0; end try;
+        if rk lt 3 then
             if verbose then printf "  [singular normal matrix, abandoning]\n"; end if; break;
         end if;
         accepted := false;
@@ -124,20 +129,37 @@ end function;
 // Two-phase inversion: locate the basin with cheap reduced-precision restarts, then polish
 // the winner at full precision. Input: the pencil v,w (length-6 over CC). Returns <tau, |R|>.
 function InvertGP11Fast(v, w, CC : trials := 100, search_prec := 0, verbose := false,
-                        basin_thresh := 1e-6, polish_iters := 40)
+                        basin_thresh := 1e-6, polish_iters := 40, search_iters := 50,
+                        stag_rel := 1e-3, stag_floor := 1e-3, stag_win := 4, resample := 10)
     prec := Precision(CC);
     sp := search_prec gt 0 select search_prec else Max(30, Min(prec, 40));
     CCs := ComplexFieldExtra(sp); iis := CCs.1;
     P11s := PolynomialRing(CCs, D);
     qsS, dqsS := QuadricsCC([CCs!c : c in v], [CCs!c : c in w], P11s);
-    zs := [ [CCs| (Random(-50,50)+iis*Random(10,40))/100, (Random(-50,50)+iis*Random(10,40))/100 ] : kk in [1..6] ];
+    NewZs := func< | [ [CCs| (Random(-50,50)+iis*Random(10,40))/100,
+                             (Random(-50,50)+iis*Random(10,40))/100 ] : kk in [1..6] ] >;
+    zs := NewZs();
     Nscore := Max(14, Ceiling(Sqrt(sp/4)));
     best := []; bestR := Infinity();
     for trial in [1..trials] do
-        tau0 := [ (Random(-200,200)+iis*Random(10,120))/100,
-                  (Random(-150,150)+iis*Random(-50,50))/100,
-                  (Random(-250,250)+iis*Random(10,250))/100 ];
-        ts, _ := FindTauFast11(qsS, dqsS, tau0, zs, CCs : iters := 50, verbose := verbose);
+        // Redraw the sample points every `resample` restarts. The true tau zeroes the
+        // residual for ANY z, but the spurious local minima do depend on the sample: an
+        // unlucky draw can make every restart stall (empirically around |R| ~ sqrt(6)),
+        // so a fixed zs risks losing the point entirely. (bestR is then compared across
+        // different samples -- fine, since only |R| ~ 0 vs not matters and the polish
+        // phase re-verifies at full precision.)
+        if resample gt 0 and trial gt 1 and (trial-1) mod resample eq 0 then zs := NewZs(); end if;
+        // Sample tau0 over the (1,11) FUNDAMENTAL DOMAIN. The (1,11) theta point is periodic
+        // under a -> a+2, b -> b+11, c -> c+11 (a unit shift in b or c permutes the 11 theta
+        // coordinates rather than fixing the point), so the real parts of b and c range over a
+        // width-11 interval, NOT the width-3 box inherited from the (1,5) port -- with the narrow
+        // box every basin outside |Re| < ~2 was systematically unreachable (a real tau here had
+        // Re(b) = -3.69, Re(c) = 20.16 == -1.84 mod 11). Im(c) ~ 11*Im(a) reflects the diag(1,11).
+        tau0 := [ (Random(-100,100)+iis*Random(5,150))/100,
+                  (Random(-550,550)+iis*Random(-50,50))/100,
+                  (Random(-550,550)+iis*Random(10,400))/100 ];
+        ts, _ := FindTauFast11(qsS, dqsS, tau0, zs, CCs : iters := search_iters, verbose := verbose,
+                               stag_rel := stag_rel, stag_floor := stag_floor, stag_win := stag_win);
         pd := Imaginary(ts[1]) gt 0 and Imaginary(ts[1])*Imaginary(ts[3]) - Imaginary(ts[2])^2 gt 0;
         r := pd select ResNorm11(qsS, dqsS, zs, ts[1], ts[2], ts[3], Nscore, CCs) else Infinity();
         if pd and r lt bestR then bestR := r; best := ts; end if;
@@ -146,7 +168,13 @@ function InvertGP11Fast(v, w, CC : trials := 100, search_prec := 0, verbose := f
     end for;
     error if #best eq 0, "InvertGP11Fast: no positive-definite tau found; increase trials";
     if bestR ge basin_thresh then
-        printf "WARNING: best search residual %o exceeds basin_thresh %o\n", RealField(8)!bestR, RealField(8)!basin_thresh;
+        // No basin found in the (cheap) search phase. Do NOT polish: the full-precision
+        // polish with coarse:=false ramps the lattice truncation N to maximum and iterates
+        // polish_iters times, which on a basin-less surface costs enormous time to still
+        // return garbage. Return the coarse best so the caller can skip immediately.
+        printf "WARNING: best search residual %o exceeds basin_thresh %o; skipping polish\n",
+               RealField(8)!bestR, RealField(8)!basin_thresh;
+        return SymmetricMatrix([ CC!Real(t) + CC.1*(CC!Imaginary(t)) : t in best ]), bestR;
     end if;
     P11 := PolynomialRing(CC, D);
     qsH, dqsH := QuadricsCC(v, w, P11);
