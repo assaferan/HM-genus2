@@ -137,7 +137,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
     - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
     - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
 
-## 4b. A modularity theorem (under GRH): the l=11 example
+## 4b. Modularity theorems (under GRH): the l=11 and l=13 examples
 
 For curve `14303.1` we upgrade the match to a **theorem under GRH**, following the idx-33
 method (`grh_14303.m`). `sigma` (the 2-dim sub of `A[11]`) and `rho_f` (mod-lambda reduction
@@ -152,6 +152,16 @@ the bound.
 
 > **Theorem [GRH].** `sigma = rho_f`; hence `sigma` is modular. (First Serre-modularity
 > theorem over `Q(sqrt2)` from this dataset.)
+
+For curve `881.1` (`l=13`, level `p2^3*881`) the same certificate goes through (`grh_881.m`):
+`sigma`, `rho_f` are 2-dim, irreducible, `det = chi_13`, unramified outside `{P_881, 2, 13}`;
+the Hecke field is a generic degree-18 `S_18` field (a `lambda|13` of residue degree 1 gives the
+reduction). Verified **exact trace agreement at all 427 good primes `N(P) <= 3000`** (0
+disagreements).
+
+> **Theorem [GRH].** For `881.1` (`l=13`), `sigma = rho_f`; hence `sigma` is modular.
+
+So both demonstrated matches are modularity theorems under GRH (l = 11 and l = 13).
 
 The same certificate applies verbatim to any other match (replace curve + level); only the
 eigenvalue precompute grows with the level.
