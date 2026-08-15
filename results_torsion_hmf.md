@@ -100,6 +100,43 @@ remaining curves are running (`sweep.m` streams to `sweep.out`); the larger-dim 
 (`dim > ~2600`) is deferred to the kernel-intersection matcher used for Goal 1. **The census
 (§3) already establishes that every space is small enough to reach.**
 
+
+### 4a. Explicit identifications (curve + Hilbert newform)
+
+Checked LMFDB: **neither form is in it** — the HMF API returns no records for `2.2.8.1` (Q(√2)) at level norm 7048 or 14303 (beyond LMFDB's coverage for this field). So each is given by curve + Hecke cutters (min. poly of `a_P`). Throughout `a = √2`, `y` generates the Hecke field; `σ` = reduction of `f` mod a prime `λ | ℓ`, verified `a_P(f) ≡ −#C(F_P) (mod ℓ)` at all 29 tested primes (control at 0). The conjugate curves `.2` (under `a ↦ −a`) match the Galois-conjugate forms.
+
+### 881.1
+
+**Curve** `C/Q(√2)`:  
+`y^2 + ((1-a)x^3 - a x^2 + (1-a)x) y = a x^6 + (1+2a)x^5 + 2a x^4 + (-2+a)x^3 - a x^2 + (-1+a)x + 1`
+
+- **level** norm 7048  =  [ <2, 3>, <881, 1> ]
+- **weight** [2,2], trivial nebentypus
+- **orbit dim** 18, **Hecke field** Q[y]/(y^18 - 54y^16 - 6y^15 + 1124y^14 + 184y^13 - 11538y^12 - 2264y^11 + 61687y^10 + 13681y^9 - 166924y^8 - 35569y^7 + 203946y^6 + 26001y^5 - 95812y^4 - 10226y^3 + 12624y^2 + 2360y - 16)
+- **Hecke cutters** — minpoly of `a_P`:
+    - `P (norm 9, (3)):  minpoly(a_P) = y^18 + 17y^17 + 74y^16 - 245y^15 - 2532y^14 - 1981y^13 + 26272y^12 + 51570y^11 - 117427y^10 - 345154y^9 + 187821y^8 + 1035589y^7 + 216747y^6 - 1366380y^5 - 969569y^4 + 442423y^3 + 699359y^2 + 251552y + 27232`
+    - `P (norm 25, (5)):  minpoly(a_P) = y^18 + 33y^17 + 319y^16 - 1162y^15 - 43547y^14 - 260171y^13 + 469115y^12 + 12033929y^11 + 44501109y^10 - 56316999y^9 - 852721809y^8 - 2067056351y^7 + 607748975y^6 + 10349900301y^5 + 12588696758y^4 - 8439753640y^3 - 24066987640y^2 - 8013182592y + 4208944064`
+    - `P (norm 7, (-2a + 1)):  minpoly(a_P) = y^18 - 54y^16 - 6y^15 + 1124y^14 + 184y^13 - 11538y^12 - 2264y^11 + 61687y^10 + 13681y^9 - 166924y^8 - 35569y^7 + 203946y^6 + 26001y^5 - 95812y^4 - 10226y^3 + 12624y^2 + 2360y - 16`
+    - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^18 + 8y^17 - 21y^16 - 304y^15 - 233y^14 + 3535y^13 + 6267y^12 - 17981y^11 - 44980y^10 + 40516y^9 + 150365y^8 - 20005y^7 - 252439y^6 - 70433y^5 + 196619y^4 + 114585y^3 - 45655y^2 - 49824y - 10368`
+    - `P (norm 121, (11)):  minpoly(a_P) = y^18 + 27y^17 - 487y^16 - 18739y^15 + 4747y^14 + 4107291y^13 + 22532242y^12 - 317833147y^11 - 2765513587y^10 + 9051619144y^9 + 127688119082y^8 - 18325224776y^7 - 2611261456546y^6 - 2960865341641y^5 + 22737939261662y^4 + 40019962056332y^3 - 56249965840480y^2 - 133054870257792y - 58651454037024`
+    - `P (norm 169, (13)):  minpoly(a_P) = y^18 + 73y^17 + 1070y^16 - 43475y^15 - 1443157y^14 - 151620y^13 + 484029190y^12 + 4715556014y^11 - 53377199272y^10 - 1080484020257y^9 - 1193131166023y^8 + 83002564637363y^7 + 524656100649275y^6 - 1128621069617603y^5 - 21911135202863470y^4 - 68017735219054844y^3 + 26259192645059072y^2 + 461590316652796032y + 599871255543931104`
+
+### 14303.1
+
+**Curve** `C/Q(√2)`:  
+`y^2 + (x^3 + x^2 + 1) y = a x^5 + (3+2a)x^4 + (3+a)x^3 + (-4-2a)x^2 + (-1+2a)x + (1-a)`
+
+- **level** norm 14303  =  [ <14303, 1> ]
+- **weight** [2,2], trivial nebentypus
+- **orbit dim** 5, **Hecke field** Q[y]/(y^5 - 2y^4 - 5y^3 + 13y^2 - 7y + 1)
+- **Hecke cutters** — minpoly of `a_P`:
+    - `P (norm 2, (-a)):  minpoly(a_P) = y^5 - 2y^4 - 5y^3 + 13y^2 - 7y + 1`
+    - `P (norm 9, (3)):  minpoly(a_P) = y^5 + y^4 - 15y^3 - 14y^2 + 3y + 1`
+    - `P (norm 25, (5)):  minpoly(a_P) = y^5 - 4y^4 - 75y^3 + 170y^2 + 1010y + 439`
+    - `P (norm 7, (-2a + 1)):  minpoly(a_P) = y^5 - 5y^4 - 23y^3 + 122y^2 + 115y - 683`
+    - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
+    - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
+
 ## 5. What this says for the collaboration
 
 - **Feasibility: easy for the bulk.** The small-conductor majority match in seconds–minutes;
