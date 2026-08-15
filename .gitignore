@@ -39,3 +39,7 @@ modularity_idx33.aux
 modularity_idx33.log
 modularity_idx33.out
 email_ariel_reply3.md
+
+# runtime locks / ES progress status (transient)
+*.lock
+es_eig/PROGRESS.md
