@@ -153,4 +153,8 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
 magma validate.m     # structure + conductor consistency for all 39 curves
 magma sweep.m        # level-lowering match + discrimination control, streams to sweep.out
 ```
+`hecke_cutters.m` — loadable Hecke data (field + cutters as `<prime, minpoly(a_P)>`) for each
+confirmed match; `magma lab:="14303.1" e:=0 out:="hecke_cutters.m" emit_cutters.m` appends a
+form; `sweep.m` auto-emits the same blocks to `hecke_cutters_generated.m` as it matches.
+
 Data: `torsion_data.m` (transcribed from `examples.json`, each curve validated).

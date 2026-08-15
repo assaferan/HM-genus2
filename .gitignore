@@ -47,3 +47,6 @@ sweep.out
 # runtime locks / ES progress status (transient)
 *.lock
 es_eig/PROGRESS.md
+
+# sweep auto-generated cutters (curated file is hecke_cutters.m)
+hecke_cutters_generated.m
