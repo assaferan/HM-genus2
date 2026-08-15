@@ -7,6 +7,10 @@ _*.m
 # editor / OS
 .DS_Store
 
+# Python bytecode (run_tests.sh py_compile)
+__pycache__/
+*.pyc
+
 # Claude Code harness state
 .claude/
 
