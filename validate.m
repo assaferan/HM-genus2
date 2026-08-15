@@ -5,6 +5,8 @@ load "torsion_data.m";
 outf := "validate.out";
 PrintFile(outf, "# label  struct(nok/ntot)  condnorm-ok  computed-odd-cond-norm" : Overwrite := true);
 
+nfail := 0; failed := [];       // CI gate: a curve fails if any good prime breaks the 1+chi+sigma
+                                // structure, no primes were testable, or the conductor norm mismatches.
 for row in torsion_data do
     d := row[1]; l := row[2]; lab := row[3]; fc := row[4]; hc := row[5]; N := row[6]; cc := row[7];
     K<a> := QuadraticField(d); OK := Integers(K); R<x> := PolynomialRing(K); Fl := GF(l);
@@ -51,5 +53,15 @@ for row in torsion_data do
     end if;
     line := Sprintf("%-11o  struct %o/%o  cond-ok=%o  cnorm=%o (stated %o)", lab, nok, ntot, condok, cnorm, N);
     printf "%o\n", line; PrintFile(outf, line);
+    if (ntot eq 0) or (nok ne ntot) or (not condok) then
+        nfail +:= 1; Append(~failed, lab);
+    end if;
 end for;
-PrintFile(outf, "# done"); printf "DONE\n"; quit;
+PrintFile(outf, "# done"); printf "DONE\n";
+// Machine-checkable sentinel for CI (Magma does not set a non-zero exit code on error).
+if nfail eq 0 then
+    printf "VALIDATE: ALL PASS (%o/%o curves)\n", #torsion_data, #torsion_data;
+else
+    printf "VALIDATE: FAIL (%o/%o curves failed: %o)\n", nfail, #torsion_data, failed;
+end if;
+quit;

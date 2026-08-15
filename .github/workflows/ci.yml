@@ -1,0 +1,27 @@
+name: CI
+
+# Runs the Magma test gate (run_tests.sh) on a SELF-HOSTED runner, because Magma is
+# proprietary and cannot be installed on GitHub-hosted runners. Register a runner with
+# the labels below on a machine that has a licensed `magma` on PATH:
+#
+#   Settings -> Actions -> Runners -> New self-hosted runner, then add label "magma".
+#   (See ./run_tests.sh for what the gate checks and the RUN_CHIMP_TESTS / MAGMA knobs.)
+#
+# The full-pipeline test (test.m) additionally needs CHIMP checked out as a sibling
+# directory (../CHIMP). If it is absent the gate SKIPS that test; the self-contained
+# dataset/structure validation (validate.m) always runs.
+
+on:
+  push:
+    branches: [main, torsion-hmf-matching]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, magma]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run test gate
+        run: ./run_tests.sh
