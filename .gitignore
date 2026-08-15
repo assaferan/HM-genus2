@@ -7,6 +7,10 @@ _*.m
 # editor / OS
 .DS_Store
 
+# Python bytecode (run_tests.sh py_compile)
+__pycache__/
+*.pyc
+
 # Claude Code harness state
 .claude/
 
@@ -40,6 +44,13 @@ modularity_idx33.log
 modularity_idx33.out
 email_ariel_reply3.md
 
+# torsion-hmf run outputs
+validate.out
+sweep.out
+
 # runtime locks / ES progress status (transient)
 *.lock
 es_eig/PROGRESS.md
+
+# sweep auto-generated cutters (curated file is hecke_cutters.m)
+hecke_cutters_generated.m

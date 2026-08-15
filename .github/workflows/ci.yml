@@ -1,0 +1,41 @@
+name: CI
+
+# Runs the Magma test gate (run_tests.sh) on a SELF-HOSTED runner, because Magma is
+# proprietary and cannot be installed on GitHub-hosted runners. Register a runner with
+# the labels below on a machine that has a licensed `magma` on PATH:
+#
+#   Settings -> Actions -> Runners -> New self-hosted runner, then add label "magma".
+#   (See ./run_tests.sh for what the gate checks and the RUN_CHIMP_TESTS / MAGMA knobs.)
+#
+# The full-pipeline test (test.m) additionally needs CHIMP as a sibling directory
+# (../CHIMP). CHIMP has ~30 submodules, so rather than check it out fresh, point the
+# repo variable CHIMP_DIR at an existing CHIMP checkout on the runner
+# (Settings -> Secrets and variables -> Actions -> Variables); the "Link CHIMP" step
+# symlinks it into the workspace. If CHIMP_DIR is unset or invalid the gate SKIPS the
+# full-pipeline test; the self-contained validation (validate.m) always runs.
+
+on:
+  push:
+    branches: [main, torsion-hmf-matching]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, magma]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link CHIMP (for the full-pipeline test)
+        env:
+          CHIMP_DIR: ${{ vars.CHIMP_DIR }}
+        run: |
+          if [ -n "$CHIMP_DIR" ] && [ -f "$CHIMP_DIR/CHIMP.spec" ]; then
+            ln -sfn "$CHIMP_DIR" ../CHIMP
+            echo "linked ../CHIMP -> $CHIMP_DIR"
+          else
+            echo "CHIMP_DIR unset or CHIMP.spec missing; full-pipeline test will SKIP"
+          fi
+
+      - name: Run test gate
+        run: ./run_tests.sh

@@ -43,6 +43,8 @@ least-squares problem for the three entries of `τ`.
 | `InversionFast.m` | Optimized inverse `x_to_tau_fast`: analytic Jacobian (`ThetaJet`), Levenberg–Marquardt (`FindTauFast`), adaptive lattice truncation. **This is the one used in production.** |
 | `Genus2Curve.m`   | Top-level driver: `x → τ → curve` via CHIMP's `ReconstructCurve`. |
 | `test.m`          | Smoke test: from `x = [1,2,3,4]`, check the Jacobian has 5-torsion. |
+| `run_tests.sh`    | The test gate (sentinel-based; see **Testing & CI**). Runs `validate.m`, the CHIMP pipeline test, and `py_compile`. |
+| `.github/workflows/ci.yml` | Self-hosted-runner CI that calls `run_tests.sh`. |
 | `*.sig`           | Magma-generated attach caches — **not source**, safe to ignore/regenerate. |
 
 ## Key functions
@@ -83,6 +85,49 @@ magma test.m
 
 Note `test.m` calls `Genus2Curve(x)` — load `Genus2Curve.m` first (or attach it)
 so the function is in scope.
+
+## Testing & CI
+
+The test gate is **`./run_tests.sh`** (run from the repo root). It runs:
+
+- `py_compile` on the Python scripts,
+- `validate.m` — dataset + `1+χ+σ` structure check over all 39 curves
+  (self-contained, no CHIMP, ~10 s),
+- `test.m` — the full `x → curve → 5-isogeny` pipeline **only when
+  `../CHIMP/CHIMP.spec` exists** (otherwise auto-skipped).
+
+Knobs: `RUN_CHIMP_TESTS=0` skips the slow full-pipeline test; `MAGMA=/path/to/magma`
+overrides the binary.
+
+**Gotcha that shapes the whole gate: Magma always exits 0 — even on a runtime
+error.** CI therefore cannot use exit codes. Each Magma gate script instead prints
+a unique **success sentinel** on the happy path (e.g. `validate.m` prints
+`VALIDATE: ALL PASS (39/39 curves)`, `test.m` prints `PASS: Jac(C) admits ...`),
+and `run_tests.sh` treats a gate as PASS iff its combined output contains that
+sentinel **and** no error marker. **Any new test script must print its own
+sentinel to be gate-able.**
+
+### CI (self-hosted runner required)
+
+Magma is proprietary, so it cannot run on a GitHub-hosted runner.
+`.github/workflows/ci.yml` targets a **self-hosted** runner and just calls
+`./run_tests.sh`. To enable it:
+
+1. On a machine with a **licensed `magma` on `PATH`**: GitHub →
+   **repo Settings → Actions → Runners → New self-hosted runner**, complete the
+   setup, then add the label **`magma`** (the workflow uses
+   `runs-on: [self-hosted, magma]`).
+2. For the full-pipeline `test.m` to run rather than skip, set the repo **variable
+   `CHIMP_DIR`** (Settings → Secrets and variables → Actions → Variables) to an
+   existing CHIMP checkout on the runner. CI symlinks it to `../CHIMP`; unset/invalid
+   ⇒ that test skips. (CHIMP has ~30 submodules, so we reuse a checkout rather than
+   clone it fresh in CI.)
+
+Until a runner is registered, the workflow is defined but nothing executes it.
+
+New runner picked up jobs only after its label matched; note that jobs **queued
+before** a matching runner exists are stamped unmatchable and won't auto-run — push
+a fresh commit (or re-dispatch) once the runner/label is in place.
 
 ## Conventions & gotchas
 

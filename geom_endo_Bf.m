@@ -27,6 +27,11 @@ ef := Eigenform(Dc[6]);
 K := HeckeEigenvalueField(Dc[6]);
 LOG(Sprintf("K_f = %o  (deg %o)", DefiningPolynomial(K), Degree(K)));
 assert Degree(K) eq 2;
+// EXACT set of all roots of unity in K_f (no order bound): a ratio r is a finite-order
+// inner-twist value iff r lies in this set.  (A fixed m in [1..24] loop misreads any
+// root of unity of order > 24 as infinite order -- the opposite conclusion.)
+TU, mTU := TorsionUnitGroup(K); rous := { mTU(u) : u in TU };
+IsRoU := func< r | (K!r) in rous >;
 // nontrivial Galois automorphism tau of K_f
 auts := Automorphisms(K);
 tau := [a : a in auts | a(K.1) ne K.1][1];
@@ -54,8 +59,7 @@ for l in PrimesInInterval(3, 80) do
         r := tau(K!aP)/(K!aP);
         Append(~ratios, r);
         // is r a root of unity?  finite multiplicative order?
-        isroot := false;
-        for m in [1..24] do if r^m eq 1 then isroot := true; break; end if; end for;
+        isroot := IsRoU(r);
         LOG(Sprintf("%o : %o : P(%o) : %o : %o   root-of-unity? %o",
                     l, isSplit, NP, aP, r, isroot));
     end for;
@@ -68,9 +72,7 @@ LOG(Sprintf("a_P = 0 at %o of %o good primes (CM would force ~1/2 density on ine
 // no finite-order inner-twist character exists.
 allroot := true;
 for r in ratios do
-    isr := false;
-    for m in [1..24] do if r^m eq 1 then isr := true; break; end if; end for;
-    if not isr then allroot := false; end if;
+    if not IsRoU(r) then allroot := false; end if;
 end for;
 LOG("");
 if allroot then
