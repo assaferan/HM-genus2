@@ -74,9 +74,12 @@ cnt := 0;
 for pp in PrimesUpTo(pbound) do
     for tup in Factorization(pp*OK) do
         P := tup[1]; if Norm(N+P) ne 1 then continue; end if;
-        _, g := IsPrincipal(P);
+        isp, g := IsPrincipal(P);
+        if isp then idgen := Sprintf("%o", K!g);   // class number 1: single generator
+        else gg := [K!x : x in Generators(P)];     // non-principal: emit the full generator list
+             idgen := &cat[ Sprintf("%o%o", gg[i], i lt #gg select ", " else "") : i in [1..#gg] ]; end if;
         ap := HeckeEigenvalue(eig, P);
-        cut := cut cat Sprintf("\n  < ideal<OK | %o>, %o >,   // N(P) = %o", K!g, Qy!MinimalPolynomial(ap), Norm(P));
+        cut := cut cat Sprintf("\n  < ideal<OK | %o>, %o >,   // N(P) = %o", idgen, Qy!MinimalPolynomial(ap), Norm(P));
         cnt +:= 1;
     end for;
     if cnt ge 6 then break; end if;

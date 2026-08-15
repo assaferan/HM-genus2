@@ -1,5 +1,9 @@
 import subprocess, re, json, os, sys
-os.chdir('/scratch/home/assaferan/GitHub/HM-genus2')
+# Run from the data directory. Override with HM_DIR; default to the compute-server path if it
+# exists, else stay in the current working directory (so the script runs on any checkout).
+_wd = os.environ.get('HM_DIR', '/scratch/home/assaferan/GitHub/HM-genus2')
+if os.path.isdir(_wd):
+    os.chdir(_wd)
 rows=[json.loads(l) for l in open('sorted_output.jsonl')]
 mod5={i for i,r in enumerate(rows) if r['congruence_prime']==5}
 def midx(f,p):
@@ -41,6 +45,7 @@ for idx in remaining:
     elif skipbig:
         line=f"ENTRY {idx} serre{serre} SKIP-BIG (dim>cap at raised weight)"
     else:
-        line=f"ENTRY {idx} serre{serre} NO-MATCH (tried [2,4],[4,2],[2,6],[6,2])"
+        tried=','.join(f"[{a},{b}]" for (a,b) in WEIGHTS)
+        line=f"ENTRY {idx} serre{serre} NO-MATCH (tried {tried})"
     open(RES,'a').write(line+'\n'); print(" "+line,flush=True)
 open(RES,'a').write('# kernel_wt pass done\n'); print("done",flush=True)

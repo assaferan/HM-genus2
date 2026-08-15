@@ -21,9 +21,14 @@ for row in torsion_data do
             catch e; ok := false; end try;
             if not ok then continue; end if;
             wp := RT ! LPolynomial(Ck);
-            cp := RT ! [ Coefficient(wp,4-i) : i in [0..4] ];    // char poly of Frob
+            cp := RT ! [ Coefficient(wp,4-i) : i in [0..4] ];    // char poly of Frob (monic, deg 4)
             Nn := Norm(P) mod l;
-            if Evaluate(cp,Fl!1) eq 0 and Evaluate(cp,Fl!Nn) eq 0 then nok +:= 1; end if;
+            // 1 + chi + sigma: (T-1)(T-Nn) must DIVIDE cp mod l (not merely share the roots --
+            // when Nn=1 root-only checks collapse), and the residual quadratic sigma must be the
+            // 2-dim piece with det = chi_l, i.e. constant term Nn.
+            T := RT.1; q := (T - 1)*(T - Fl!Nn);
+            div_ok, sig := IsDivisibleBy(cp, q);
+            if div_ok and Degree(sig) eq 2 and Coefficient(sig,0) eq Fl!Nn then nok +:= 1; end if;
             ntot +:= 1;
         end for;
         if ntot ge 8 then break; end if;

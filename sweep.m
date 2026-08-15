@@ -23,8 +23,11 @@ procedure EmitCutters(nf, Nlev, K, OK, d, l, lab, e)
     for pp in PrimesUpTo(40) do
         for tup in Factorization(pp*OK) do
             P := tup[1]; if pp eq l or Norm(Nlev+P) ne 1 then continue; end if;
-            _, g := IsPrincipal(P);
-            cut cat:= Sprintf("\n  < ideal<OK | %o>, %o >,   // N(P)=%o", K!g, Qy!MinimalPolynomial(HeckeEigenvalue(eig,P)), Norm(P));
+            isp, g := IsPrincipal(P);
+            if isp then idgen := Sprintf("%o", K!g);   // class number 1: single generator
+            else gg := [K!x : x in Generators(P)];     // non-principal: emit the full generator list
+                 idgen := &cat[ Sprintf("%o%o", gg[i], i lt #gg select ", " else "") : i in [1..#gg] ]; end if;
+            cut cat:= Sprintf("\n  < ideal<OK | %o>, %o >,   // N(P)=%o", idgen, Qy!MinimalPolynomial(HeckeEigenvalue(eig,P)), Norm(P));
             cnt +:= 1;
         end for;
         if cnt ge 6 then break; end if;
@@ -87,6 +90,14 @@ for row in torsion_data do
             mc := matchfun(decomp[idx], Nlev, 0);
             if mc ge 12 then
                 ctrl := matchfun(decomp[idx], Nlev, 1);
+                if ctrl ge mc then
+                    // wrong-fingerprint control was NOT discriminated: the shifted (twist=1)
+                    // fingerprint matches as well as the true one, so this is not a specific match.
+                    line := Sprintf("%-11o d=%o l=%o base=%o e=%o levelN=%o orbit=%o primes=%o control=%o  CONTROL-FAIL (shifted fingerprint not discriminated)",
+                        lab,d,l,N,e,Norm(Nlev),Dimension(decomp[idx]),mc,ctrl);
+                    printf "%o\n", line; PrintFile(outf, line);
+                    continue;
+                end if;
                 line := Sprintf("%-11o d=%o l=%o base=%o e=%o levelN=%o dim=%o orbit=%o Heckedeg=%o primes=%o control=%o  MATCH",
                     lab,d,l,N,e,Norm(Nlev),dm,Dimension(decomp[idx]),Degree(HeckeEigenvalueField(decomp[idx])),mc,ctrl);
                 printf "%o\n", line; PrintFile(outf, line);

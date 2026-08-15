@@ -2,8 +2,10 @@
 // by CRT over split primes.  At each split prime l the matching (e,f) in F_l^2 is a
 // small set; the true (e0,f0) reduces at the two primes above l (sqrt2->r1,r2) into
 // it.  From a conjugate pair we get (e0,f0) mod l in Q(sqrt2); CRT + rational
-// reconstruction over primes 7,23,17,31,41 (modulus ~3.5e6, height up to ~1300).
-// Verify survivors at fresh split primes 71,73; then build the curve over Q(sqrt2).
+// reconstruction over primes 7,23,31,41,73 (modulus ~1.5e7, height up to ~2700).
+// Verify survivors at fresh split primes 17,71 (both DISJOINT from the CRT primes above --
+// 73 is a reconstruction prime, so reducing there is trivially consistent and would not
+// discriminate); then build the curve over Q(sqrt2).
 SetColumns(0);
 
 function IGtuple(e, f)
@@ -76,7 +78,7 @@ for c1 in CA[1] do for c2 in CA[2] do for c3 in CA[3] do for c4 in CA[4] do for 
     b4, qyf := RationalReconstruction(ZM!vyf); if not b4 then continue; end if;
     Include(~sols, <qxe,qye,qxf,qyf>);
 end for; end for; end for; end for; end for;
-LOG(Sprintf("reconstructed %o candidate (e,f); verifying at fresh primes 71,73 ...", #sols));
+LOG(Sprintf("reconstructed %o candidate (e,f); verifying at fresh primes 17,71 ...", #sols));
 
 K<s2> := QuadraticField(2);
 // precompute matching sets at fresh primes 71,73 for O(1) membership filtering
