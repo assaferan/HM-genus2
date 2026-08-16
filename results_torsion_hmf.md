@@ -23,6 +23,12 @@ quadratic field.
 - We **match** the small-conductor curves to explicit Hilbert newforms, each with a
   wrong-fingerprint discrimination control (a true match keeps agreement at all primes; the
   control collapses to 0). [matches table below]
+- The **full sweep** (all 39 curves) is now done by the **kernel-intersection matcher**
+  (§4c): **36/39 matched** (control-validated) — **all 27 `Q(√2)` curves** and **9/12
+  `Q(√3)`**. The three unmatched are the largest `Q(√3)` spaces (level norms 569399, 785473),
+  blocked by a *deterministic Magma library bug* in `BasisMatrixDefinite`
+  ([Magma issue #110](https://github.com/Magma-Maths/Magma/issues/110)), not a mathematical
+  obstruction — the census (§3) proves those spaces are in reach.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
 
@@ -166,6 +172,62 @@ So both demonstrated matches are modularity theorems under GRH (l = 11 and l = 1
 The same certificate applies verbatim to any other match (replace curve + level); only the
 eigenvalue precompute grows with the level.
 
+## 4c. Full sweep via kernel intersection (36/39)
+
+`NewformDecomposition` (used in `sweep.m`, §4) only reaches the 4 smallest curves — it is
+intractable past dim ~2600 (it ran >10 h with no output on the dim-2525 mid-size spaces). The
+**kernel-intersection matcher** `kernel_torsion.m` (adapted from Goal 1's `kernel_match.m`)
+replaces it: on the **full** cusp space `M = HilbertCuspForms(F, base·𝔭₂^e, [2,2])` it forms
+```
+    survivor = ⋂_P ker(T_P − t_P·I)   over F_ℓ,     t_P = −#C(𝔽_P) mod ℓ,
+```
+over good primes `P` (split **and** inert — `σ` is a genuine `GL₂/F` rep, so `t_P ∈ F_ℓ`
+directly, no induced-case inert restriction), sweeping the 2-part exponent `e`. `survivor`
+dim > 0 ⟺ a newform matches; the discrimination control `t_P → t_P+1` must collapse it to 0.
+No char-0 decomposition. In every match below `survivor` is **exactly 1-dimensional** (so the
+eigenform is isolable — see the caveat at the end).
+
+**Result: 36/39 matched, every one `survivor=1, control=0`** — all 27 `Q(√2)` curves, and 9
+of 12 `Q(√3)`. (`dim` here is the **full** cusp-space dimension the kernel runs on, larger than
+the `NewSubspace` dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
+
+| label | F | ℓ | level norm | e | full-space dim | survivor/control |
+|---|---|--:|--:|--:|--:|:--:|
+| 881.1, 881.2 | Q(√2) | 13 | 7048 | 3 | 441 | 1 / 0 |
+| 14303.1, 14303.2 | Q(√2) | 11 | 14303 | 0 | 595 | 1 / 0 |
+| 20447.3, 20447.6 | Q(√2) | 11 | 20447 | 0 | 1023 | 1 / 0 |
+| 24889.1, 24889.2 | Q(√2) | 13 | 24889 | 0 | 1038 | 1 / 0 |
+| 68193.1, 68193.2 | Q(√2) | 11 | 68193 | 0 | 3159 | 1 / 0 |
+| 100489.1 | Q(√2) | 13 | 100489 | 0 | 4188 | 1 / 0 |
+| 105121.1 | Q(√2) | 11 | 105121 | 0 | 4523 | 1 / 0 |
+| 113609.1, 113609.4 | Q(√2) | 13 | 113609 | 0 | 4783 | 1 / 0 |
+| 145161.2 | Q(√2) | 13 | 145161 | 0 | 6827 | 1 / 0 |
+| 161089.2, 161089.3 | Q(√2) | 11 | 161089 | 0 | 6879 | 1 / 0 |
+| 173111.2, 173111.5 | Q(√2) | 13 | 173111 | 0 | 7649 | 1 / 0 |
+| 200273.1, 200273.2 | Q(√2) | 11 | 200273 | 0 | 8345 | 1 / 0 |
+| 243049.2 | Q(√2) | 13 | 243049 | 0 | 11371 | 1 / 0 |
+| 312769.2, 312769.3 | Q(√2) | 11 | 312769 | 0 | 13095 | 1 / 0 |
+| 328329.2 | Q(√2) | 13 | 328329 | 0 | 15359 | 1 / 0 |
+| 478593.1, 478593.4 | Q(√2) | 11 | 478593 | 0 | 22719 | 1 / 0 |
+| 4057.1, 4057.2 | Q(√3) | 11 | 16228 | 2 | 2030 | 1 / 0 |
+| 65209.2, 65209.3 | Q(√3) | 13 | 65209 | 0 | 5532 | 1 / 0 |
+| 72649.1, 72649.2 | Q(√3) | 13 | 72649 | 0 | 6056 | 1 / 0 |
+| 377233.2 | Q(√3) | 11 | 377233 | 0 | 31774 | 1 / 0 |
+| 472993.1, 472993.2 | Q(√3) | 11 | 472993 | 0 | 39418 | 1 / 0 |
+
+**3 unmatched** — the largest `Q(√3)` spaces: `569399.3` (dim ~47168) and `785473.5`,
+`785473.12` (dim ~55446). All three crash **deterministically** in Magma's internal
+`BasisMatrixDefinite` (`Solution: No solution exists`) on the first Hecke operator — a Magma
+library bug ([issue #110](https://github.com/Magma-Maths/Magma/issues/110)), **not** a size
+limit (the larger-dim `472993` at dim 39418 succeeds). Reachable once Magma patches it.
+
+**Caveat — certificates vs. cutters.** The kernel method yields a *match certificate*
+(1-dim surviving mod-ℓ eigenspace + control), not the char-0 eigenform, so it does **not**
+by itself produce Hecke cutters (min. polys of `a_P`) or feed the GRH Faltings–Serre argument.
+The 4 forms in §4/§4a (with full Hecke data in `hecke_cutters.m`) and the two GRH theorems
+(§4b) remain the explicitly-identified subset; extending cutters / GRH certificates to the
+other 32 requires isolating each surviving eigenform (a follow-up computation).
+
 ## 5. What this says for the collaboration
 
 - **Feasibility: easy for the bulk.** The small-conductor majority match in seconds–minutes;
@@ -179,11 +241,18 @@ eigenvalue precompute grows with the level.
 ## Reproduce
 
 ```
-magma validate.m     # structure + conductor consistency for all 39 curves
-magma sweep.m        # level-lowering match + discrimination control, streams to sweep.out
+magma validate.m                  # structure + conductor consistency for all 39 curves
+magma sweep.m                     # NewformDecomposition match (4 smallest only); streams to sweep.out
+magma idx:=3 kernel_torsion.m     # kernel-intersection match certificate for curve #idx (§4c)
 ```
-`hecke_cutters.m` — loadable Hecke data (field + cutters as `<prime, minpoly(a_P)>`) for each
-confirmed match; `magma lab:="14303.1" e:=0 out:="hecke_cutters.m" emit_cutters.m` appends a
-form; `sweep.m` auto-emits the same blocks to `hecke_cutters_generated.m` as it matches.
+`kernel_torsion.m` is the full-sweep matcher (§4c): per curve it builds `M = HilbertCuspForms`
+and reports the surviving mod-ℓ eigenspace dim + control, writing `kernel_<idx>.out`. It reaches
+the whole tail (dims to ~40k) where `sweep.m` cannot. It certifies a match but does **not** emit
+Hecke cutters (see the §4c caveat).
+
+`hecke_cutters.m` — loadable Hecke data (field + cutters as `<prime, minpoly(a_P)>`) for the 4
+explicitly-identified forms (§4a); `magma lab:="14303.1" e:=0 out:="hecke_cutters.m" emit_cutters.m`
+appends a form. The other 32 kernel matches (§4c) are certificates only — cutters pending
+eigenform isolation.
 
 Data: `torsion_data.m` (transcribed from `examples.json`, each curve validated).
