@@ -1,0 +1,32 @@
+--- definite.m.orig	2026-08-16 22:15:13
++++ definite.m	2026-08-16 22:13:35
+@@ -1057,9 +1057,26 @@
+                 col +:= Ncols(hmdf`basis_matrix);
+              end if;
+           end for;
+-          Binv := Transpose(Solution(Transpose(B), IdentityMatrix(BaseRing(B), Nrows(B))));
+-          M`basis_matrix_big := B; 
+-          M`basis_matrix_big_inv := Binv; 
++          M`basis_matrix_big := B;
++          // --- Magma #110 workaround (parallel weight 2) ---------------------------
++          // basis_matrix_big_inv is never read for weight [2,..,2]: RemoveEisenstein
++          // rebuilds basis_matrix / basis_matrix_inv from the Eisenstein indicator
++          // vectors and the inner product (see below), and the big Hecke matrix uses
++          // only Ncols(basis_matrix_big).  For certain large levels the assembled B has
++          // linearly dependent rows, so this right-inverse solve throws
++          // "Runtime error in 'Solution': No solution exists".  Skip it for weight 2;
++          // re-raise for any other weight, where basis_matrix_big_inv IS consumed.
++          try
++            M`basis_matrix_big_inv := Transpose(Solution(Transpose(B), IdentityMatrix(BaseRing(B), Nrows(B))));
++          catch err
++            error if not weight2,
++              "basis_matrix_big_inv (right inverse of basis_matrix_big) could not be " cat
++              "computed, and the parallel-weight-2 Magma #110 workaround does not apply " cat
++              "to this non-parallel-weight-2 space:\n" cat Sprint(err`Object);
++            vprintf ModFrmHil:
++              "  [Magma #110 workaround] basis_matrix_big has dependent rows; skipping " cat
++              "vestigial basis_matrix_big_inv for this weight-2 space\n";
++          end try;
+         end if;
+       end if;
+         

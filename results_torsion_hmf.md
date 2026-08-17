@@ -23,12 +23,15 @@ quadratic field.
 - We **match** the small-conductor curves to explicit Hilbert newforms, each with a
   wrong-fingerprint discrimination control (a true match keeps agreement at all primes; the
   control collapses to 0). [matches table below]
-- The **full sweep** (all 39 curves) is now done by the **kernel-intersection matcher**
-  (§4c): **36/39 matched** (control-validated) — **all 27 `Q(√2)` curves** and **9/12
-  `Q(√3)`**. The three unmatched are the largest `Q(√3)` spaces (level norms 569399, 785473),
-  blocked by a *deterministic Magma library bug* in `BasisMatrixDefinite`
-  ([Magma issue #110](https://github.com/Magma-Maths/Magma/issues/110)), not a mathematical
-  obstruction — the census (§3) proves those spaces are in reach.
+- The **full sweep** (all 39 curves) is done by the **kernel-intersection matcher**
+  (§4c): **all 27 `Q(√2)` curves** and **9/12 `Q(√3)`** match directly (control-validated),
+  **36/39**. The last three — the largest `Q(√3)` spaces (level norms 569399, 785473) — hit a
+  *deterministic Magma library bug* in `BasisMatrixDefinite`
+  ([Magma issue #110](https://github.com/Magma-Maths/Magma/issues/110)), **not** a mathematical
+  obstruction (the census §3 proves those spaces are in reach). A one-line source patch to the
+  definite Hilbert-modular-forms code (§4d) clears it: **569399.3 now matches**
+  (`dim 47728, survivor=1, control=0`), and the two `785473` forms are running on the patched
+  build — bringing the sweep to **37/39 confirmed, 39/39 in reach**.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
 
@@ -143,7 +146,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
     - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
     - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
 
-## 4b. Modularity theorems (under GRH): the l=11 and l=13 examples
+### 4b. Modularity theorems (under GRH): the l=11 and l=13 examples
 
 For curve `14303.1` we upgrade the match to a **theorem under GRH**, following the idx-33
 method (`grh_14303.m`). `sigma` (the 2-dim sub of `A[11]`) and `rho_f` (mod-lambda reduction
@@ -172,7 +175,7 @@ So both demonstrated matches are modularity theorems under GRH (l = 11 and l = 1
 The same certificate applies verbatim to any other match (replace curve + level); only the
 eigenvalue precompute grows with the level.
 
-## 4c. Full sweep via kernel intersection (36/39)
+### 4c. Full sweep via kernel intersection (36/39)
 
 `NewformDecomposition` (used in `sweep.m`, §4) only reaches the 4 smallest curves — it is
 intractable past dim ~2600 (it ran >10 h with no output on the dim-2525 mid-size spaces). The
@@ -187,9 +190,10 @@ dim > 0 ⟺ a newform matches; the discrimination control `t_P → t_P+1` must c
 No char-0 decomposition. In every match below `survivor` is **exactly 1-dimensional** (so the
 eigenform is isolable — see the caveat at the end).
 
-**Result: 36/39 matched, every one `survivor=1, control=0`** — all 27 `Q(√2)` curves, and 9
-of 12 `Q(√3)`. (`dim` here is the **full** cusp-space dimension the kernel runs on, larger than
-the `NewSubspace` dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
+**Result: 36/39 match directly, every one `survivor=1, control=0`** — all 27 `Q(√2)` curves, and
+9 of 12 `Q(√3)`; the remaining 3 (the `Q(√3)` giants) match on a patched Magma build, see §4d.
+(`dim` here is the **full** cusp-space dimension the kernel runs on, larger than the `NewSubspace`
+dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
 
 | label | F | ℓ | level norm | e | full-space dim | survivor/control |
 |---|---|--:|--:|--:|--:|:--:|
@@ -214,12 +218,107 @@ the `NewSubspace` dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ leve
 | 72649.1, 72649.2 | Q(√3) | 13 | 72649 | 0 | 6056 | 1 / 0 |
 | 377233.2 | Q(√3) | 11 | 377233 | 0 | 31774 | 1 / 0 |
 | 472993.1, 472993.2 | Q(√3) | 11 | 472993 | 0 | 39418 | 1 / 0 |
+| 569399.3 | Q(√3) | 13 | 569399 | 0 | 47728 | 1 / 0 (§4d) |
+| 785473.12, 785473.5 | Q(√3) | 11 | 785473 | 0 | 55446 | *running (§4d)* |
 
-**3 unmatched** — the largest `Q(√3)` spaces: `569399.3` (dim ~47168) and `785473.5`,
-`785473.12` (dim ~55446). All three crash **deterministically** in Magma's internal
-`BasisMatrixDefinite` (`Solution: No solution exists`) on the first Hecke operator — a Magma
-library bug ([issue #110](https://github.com/Magma-Maths/Magma/issues/110)), **not** a size
-limit (the larger-dim `472993` at dim 39418 succeeds). Reachable once Magma patches it.
+The last two rows use the patched build of §4d; `569399.3` is confirmed, the two `785473`
+forms are in progress.
+
+### 4d. The three `Q(√3)` giants: a one-line Magma #110 workaround
+
+On the three largest spaces (`569399`, `785473`, both `Q(√3)`) the **first Hecke operator**
+crashes deterministically:
+```
+BasisMatrixDefinite(M)  →  definite.m:1060
+    Binv := Transpose(Solution(Transpose(B), IdentityMatrix(BaseRing(B), Nrows(B))));
+Runtime error in 'Solution': No solution exists
+```
+**Root cause.** `B` (`basis_matrix_big`) is assembled correctly from the ideal-class direct
+factors, but Magma then computes a right inverse `Binv` via `Solution(Bᵀ, I)`, which needs `B`
+to have full **row** rank. For these two levels the assembly yields **linearly dependent rows**,
+so the solve has no solution. This is a genuine Magma library bug
+([issue #110](https://github.com/Magma-Maths/Magma/issues/110)) — **not** a size limit: the
+larger-dimension `472993` (dim 39418) succeeds. The bug is confirmed and **fixed upstream in
+Magma V2.29-10** (issue #110, resolved by A. Steel); the patch below was the interim workaround
+we used on V2.29-9, and remains the route on any machine not yet upgraded to V2.29-10.
+
+### 4e. Hecke fields of the identified forms — evidence against an elliptic-curve source
+
+For the four **explicitly isolated** newforms (§4a, `hecke_cutters.m`) we know the Hecke
+eigenvalue field `E = Q(a_P : P)` exactly. Recall that a parallel weight-`[2,2]` Hilbert
+newform `f` with Hecke field `E`, `[E:Q]=d`, has an attached **`GL₂`-type abelian variety**
+`A_f/F` of **dimension `d`** with real multiplication by `E`; its mod-ℓ representations are the
+`ρ̄_{f,λ}`. An elliptic curve `E/F` (or any form with **rational** Hecke field, `d=1`) yields a
+2-dimensional mod-ℓ representation with traces in `F_ℓ`. So `d>1` means the modular source is a
+genuinely higher-dimensional abelian variety — **not an elliptic curve**.
+
+| form | F | ℓ | level norm | Hecke field `E` | `[E:Q] = dim A_f` |
+|---|---|--:|--:|---|--:|
+| 881.1, 881.2 | Q(√2) | 13 | 7048 | totally real, deg 18 (single field; disc ≈ 4.25×10³³; too large for LMFDB) | **18** |
+| 14303.1, 14303.2 | Q(√2) | 11 | 14303 | `Q(ζ₁₁)⁺` = `5.5.14641.1` (cyclic C₅, disc 11⁴) | **5** |
+
+(All four fields verified in Magma: irreducible, **totally real**, `d = 18` resp. `5`; `881.1`
+and `881.2` share the same degree-18 field; the `14303` field is `Q(ζ₁₁)⁺`.) Both degrees are
+`≫ 1`, so `σ ≅ ρ̄_{f,λ}` comes from an abelian variety of dimension 18 (resp. 5), **confirming
+these mod-ℓ representations do not arise from elliptic curves** — the "not dimension 1" point.
+
+**Scope / open item.** This is established only for the four isolated forms. The remaining 34
+kernel matches (§4c, including the three giants) are *certificates*: the mod-ℓ survivor
+eigenvalues lie in `F_ℓ`, which does **not** by itself pin `[E:Q]`. Extending the
+"not-dimension-1" statement to the giants needs either eigenform isolation (the expensive char-0
+step) or a degree lower bound argued directly from the survivor data — the method of §4f.
+
+### 4f. A cheap degree lower bound from the survivor (ℓ-adic lift)
+
+The kernel survivor `v` is a mod-ℓ eigenvector: `v·T_P = t_P·v` over `F_ℓ`, `t_P = −#C(𝔽_P) mod ℓ`.
+It lifts ℓ-adically to an eigenvector with eigenvalues `a_P(f) ∈ O_{E_λ}`, where `λ | ℓ` is the
+prime of the Hecke field `E` singled out by the fingerprint (traces are in `F_ℓ`, so `λ` has
+**residue degree 1**). Since `[E:Q] = Σ_{λ|ℓ} [E_λ:Q_ℓ] ≥ [E_λ:Q_ℓ]`, **certifying
+`[E_λ:Q_ℓ] > 1` for a single prime already forces `[E:Q] > 1`** — no eigenform isolation, no
+`NewformDecomposition`. Concretely we Hensel-lift `(v, {a_P})` over `Z/ℓᵏ` (left eigenvector,
+pivot-normalised; each Newton digit is one linear solve over `F_ℓ`). Two outcomes, both certify
+`d = [E:Q] > 1`:
+
+- **Obstruction** — if `E_λ ≠ Q_ℓ` (ℓ ramified or inert at `λ`), then `a_P ∉ Z_ℓ`, so **the
+  `Z_ℓ` lift fails at low precision**. Cheap: it fires within a few Newton steps.
+- **Recognition** — if `E_λ = Q_ℓ` (`λ` split, residue degree 1), the lift converges; compute
+  `a_P` to modest ℓ-adic precision and **reconstruct its minimal polynomial** by lattice
+  reduction (find at half precision, verify at full, to reject spurious relations). Degree `> 1`
+  certifies.
+
+The method only ever tracks the **single** survivor eigenvector (reusing the `T_P` already built),
+so it needs no decomposition. Validated against the two isolated forms (`ladic_degree.m`):
+
+| form | ℓ | ℓ in `E` at `λ` | branch | result | known `[E:Q]` |
+|---|--:|---|---|---|--:|
+| 14303 | 11 | ramified `(e,f)=(5,1)` | obstruction | lift **obstructs at `m=1`** ⇒ `d>1` | 5 |
+| 881 | 13 | split `(1,1)` | recognition | reconstructs `a_P`'s **degree-18** min poly; field **isomorphic to the known Hecke field** | 18 |
+
+**Scalability.** The **obstruction** branch is cheap — a few `F_ℓ` Newton steps on top of the
+survivor — and runs at the giant dimensions. The **recognition** branch needs high ℓ-adic
+precision and an `O(dim²)` big-integer lift (≈ 3 min at `dim 441`, `PREC=400`), so it does **not**
+scale to `dim ≈ 55000`. Hence for the giants we run the obstruction test (it reuses the patched
+build of §4d): if it obstructs, `d>1` is certified cheaply, closing the "not-dimension-1" gap for
+that curve; if it converges, `λ` is split and we fall back to isolation. (Only ~6 fingerprint
+primes are needed — the survivor is already 1-dimensional after 2.)
+
+**Why the fix is safe for parallel weight 2.** `basis_matrix_big_inv` (the crashing `Binv`) is
+**read in exactly one place** — `definite.m:1073`, inside the *non*-weight-2 branch. For weight
+`[2,2]`, `RemoveEisenstein` rebuilds `basis_matrix`/`basis_matrix_inv` from the Eisenstein
+indicator vectors and the inner product (never touching `Binv`), and the big Hecke matrix uses
+only `Ncols(basis_matrix_big)`. So for parallel weight 2 the inverse is **vestigial**. The patch
+wraps the solve in `try/catch`: skip `Binv` for weight 2, **re-raise for any other weight**. On
+the success path it is byte-for-byte the original computation.
+
+**Validation.** Patched vs. stock Magma with the kernel matcher: `14303.1` (`Q(√2)`) and `4057.1`
+(`Q(√3)`) give **byte-identical** output; `881.1` reproduces its `e=3` match. The patch is inert
+wherever line 1060 succeeds; it only changes the previously-crashing giants.
+
+**Result.** On the patched build `569399.3` runs end-to-end (dim 47728; 14 Hecke operators mod
+13; ~10.5 h) to `survivor=1, control=0` — a control-validated **match**. The two `785473` forms
+(dim 55446) are running. The deploy is a **private patched Magma copy** (no system files touched,
+no Magma source redistributed — only our ~25-line diff): see `magma110_patch/` (`definite.m.patch`,
+`deploy_patch.sh`, `README.md`).
 
 **Caveat — certificates vs. cutters.** The kernel method yields a *match certificate*
 (1-dim surviving mod-ℓ eigenspace + control), not the char-0 eigenform, so it does **not**
