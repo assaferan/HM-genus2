@@ -83,12 +83,14 @@ for e in elist do
 
   if dimG gt 1 then
     printf "  RESULT: [E:Q] >= %o > 1  =>  matched newform NOT rational; sigma does not arise from an elliptic curve.\n", dimG;
+    printf "LADIC-DEG %-11o idx=%o l=%o e=%o dim=%o dimG=%o degree>=%o NOT-ELLIPTIC\n", lab, idx, l, e, dm, dimG, dimG;
     exit;
   end if;
 
   printf "  dim G = 1 (lambda split, residue degree 1): a_P in Z_l -- generalized-eigenspace test inconclusive.\n";
   if dm gt RECOG_MAXDIM then
     printf "  RESULT: INCONCLUSIVE at dim %o (l-adic recognition is O(dim^3), does not scale; would need eigenform isolation).\n", dm;
+    printf "LADIC-DEG %-11o idx=%o l=%o e=%o dim=%o dimG=1 degree>=1 INCONCLUSIVE-SPLIT-BIGDIM\n", lab, idx, l, e, dm;
     exit;
   end if;
 
@@ -136,7 +138,10 @@ for e in elist do
   end for;
   printf "  RESULT: max recovered [Q(a_P):Q] = %o  =>  [E:Q] >= %o.  %o\n",
     maxdeg, maxdeg, maxdeg gt 1 select "NOT from an elliptic curve." else "(inconclusive: more primes/precision)";
+  printf "LADIC-DEG %-11o idx=%o l=%o e=%o dim=%o dimG=1 degree>=%o %o\n",
+    lab, idx, l, e, dm, maxdeg, maxdeg gt 1 select "NOT-ELLIPTIC-VIA-RECOG" else "INCONCLUSIVE-RECOG";
   exit;
 end for;
 printf "no 1-dim survivor found in e-range\n";
+printf "LADIC-DEG %-11o idx=%o l=%o NO-SURVIVOR\n", lab, idx, l;
 exit;
