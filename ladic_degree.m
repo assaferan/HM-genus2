@@ -23,6 +23,9 @@ if not assigned EEXP then EEXP := -1; end if; EEXP := StringToInteger(Sprintf("%
 if not assigned NCOND then NCOND := 6; end if; NCOND := StringToInteger(Sprintf("%o", NCOND));
 if not assigned PREC then PREC := 400; end if; PREC := StringToInteger(Sprintf("%o", PREC));
 if not assigned RECOG_MAXDIM then RECOG_MAXDIM := 2000; end if; RECOG_MAXDIM := StringToInteger(Sprintf("%o", RECOG_MAXDIM));
+// Degree cap for the LLL min-poly search. If the true Hecke degree exceeds it, Recog finds
+// nothing and returns 0 -- which is reported as FAIL below, NOT as degree 1.
+if not assigned RECOG_MAXDEG then RECOG_MAXDEG := 25; end if; RECOG_MAXDEG := StringToInteger(Sprintf("%o", RECOG_MAXDEG));
 PBOUND := 120;
 
 row := torsion_data[idx];
@@ -125,7 +128,7 @@ for e in elist do
   end for;
   Zx<X> := PolynomialRing(Integers()); modp := l^PREC; mf := l^(PREC div 2);
   Recog := function(ap)
-    for dd in [1..25] do
+    for dd in [1..RECOG_MAXDEG] do
       n := dd+1; B := ZeroMatrix(Integers(), n+1, n+1);
       for j in [0..dd] do B[j+1][j+1]:=1; B[j+1][n+1]:=mf*(Modexp(ap,j,mf)); end for;
       B[n+1][n+1]:=mf*mf; L := LLL(B);
@@ -137,11 +140,25 @@ for e in elist do
       end for;
     end for; return Zx!0;
   end function;
-  maxdeg := 1;
+  // Report per prime: a recovered degree, or FAIL (no relation of degree <= RECOG_MAXDEG at this
+  // precision). Both used to collapse to maxdeg=1, making "a_P really is rational" look identical
+  // to "recognition ran out of precision / degree cap" -- the two call for opposite follow-ups.
+  maxdeg := 1; nfail := 0; degs := [];
   for i in [1..S] do
     rec := Recog(Integers()!avec[i]);
-    if Degree(rec) gt maxdeg then maxdeg := Degree(rec); end if;
+    if Degree(rec) lt 1 then
+      nfail +:= 1; Append(~degs, -1);
+    else
+      Append(~degs, Degree(rec));
+      if Degree(rec) gt maxdeg then maxdeg := Degree(rec); end if;
+    end if;
   end for;
+  printf "  per-prime recovered degrees (-1 = FAIL): %o   [PREC=%o NCOND=%o RECOG_MAXDEG=%o]\n",
+    degs, PREC, S, RECOG_MAXDEG;
+  if nfail gt 0 then
+    printf "  NOTE: %o of %o primes had NO relation of degree <= %o -- inconclusive from precision or\n", nfail, S, RECOG_MAXDEG;
+    printf "        the degree cap, NOT evidence that a_P is rational. Retry with larger PREC/RECOG_MAXDEG.\n";
+  end if;
   printf "  RESULT: max recovered [Q(a_P):Q] = %o  =>  [E:Q] >= %o.  %o\n",
     maxdeg, maxdeg, maxdeg gt 1 select "NOT from an elliptic curve." else "(inconclusive: more primes/precision)";
   printf "LADIC-DEG %-11o idx=%o l=%o e=%o dim=%o dimG=1 degree>=%o %o\n",
