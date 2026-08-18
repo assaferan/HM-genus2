@@ -54,9 +54,15 @@ for e in elist do
   Nlev := base * p2^e;
   M := HilbertCuspForms(K, Nlev, [2,2]); dm := Dimension(M);
   if dm eq 0 then continue; end if;
-  Tint := [ ChangeRing(Matrix(HeckeOperator(M, t[1])), Integers()) : t in fps ];
+  // HeckeOperator returns a matrix over Q which is NOT always integral (it happens to be for
+  // 881/14303, which is why an intermediate ChangeRing(-, Integers()) went unnoticed here; it
+  // fails outright on e.g. 24889 and the Q(sqrt 3) levels). Keep the rational matrix and coerce
+  // straight to the target ring, exactly as kernel_torsion.m / grh_kernel.m do. Denominators are
+  // prime to l, so Q -> F_l and Q -> Z/l^PREC are both well defined; if one ever were not, the
+  // coercion errors loudly rather than silently giving a wrong answer.
+  TQ := [ Matrix(HeckeOperator(M, t[1])) : t in fps ];
   Ifl := IdentityMatrix(Fl, dm); S := #fps;
-  Mmats := [ ChangeRing(Tint[i], Fl) - (Fl!(fps[i][2]))*Ifl : i in [1..S] ];
+  Mmats := [ ChangeRing(TQ[i], Fl) - (Fl!(fps[i][2]))*Ifl : i in [1..S] ];
   Vs := VectorSpace(Fl, dm);
   E1 := Vs; for i in [1..S] do E1 := E1 meet Kernel(Mmats[i]); end for;
   sd := Dimension(E1);
@@ -101,7 +107,7 @@ for e in elist do
   Zk := Integers(l^PREC);
   v := Vector(Zk, [ Integers()!(v0[j]) : j in [1..dm] ]); v := v*(v[piv]^-1);
   avec := [ Zk!(Integers()!(Fl!(fps[i][2]))) : i in [1..S] ];
-  TZ := [ ChangeRing(Tint[i], Zk) : i in [1..S] ];
+  TZ := [ ChangeRing(TQ[i], Zk) : i in [1..S] ];
   for m in [1..PREC-1] do
     Arows := []; w := [];
     for i in [1..S] do
