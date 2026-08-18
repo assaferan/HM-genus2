@@ -34,6 +34,10 @@ quadratic field.
   build — bringing the sweep to **37/39 confirmed, 39/39 in reach**.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
+  Because the mod-ℓ survivor eigenvector supplies `a_P mod λ` directly, the certificate needs
+  **no char-0 eigenform** and scales with the matcher: **33 GRH modularity certificates**
+  (all 27 `Q(√2)`, 6 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
+  (§4b). The remaining 6 are pending compute, not method.
 
 ## 1. Structure and fingerprint (verified)
 
@@ -146,7 +150,9 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
     - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
     - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
 
-### 4b. Modularity theorems (under GRH): the l=11 and l=13 examples
+### 4b. Modularity theorems (under GRH): 33 certificates
+
+#### The two worked examples (char-0 route)
 
 For curve `14303.1` we upgrade the match to a **theorem under GRH**, following the idx-33
 method (`grh_14303.m`). `sigma` (the 2-dim sub of `A[11]`) and `rho_f` (mod-lambda reduction
@@ -172,8 +178,62 @@ disagreements).
 
 So both demonstrated matches are modularity theorems under GRH (l = 11 and l = 13).
 
-The same certificate applies verbatim to any other match (replace curve + level); only the
-eigenvalue precompute grows with the level.
+#### Scaling the certificate: `a_P mod λ` from the survivor eigenvector
+
+Both scripts above route `tr ρ_f(Frob_P)` through a char-0 `NewformDecomposition`, which — as in
+§4c — dies past the four smallest curves. The certificate does **not actually need the char-0
+form**: the kernel survivor `v` of §4c is already a mod-ℓ Hecke eigenvector, so
+
+```
+    tr ρ_f(Frob_P)  =  c_P,   where   v·T_P = c_P·v   over F_ℓ,
+```
+
+and `c_P = a_P(f) mod λ` directly. `grh_kernel_validate.m` proves the identity on `14303`:
+`c_P`, the reduction of the char-0 `HeckeEigenvalue(f,P)`, and the curve-side fingerprint
+`−#C(𝔽_P)` agree at **all 428 good primes `N(P) ≤ 3000`, 0 mismatches**. `grh_kernel.m` then
+emits the full certificate from `v` alone: it finds the match level by the `e`-sweep, checks
+`σ` irreducible (a Frobenius char poly irreducible over `F_ℓ`), and verifies exact trace
+agreement `tr σ(Frob_P) = c_P` at every good `P` up to `BOUND`. No char-0 decomposition
+anywhere, so it reaches the same levels the kernel matcher does.
+
+**Result: 33 GRH certificates — all 27 `Q(√2)` curves and 6 of the 12 `Q(√3)`.** Every one is
+`disagree = 0` with `σ` irreducible. `BOUND` is tiered by dimension (3000 for `dim ≤ 9k`, 800
+above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(log cond)² ~ 200`.
+
+| label(s) | F | ℓ | level norm | e | BOUND | good primes | disagreements |
+|---|---|--:|--:|--:|--:|--:|--:|
+| 881.1, 881.2 | Q(√2) | 13 | 7048 | 3 | 3000 | 427 | 0 |
+| 14303.1, 14303.2 | Q(√2) | 11 | 14303 | 0 | 3000 | 428 | 0 |
+| 20447.3, 20447.6 | Q(√2) | 11 | 20447 | 0 | 3000 | 425 | 0 |
+| 24889.1, 24889.2 | Q(√2) | 13 | 24889 | 0 | 3000 | 428 | 0 |
+| 68193.1, 68193.2 | Q(√2) | 11 | 68193 | 0 | 3000 | 427 | 0 |
+| 100489.1 | Q(√2) | 13 | 100489 | 0 | 3000 | 428 | 0 |
+| 105121.1 | Q(√2) | 11 | 105121 | 0 | 3000 | 427 | 0 |
+| 113609.1, 113609.4 | Q(√2) | 13 | 113609 | 0 | 3000 | 426 | 0 |
+| 145161.2 | Q(√2) | 13 | 145161 | 0 | 3000 | 425 | 0 |
+| 161089.2, 161089.3 | Q(√2) | 11 | 161089 | 0 | 3000 | 427 | 0 |
+| 173111.2, 173111.5 | Q(√2) | 13 | 173111 | 0 | 3000 | 426 | 0 |
+| 200273.1, 200273.2 | Q(√2) | 11 | 200273 | 0 | 3000 | 428 | 0 |
+| 243049.2 | Q(√2) | 13 | 243049 | 0 | 800 | 130 | 0 |
+| 312769.2, 312769.3 | Q(√2) | 11 | 312769 | 0 | 800 | 131 | 0 |
+| 328329.2 | Q(√2) | 13 | 328329 | 0 | 800 | 129 | 0 |
+| 478593.1, 478593.4 | Q(√2) | 11 | 478593 | 0 | 800 | 130 | 0 |
+| 4057.1, 4057.2 | Q(√3) | 11 | 16228 | 2 | 3000 | 424 | 0 |
+| 65209.2, 65209.3 | Q(√3) | 13 | 65209 | 0 | 3000 | 422 | 0 |
+| 72649.1, 72649.2 | Q(√3) | 13 | 72649 | 0 | 3000 | 424 | 0 |
+
+> **Theorem [GRH].** For each of the 33 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
+> of parallel weight `[2,2]` at the stated level; hence `σ` is modular.
+
+The first two rows reproduce the char-0 theorems above (`14303.1` at `e=0`, `881.1` at `e=3`)
+from the survivor alone — the kernel route is validated against the char-0 route wherever both
+are computable.
+
+**Outstanding (6 of 39).** The three largest `Q(√3)` GRH shards — `377233.2`, `472993.1`,
+`472993.2` (dim 31774–39418) — have `survivor=1 / control=0` and `σ` irreducible confirmed, but
+their trace verification was interrupted (they were killed to free RAM for the §4d giant match
+runs, which peak near 300 GB); they need only a relaunch at `BOUND=800`. The three §4d giants
+(`569399.3`, `785473.12`, `785473.5`) get certificates once their matches complete.
 
 ### 4c. Full sweep via kernel intersection (36/39)
 
@@ -324,10 +384,11 @@ is certified and the computation scales, closing the "not-dimension-1" gap for t
 
 **Caveat — certificates vs. cutters.** The kernel method yields a *match certificate*
 (1-dim surviving mod-ℓ eigenspace + control), not the char-0 eigenform, so it does **not**
-by itself produce Hecke cutters (min. polys of `a_P`) or feed the GRH Faltings–Serre argument.
-The 4 forms in §4/§4a (with full Hecke data in `hecke_cutters.m`) and the two GRH theorems
-(§4b) remain the explicitly-identified subset; extending cutters / GRH certificates to the
-other 32 requires isolating each surviving eigenform (a follow-up computation).
+by itself produce Hecke cutters (min. polys of `a_P`). The 4 forms in §4/§4a (with full Hecke
+data in `hecke_cutters.m`) remain the explicitly-identified subset; extending *cutters* to the
+rest requires isolating each surviving eigenform, which is the expensive char-0 step. The GRH
+Faltings–Serre argument, by contrast, **does not** need that isolation — the survivor eigenvector
+supplies `a_P mod λ` directly, which is why §4b scales to 33 curves.
 
 ## 5. What this says for the collaboration
 
@@ -345,7 +406,12 @@ other 32 requires isolating each surviving eigenform (a follow-up computation).
 magma validate.m                  # structure + conductor consistency for all 39 curves
 magma sweep.m                     # NewformDecomposition match (4 smallest only); streams to sweep.out
 magma idx:=3 kernel_torsion.m     # kernel-intersection match certificate for curve #idx (§4c)
+magma idx:=3 grh_kernel.m         # GRH modularity certificate for curve #idx (§4b), BOUND:=3000
 ```
+`grh_kernel.m` writes `grh_kernel_<idx>.out`; the success sentinel is
+`GRH-KERNEL CERT <label>: MODULAR`. `run_grh_shards.sh` launches the batch with `BOUND` tiered by
+dimension (3000 for `dim ≤ 9k`, 800 above); collect with
+`grep -h "GRH-KERNEL CERT" grh_kernel_*.out`.
 `kernel_torsion.m` is the full-sweep matcher (§4c): per curve it builds `M = HilbertCuspForms`
 and reports the surviving mod-ℓ eigenspace dim + control, writing `kernel_<idx>.out`. It reaches
 the whole tail (dims to ~40k) where `sweep.m` cannot. It certifies a match but does **not** emit
@@ -353,7 +419,7 @@ Hecke cutters (see the §4c caveat).
 
 `hecke_cutters.m` — loadable Hecke data (field + cutters as `<prime, minpoly(a_P)>`) for the 4
 explicitly-identified forms (§4a); `magma lab:="14303.1" e:=0 out:="hecke_cutters.m" emit_cutters.m`
-appends a form. The other 32 kernel matches (§4c) are certificates only — cutters pending
-eigenform isolation.
+appends a form. The other kernel matches (§4c) are certificates only — cutters pending eigenform
+isolation. (GRH certificates, by contrast, are *not* blocked on this: see §4b.)
 
 Data: `torsion_data.m` (transcribed from `examples.json`, each curve validated).
