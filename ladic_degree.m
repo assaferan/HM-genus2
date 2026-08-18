@@ -1,36 +1,39 @@
-// ladic_degree.m -- cheap lower bound on the Hecke-field degree [E:Q] of the newform
-// matched by the kernel survivor, WITHOUT isolating the eigenform (no NewformDecomposition).
+// ladic_degree.m -- lower bound on the Hecke-field degree [E:Q] of the newform matched
+// by the kernel survivor, WITHOUT isolating the eigenform (no NewformDecomposition).
 //
-// The survivor v is a mod-l eigenvector (v*T_P = t_P*v over F_l, t_P = -#C(F_P) mod l).
-// Hensel-lift (v, {a_P}) over Z/l^k with the LEFT eigenvector equation v*T_P = a_P*v.
-// a_P(f) lives in E_lambda (lambda|l the fingerprint prime, residue degree 1), and
-//   [E:Q] = sum_{lambda|l} [E_lambda:Q_l] >= [E_lambda:Q_l].
-// Two outcomes, both certify d = [E:Q] > 1 (i.e. NOT from an elliptic curve):
-//   (a) OBSTRUCTION: a_P not in Z_l (E_lambda != Q_l) -> the Z_l lift fails at low precision.
-//   (b) RECOGNITION: a_P in Z_l -> recover its min poly via PowerRelation; degree > 1.
+// Key fact (multiplicity one): at the maximal ideal m cut out by the fingerprint system
+// T_P |-> t_P (mod l), the m-adic Hecke module is free of rank 1, so the mod-l GENERALIZED
+// eigenspace G has  dim_{F_l} G = [E_lambda : Q_l]  (lambda|l the fingerprint prime, residue
+// degree 1).  Since  [E:Q] = sum_{lambda|l} [E_lambda:Q_l] >= [E_lambda:Q_l] = dim G,
+//   dim G > 1   =>   [E:Q] > 1   (newform not rational; sigma not from an elliptic curve).
+// A 1-dim survivor (exact eigenspace) rules out other congruent forms, so G is pure.
 //
-// Usage:  magma idx:=3 ladic_degree.m           (sweeps e for the 1-dim survivor)
-//         magma idx:=1 EEXP:=3 PREC:=60 ladic_degree.m
+// dim G is computed by the increasing chain of NESTED KERNELS
+//   E_1 = survivor,   E_{k+1} = { w : w*(T_i - c_i) in E_k for all i },   G = lim E_k,
+// i.e. the same F_l linear algebra as the survivor -- it SCALES to the giant dimensions.
+// (For dim G = 1, lambda is split/residue-degree-1 and a_P in Z_l; then an l-adic min-poly
+// recognition is attempted, but only at small dim -- that branch is O(dim^3) and does NOT scale.)
+//
+// Usage:  magma idx:=3 ladic_degree.m
+//         magma idx:=1 EEXP:=3 ladic_degree.m        (NCOND:=6, RECOG_MAXDIM:=2000, PREC:=400)
 SetColumns(0);
 load "torsion_data.m";
 idx := StringToInteger(Sprintf("%o", idx));
 if not assigned EEXP then EEXP := -1; end if; EEXP := StringToInteger(Sprintf("%o", EEXP));
-if not assigned PREC then PREC := 40; end if; PREC := StringToInteger(Sprintf("%o", PREC));
-if not assigned NCOND then NCOND := 14; end if; NCOND := StringToInteger(Sprintf("%o", NCOND));
+if not assigned NCOND then NCOND := 6; end if; NCOND := StringToInteger(Sprintf("%o", NCOND));
+if not assigned PREC then PREC := 400; end if; PREC := StringToInteger(Sprintf("%o", PREC));
+if not assigned RECOG_MAXDIM then RECOG_MAXDIM := 2000; end if; RECOG_MAXDIM := StringToInteger(Sprintf("%o", RECOG_MAXDIM));
 PBOUND := 120;
 
 row := torsion_data[idx];
 d := row[1]; l := row[2]; lab := row[3]; fc := row[4]; hc := row[5]; N := row[6]; cc := row[7];
 K<a> := QuadraticField(d); OK := Integers(K); R<x> := PolynomialRing(K); Fl := GF(l);
 fpoly := R![K| c[1]+c[2]*a : c in fc]; hh := R![K| c[1]+c[2]*a : c in hc];
-C := HyperellipticCurve(fpoly, hh);
-p2 := Factorization(2*OK)[1][1];
+C := HyperellipticCurve(fpoly, hh); p2 := Factorization(2*OK)[1][1];
 if d eq 2 then base := ideal<OK | cc[1]+cc[2]*a>;
 else Cnd := Conductor(C); base := 1*OK;
-  for pe in Factorization(Cnd) do if Norm(pe[1]) mod 2 ne 0 then base := base*pe[1]^pe[2]; end if; end for;
-end if;
+  for pe in Factorization(Cnd) do if Norm(pe[1]) mod 2 ne 0 then base := base*pe[1]^pe[2]; end if; end for; end if;
 
-// fingerprint with INTEGER eigenvalues -#C(F_P)
 fps := [];
 for pp in PrimesUpTo(PBOUND) do
   if #fps ge NCOND then break; end if;
@@ -52,84 +55,87 @@ for e in elist do
   M := HilbertCuspForms(K, Nlev, [2,2]); dm := Dimension(M);
   if dm eq 0 then continue; end if;
   Tint := [ ChangeRing(Matrix(HeckeOperator(M, t[1])), Integers()) : t in fps ];
-  Ifl := IdentityMatrix(Fl, dm); cur := VectorSpace(Fl, dm);
-  for i in [1..#Tint] do cur := cur meet Kernel(ChangeRing(Tint[i], Fl) - (Fl!(fps[i][2]))*Ifl); end for;
-  sd := Dimension(cur);
+  Ifl := IdentityMatrix(Fl, dm); S := #fps;
+  Mmats := [ ChangeRing(Tint[i], Fl) - (Fl!(fps[i][2]))*Ifl : i in [1..S] ];
+  Vs := VectorSpace(Fl, dm);
+  E1 := Vs; for i in [1..S] do E1 := E1 meet Kernel(Mmats[i]); end for;
+  sd := Dimension(E1);
   printf "  e=%o dim=%o survivor=%o\n", e, dm, sd;
   if sd ne 1 then continue; end if;
 
-  // ---- Hensel lift of (v, {a_i}) over Z/l^PREC, left eigenvector v*T_i = a_i v ----
-  v0 := Basis(cur)[1];
-  piv := Rep({j : j in [1..dm] | v0[j] ne 0});
-  free := [ j : j in [1..dm] | j ne piv ]; nfree := #free; S := #Tint;
+  // ---- generalized eigenspace dimension via nested kernels (scalable) ----
+  Ecur := E1;
+  printf "  building generalized eigenspace (nested kernels):\n";
+  repeat
+    dprev := Dimension(Ecur);
+    Bk := BasisMatrix(Ecur);
+    Enext := Vs;
+    for i in [1..S] do
+      Kst := Kernel(VerticalJoin(Mmats[i], -Bk));   // {(w,mu): w*M_i - mu*Bk = 0} = {w: w*M_i in E_k}
+      prj := sub< Vs | [ Vs ! [ b[j] : j in [1..dm] ] : b in Basis(Kst) ] >;
+      Enext := Enext meet prj;
+    end for;
+    Ecur := Enext;
+    printf "    dim = %o\n", Dimension(Ecur);
+  until Dimension(Ecur) eq dprev;
+  dimG := Dimension(Ecur);
+  printf "  GENERALIZED-EIGENSPACE dim = [E_lambda:Q_l] = %o\n", dimG;
+
+  if dimG gt 1 then
+    printf "  RESULT: [E:Q] >= %o > 1  =>  matched newform NOT rational; sigma does not arise from an elliptic curve.\n", dimG;
+    exit;
+  end if;
+
+  printf "  dim G = 1 (lambda split, residue degree 1): a_P in Z_l -- generalized-eigenspace test inconclusive.\n";
+  if dm gt RECOG_MAXDIM then
+    printf "  RESULT: INCONCLUSIVE at dim %o (l-adic recognition is O(dim^3), does not scale; would need eigenform isolation).\n", dm;
+    exit;
+  end if;
+
+  // ---- small-dim fallback: l-adic Hensel lift + LLL recognition of a_P's min poly ----
+  printf "  dim %o <= %o: l-adic min-poly recognition (PREC=%o)...\n", dm, RECOG_MAXDIM, PREC;
+  v0 := Basis(E1)[1]; piv := Rep({j : j in [1..dm] | v0[j] ne 0});
+  free := [ j : j in [1..dm] | j ne piv ]; nfree := #free;
   Zk := Integers(l^PREC);
   v := Vector(Zk, [ Integers()!(v0[j]) : j in [1..dm] ]); v := v*(v[piv]^-1);
   avec := [ Zk!(Integers()!(Fl!(fps[i][2]))) : i in [1..S] ];
   TZ := [ ChangeRing(Tint[i], Zk) : i in [1..S] ];
-  obstructed := false; mstop := 0;
   for m in [1..PREC-1] do
     Arows := []; w := [];
     for i in [1..S] do
-      Mi := TZ[i] - avec[i]*IdentityMatrix(Zk, dm);
-      ri := v*TZ[i] - avec[i]*v;
+      Mi := TZ[i] - avec[i]*IdentityMatrix(Zk, dm); ri := v*TZ[i] - avec[i]*v;
       for c in [1..dm] do
-        assert (Integers()!ri[c]) mod (l^m) eq 0;
-        coef := [Fl| ];
-        for j in free do Append(~coef, Fl!(Integers()!(Mi[j][c]))); end for;
+        coef := [Fl| ]; for j in free do Append(~coef, Fl!(Integers()!(Mi[j][c]))); end for;
         for ii in [1..S] do Append(~coef, ii eq i select Fl!(-(Integers()!(v[c]))) else Fl!0); end for;
-        Append(~Arows, coef);
-        Append(~w, Fl!( -((Integers()!ri[c]) div (l^m)) ));
+        Append(~Arows, coef); Append(~w, Fl!( -((Integers()!ri[c]) div (l^m)) ));
       end for;
     end for;
-    Amat := Matrix(Fl, S*dm, nfree+S, Arows);
-    cons, u := IsConsistent(Transpose(Amat), Vector(Fl, w));
-    if not cons then obstructed := true; mstop := m; break; end if;
-    du := Eltseq(u);
+    cons, u := IsConsistent(Transpose(Matrix(Fl, S*dm, nfree+S, Arows)), Vector(Fl, w));
+    assert cons; du := Eltseq(u);
     for t in [1..nfree] do v[free[t]] := v[free[t]] + (l^m)*(Zk!(Integers()!(du[t]))); end for;
     for i in [1..S] do avec[i] := avec[i] + (l^m)*(Zk!(Integers()!(du[nfree+i]))); end for;
-    mstop := m+1;
   end for;
-
-  if obstructed then
-    printf "  RESULT: lift OBSTRUCTED at l-adic digit m=%o  =>  a_P not in Z_l  =>  [E_lambda:Q_l]>1  =>  [E:Q]>1.\n", mstop;
-    printf "  ==> the matched newform is NOT rational; sigma does not arise from an elliptic curve. (cheap branch)\n";
-  else
-    printf "  lift converged to l^%o; recovering min polys (LLL reconstruction):\n", PREC;
-    Zx<X> := PolynomialRing(Integers());
-    modp := l^PREC;
-    // minimal-degree integer relation with a_P as an l-adic root (a_P in [0,l^PREC))
-    // find candidate at HALF precision, then VERIFY it vanishes to FULL precision
-    // (a spurious lattice relation with huge coefficients fails the full-precision check)
-    pf := PREC div 2; mf := l^pf; mfull := modp;
-    Recog := function(ap)
-      for dd in [1..Min(dm,25)] do
-        n := dd+1;
-        B := ZeroMatrix(Integers(), n+1, n+1);
-        for j in [0..dd] do B[j+1][j+1] := 1; B[j+1][n+1] := mf*(Modexp(ap,j,mf)); end for;
-        B[n+1][n+1] := mf*mf;
-        L := LLL(B);
-        for r in [1..n+1] do
-          c := [ L[r][j+1] : j in [0..dd] ];
-          if &and[ ci eq 0 : ci in c ] then continue; end if;
-          poly := &+[ c[j+1]*X^j : j in [0..dd] ];
-          if Degree(poly) lt 1 then continue; end if;
-          if (&+[ c[j+1]*Modexp(ap,j,mfull) : j in [0..dd] ]) mod mfull eq 0 then
-            return poly div Content(poly);   // verified to full precision -> genuine
-          end if;
-        end for;
+  Zx<X> := PolynomialRing(Integers()); modp := l^PREC; mf := l^(PREC div 2);
+  Recog := function(ap)
+    for dd in [1..25] do
+      n := dd+1; B := ZeroMatrix(Integers(), n+1, n+1);
+      for j in [0..dd] do B[j+1][j+1]:=1; B[j+1][n+1]:=mf*(Modexp(ap,j,mf)); end for;
+      B[n+1][n+1]:=mf*mf; L := LLL(B);
+      for r in [1..n+1] do
+        c := [L[r][j+1] : j in [0..dd]];
+        if &and[ci eq 0: ci in c] then continue; end if;
+        poly := &+[c[j+1]*X^j : j in [0..dd]];
+        if Degree(poly) ge 1 and (&+[c[j+1]*Modexp(ap,j,modp):j in [0..dd]]) mod modp eq 0 then return poly div Content(poly); end if;
       end for;
-      return Zx!0;
-    end function;
-    maxdeg := 1;
-    for i in [1..S] do
-      rel := Recog(Integers()!avec[i]);
-      printf "    a_{N(P)=%o}: minpoly degree %o%o\n", Norm(fps[i][1]), Degree(rel),
-        (Degree(rel) ge 1 and IsIrreducible(rel)) select " (irreducible)" else "";
-      if Degree(rel) gt maxdeg then maxdeg := Degree(rel); end if;
-    end for;
-    printf "  RESULT: max recovered [Q(a_P):Q] = %o  =>  [E:Q] >= %o.  %o\n",
-      maxdeg, maxdeg, maxdeg gt 1 select "NOT from an elliptic curve." else "(inconclusive: try more primes/precision)";
-  end if;
+    end for; return Zx!0;
+  end function;
+  maxdeg := 1;
+  for i in [1..S] do
+    rec := Recog(Integers()!avec[i]);
+    if Degree(rec) gt maxdeg then maxdeg := Degree(rec); end if;
+  end for;
+  printf "  RESULT: max recovered [Q(a_P):Q] = %o  =>  [E:Q] >= %o.  %o\n",
+    maxdeg, maxdeg, maxdeg gt 1 select "NOT from an elliptic curve." else "(inconclusive: more primes/precision)";
   exit;
 end for;
 printf "no 1-dim survivor found in e-range\n";

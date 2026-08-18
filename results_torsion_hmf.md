@@ -242,6 +242,24 @@ larger-dimension `472993` (dim 39418) succeeds. The bug is confirmed and **fixed
 Magma V2.29-10** (issue #110, resolved by A. Steel); the patch below was the interim workaround
 we used on V2.29-9, and remains the route on any machine not yet upgraded to V2.29-10.
 
+**Why the fix is safe for parallel weight 2.** `basis_matrix_big_inv` (the crashing `Binv`) is
+**read in exactly one place** — `definite.m:1073`, inside the *non*-weight-2 branch. For weight
+`[2,2]`, `RemoveEisenstein` rebuilds `basis_matrix`/`basis_matrix_inv` from the Eisenstein
+indicator vectors and the inner product (never touching `Binv`), and the big Hecke matrix uses
+only `Ncols(basis_matrix_big)`. So for parallel weight 2 the inverse is **vestigial**. The patch
+wraps the solve in `try/catch`: skip `Binv` for weight 2, **re-raise for any other weight**. On
+the success path it is byte-for-byte the original computation.
+
+**Validation.** Patched vs. stock Magma with the kernel matcher: `14303.1` (`Q(√2)`) and `4057.1`
+(`Q(√3)`) give **byte-identical** output; `881.1` reproduces its `e=3` match. The patch is inert
+wherever line 1060 succeeds; it only changes the previously-crashing giants.
+
+**Result.** On the patched build `569399.3` runs end-to-end (dim 47728; ~10.5 h) to
+`survivor=1, control=0` — a control-validated **match**. The two `785473` forms (dim 55446) are
+running. The deploy is a **private patched Magma copy** (no system files touched, no Magma source
+redistributed — only our ~25-line diff): see `magma110_patch/` (`definite.m.patch`,
+`deploy_patch.sh`, `README.md`).
+
 ### 4e. Hecke fields of the identified forms — evidence against an elliptic-curve source
 
 For the four **explicitly isolated** newforms (§4a, `hecke_cutters.m`) we know the Hecke
@@ -268,57 +286,41 @@ eigenvalues lie in `F_ℓ`, which does **not** by itself pin `[E:Q]`. Extending 
 "not-dimension-1" statement to the giants needs either eigenform isolation (the expensive char-0
 step) or a degree lower bound argued directly from the survivor data — the method of §4f.
 
-### 4f. A cheap degree lower bound from the survivor (ℓ-adic lift)
+### 4f. A cheap degree lower bound from the survivor (mod-ℓ generalized eigenspace)
 
-The kernel survivor `v` is a mod-ℓ eigenvector: `v·T_P = t_P·v` over `F_ℓ`, `t_P = −#C(𝔽_P) mod ℓ`.
-It lifts ℓ-adically to an eigenvector with eigenvalues `a_P(f) ∈ O_{E_λ}`, where `λ | ℓ` is the
-prime of the Hecke field `E` singled out by the fingerprint (traces are in `F_ℓ`, so `λ` has
-**residue degree 1**). Since `[E:Q] = Σ_{λ|ℓ} [E_λ:Q_ℓ] ≥ [E_λ:Q_ℓ]`, **certifying
-`[E_λ:Q_ℓ] > 1` for a single prime already forces `[E:Q] > 1`** — no eigenform isolation, no
-`NewformDecomposition`. Concretely we Hensel-lift `(v, {a_P})` over `Z/ℓᵏ` (left eigenvector,
-pivot-normalised; each Newton digit is one linear solve over `F_ℓ`). Two outcomes, both certify
-`d = [E:Q] > 1`:
+The kernel survivor is the mod-ℓ eigenvector `v` with `v·T_P = t_P·v`, `t_P = −#C(𝔽_P) mod ℓ`. By
+**multiplicity one**, the `m`-adic Hecke module at the maximal ideal `m` cut out by this system is
+free of rank 1, so the mod-ℓ **generalized** eigenspace `G` has `dim_{F_ℓ} G = [E_λ:Q_ℓ]`, where
+`λ | ℓ` is the prime of the Hecke field `E` picked out by the fingerprint (residue degree 1). Since
+`[E:Q] = Σ_{λ|ℓ} [E_λ:Q_ℓ] ≥ [E_λ:Q_ℓ] = dim G`,
 
-- **Obstruction** — if `E_λ ≠ Q_ℓ` (ℓ ramified or inert at `λ`), then `a_P ∉ Z_ℓ`, so **the
-  `Z_ℓ` lift fails at low precision**. Cheap: it fires within a few Newton steps.
-- **Recognition** — if `E_λ = Q_ℓ` (`λ` split, residue degree 1), the lift converges; compute
-  `a_P` to modest ℓ-adic precision and **reconstruct its minimal polynomial** by lattice
-  reduction (find at half precision, verify at full, to reject spurious relations). Degree `> 1`
-  certifies.
+> **`dim G > 1` ⇒ `[E:Q] > 1`** — the newform is not rational, so `σ` does not arise from an
+> elliptic curve.
 
-The method only ever tracks the **single** survivor eigenvector (reusing the `T_P` already built),
-so it needs no decomposition. Validated against the two isolated forms (`ladic_degree.m`):
+(The 1-dimensional survivor rules out any *other* newform congruent mod ℓ, so `G` is "pure" and
+`dim G` is exactly `[E_λ:Q_ℓ]`.) Crucially `dim G` is computed by the **increasing chain of nested
+kernels**
+```
+E₁ = survivor,   E_{k+1} = { w : w·(T_i − c_i) ∈ E_k  for all i },   G = lim_k E_k,
+```
+i.e. the **same `F_ℓ` linear algebra as the survivor** — so it **scales to the giant dimensions**
+(unlike any char-0 lift). Validated (`ladic_degree.m`):
 
-| form | ℓ | ℓ in `E` at `λ` | branch | result | known `[E:Q]` |
-|---|--:|---|---|---|--:|
-| 14303 | 11 | ramified `(e,f)=(5,1)` | obstruction | lift **obstructs at `m=1`** ⇒ `d>1` | 5 |
-| 881 | 13 | split `(1,1)` | recognition | reconstructs `a_P`'s **degree-18** min poly; field **isomorphic to the known Hecke field** | 18 |
+| form | ℓ | `dim G = [E_λ:Q_ℓ]` | certificate | known `[E:Q]` |
+|---|--:|--:|---|--:|
+| 14303 | 11 | **5** (chain `1→2→3→4→5`) | `[E:Q] ≥ 5` — **scalable** | 5 |
+| 881 | 13 | 1 (`λ` split, residue deg 1) | falls back to recognition | 18 |
 
-**Scalability.** The **obstruction** branch is cheap — a few `F_ℓ` Newton steps on top of the
-survivor — and runs at the giant dimensions. The **recognition** branch needs high ℓ-adic
-precision and an `O(dim²)` big-integer lift (≈ 3 min at `dim 441`, `PREC=400`), so it does **not**
-scale to `dim ≈ 55000`. Hence for the giants we run the obstruction test (it reuses the patched
-build of §4d): if it obstructs, `d>1` is certified cheaply, closing the "not-dimension-1" gap for
-that curve; if it converges, `λ` is split and we fall back to isolation. (Only ~6 fingerprint
-primes are needed — the survivor is already 1-dimensional after 2.)
+When `dim G = 1` (λ split, residue degree 1) we have `a_P ∈ Z_ℓ` and the generalized-eigenspace
+test is inconclusive. A fallback then reconstructs `a_P`'s minimal polynomial from an ℓ-adic Hensel
+lift of `v` (LLL, find-at-half / verify-at-full) — for 881 it recovers the **degree-18** field,
+isomorphic to the known Hecke field. But that lift is `O(dim³)` and is used **only at small
+dimension**; it does **not** scale to `dim ≈ 55000`.
 
-**Why the fix is safe for parallel weight 2.** `basis_matrix_big_inv` (the crashing `Binv`) is
-**read in exactly one place** — `definite.m:1073`, inside the *non*-weight-2 branch. For weight
-`[2,2]`, `RemoveEisenstein` rebuilds `basis_matrix`/`basis_matrix_inv` from the Eisenstein
-indicator vectors and the inner product (never touching `Binv`), and the big Hecke matrix uses
-only `Ncols(basis_matrix_big)`. So for parallel weight 2 the inverse is **vestigial**. The patch
-wraps the solve in `try/catch`: skip `Binv` for weight 2, **re-raise for any other weight**. On
-the success path it is byte-for-byte the original computation.
-
-**Validation.** Patched vs. stock Magma with the kernel matcher: `14303.1` (`Q(√2)`) and `4057.1`
-(`Q(√3)`) give **byte-identical** output; `881.1` reproduces its `e=3` match. The patch is inert
-wherever line 1060 succeeds; it only changes the previously-crashing giants.
-
-**Result.** On the patched build `569399.3` runs end-to-end (dim 47728; 14 Hecke operators mod
-13; ~10.5 h) to `survivor=1, control=0` — a control-validated **match**. The two `785473` forms
-(dim 55446) are running. The deploy is a **private patched Magma copy** (no system files touched,
-no Magma source redistributed — only our ~25-line diff): see `magma110_patch/` (`definite.m.patch`,
-`deploy_patch.sh`, `README.md`).
+**For the giants**, then, we compute `dim G` by nested kernels (reusing the patched build of §4d,
+and only ~6 fingerprint primes — the survivor is 1-dimensional after 2): if `dim G > 1`, `[E:Q] > 1`
+is certified and the computation scales, closing the "not-dimension-1" gap for that curve; if
+`dim G = 1`, its `λ` is split and we would need eigenform isolation.
 
 **Caveat — certificates vs. cutters.** The kernel method yields a *match certificate*
 (1-dim surviving mod-ℓ eigenspace + control), not the char-0 eigenform, so it does **not**
