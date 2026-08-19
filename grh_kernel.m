@@ -95,7 +95,11 @@ LOG(outf, Sprintf("  sigma irreducible: %o", irr));
 
 // ---- verify tr sigma = tr rho_f for all good P up to BOUND ----
 LOG(outf, Sprintf("  verifying trace agreement, good primes N(P) <= %o ...", BOUND));
-nchk := 0; fails := []; t0 := Cputime(); nextlog := 1000;
+// Progress step must scale with BOUND: a fixed 1000 meant that every run with BOUND <= 1000
+// (i.e. every large-dim shard, which is exactly where progress matters) printed NOTHING between
+// "verifying ..." and the final total -- 12+ hours of silence with no way to tell how far along.
+logstep := Max(50, BOUND div 10);
+nchk := 0; fails := []; t0 := Cputime(); nextlog := logstep;
 for pp in PrimesUpTo(BOUND) do
     if pp eq 2 or pp eq l then continue; end if;
     for tup in Factorization(pp*OK) do
@@ -104,7 +108,7 @@ for pp in PrimesUpTo(BOUND) do
         if tP(P) ne survEig(P) then Append(~fails, Norm(P)); end if;
         nchk +:= 1;
     end for;
-    if pp gt nextlog then LOG(outf, Sprintf("    ... up to %o: %o primes, %o disagreements (%.1o s)", pp, nchk, #fails, Cputime(t0))); nextlog +:= 1000; end if;
+    if pp gt nextlog then LOG(outf, Sprintf("    ... up to %o: %o primes, %o disagreements (%.1o s)", pp, nchk, #fails, Cputime(t0))); nextlog +:= logstep; end if;
 end for;
 
 LOG(outf, Sprintf("  TOTAL: %o good primes N(P) <= %o; DISAGREEMENTS: %o", nchk, BOUND, #fails));
