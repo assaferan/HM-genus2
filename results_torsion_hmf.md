@@ -30,14 +30,15 @@ quadratic field.
   ([Magma issue #110](https://github.com/Magma-Maths/Magma/issues/110)), **not** a mathematical
   obstruction (the census §3 proves those spaces are in reach). A one-line source patch to the
   definite Hilbert-modular-forms code (§4d) clears it: **569399.3 now matches**
-  (`dim 47728, survivor=1, control=0`), and the two `785473` forms are running on the patched
-  build — bringing the sweep to **37/39 confirmed, 39/39 in reach**.
+  (`dim 47728, survivor=1, control=0`), bringing the sweep to **37/39 confirmed**. The two
+  `785473` forms remain open: they ran ~40 h each on the patched build and were then lost to an
+  out-of-memory kill before producing output (§4d), so they need re-running.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
   Because the mod-ℓ survivor eigenvector supplies `a_P mod λ` directly, the certificate needs
-  **no char-0 eigenform** and scales with the matcher: **33 GRH modularity certificates**
-  (all 27 `Q(√2)`, 6 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
-  (§4b). The remaining 6 are pending compute, not method.
+  **no char-0 eigenform** and scales with the matcher: **35 GRH modularity certificates**
+  (all 27 `Q(√2)`, 8 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
+  (§4b). The remaining 4 are pending compute, not method.
 
 ## 1. Structure and fingerprint (verified)
 
@@ -150,7 +151,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
     - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
     - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
 
-### 4b. Modularity theorems (under GRH): 33 certificates
+### 4b. Modularity theorems (under GRH): 35 certificates
 
 #### The two worked examples (char-0 route)
 
@@ -196,7 +197,7 @@ emits the full certificate from `v` alone: it finds the match level by the `e`-s
 agreement `tr σ(Frob_P) = c_P` at every good `P` up to `BOUND`. No char-0 decomposition
 anywhere, so it reaches the same levels the kernel matcher does.
 
-**Result: 33 GRH certificates — all 27 `Q(√2)` curves and 6 of the 12 `Q(√3)`.** Every one is
+**Result: 35 GRH certificates — all 27 `Q(√2)` curves and 8 of the 12 `Q(√3)`.** Every one is
 `disagree = 0` with `σ` irreducible. `BOUND` is tiered by dimension (3000 for `dim ≤ 9k`, 800
 above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(log cond)² ~ 200`.
 
@@ -221,19 +222,29 @@ above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(lo
 | 4057.1, 4057.2 | Q(√3) | 11 | 16228 | 2 | 3000 | 424 | 0 |
 | 65209.2, 65209.3 | Q(√3) | 13 | 65209 | 0 | 3000 | 422 | 0 |
 | 72649.1, 72649.2 | Q(√3) | 13 | 72649 | 0 | 3000 | 424 | 0 |
+| 377233.2 | Q(√3) | 11 | 377233 | 0 | 800 | 132 | 0 |
+| 472993.1 | Q(√3) | 11 | 472993 | 0 | 800 | 133 | 0 |
 
-> **Theorem [GRH].** For each of the 33 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
+> **Theorem [GRH].** For each of the 35 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
 > of parallel weight `[2,2]` at the stated level; hence `σ` is modular.
 
 The first two rows reproduce the char-0 theorems above (`14303.1` at `e=0`, `881.1` at `e=3`)
 from the survivor alone — the kernel route is validated against the char-0 route wherever both
 are computable.
 
-**Outstanding (6 of 39).** The three largest `Q(√3)` GRH shards — `377233.2`, `472993.1`,
-`472993.2` (dim 31774–39418) — have `survivor=1 / control=0` and `σ` irreducible confirmed, but
-their trace verification was interrupted (they were killed to free RAM for the §4d giant match
-runs, which peak near 300 GB); they need only a relaunch at `BOUND=800`. The three §4d giants
-(`569399.3`, `785473.12`, `785473.5`) get certificates once their matches complete.
+**Outstanding (4 of 39).** `472993.2` (dim 39418) is mid-verification at `BOUND=800` and will make
+it 36; it has `survivor = 1 / control = 0` with `σ` irreducible already confirmed, so only the
+trace loop remains. The other three are the §4d giants:
+
+- `569399.3` — **matched** (§4d), but its certificate has never been attempted.
+- `785473.12`, `785473.5` — their matches were **lost** and must be redone from scratch (§4d).
+
+The cost split is worth recording, since it governs what the giants will take. On `472993.2`
+(dim 39418) the run spent **~6.8 h building the space and Hecke data before verification began**,
+then **~279 s per prime** for ~133 primes. The verification is thus the dominant term at these
+dimensions, and it scales with the number of primes — so `BOUND` should be chosen as the smallest
+value comfortably above the Faltings–Serre bound (`~185` for these conductors), not as large as
+convenient. `run_grh_giants.sh` already uses `BOUND=400` for exactly this reason.
 
 ### 4c. Full sweep via kernel intersection (36/39)
 
@@ -279,10 +290,11 @@ dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
 | 377233.2 | Q(√3) | 11 | 377233 | 0 | 31774 | 1 / 0 |
 | 472993.1, 472993.2 | Q(√3) | 11 | 472993 | 0 | 39418 | 1 / 0 |
 | 569399.3 | Q(√3) | 13 | 569399 | 0 | 47728 | 1 / 0 (§4d) |
-| 785473.12, 785473.5 | Q(√3) | 11 | 785473 | 0 | 55446 | *running (§4d)* |
+| 785473.12, 785473.5 | Q(√3) | 11 | 785473 | 0 | 55446 | *open — re-run needed (§4d)* |
 
-The last two rows use the patched build of §4d; `569399.3` is confirmed, the two `785473`
-forms are in progress.
+The last two rows use the patched build of §4d; `569399.3` is confirmed. The two `785473` forms
+are **not** confirmed: each ran ~40 h and was killed by the machine's OOM reaper before writing
+any result, so they carry no partial credit and must be re-run (§4d).
 
 ### 4d. The three `Q(√3)` giants: a one-line Magma #110 workaround
 
@@ -315,10 +327,24 @@ the success path it is byte-for-byte the original computation.
 wherever line 1060 succeeds; it only changes the previously-crashing giants.
 
 **Result.** On the patched build `569399.3` runs end-to-end (dim 47728; ~10.5 h) to
-`survivor=1, control=0` — a control-validated **match**. The two `785473` forms (dim 55446) are
-running. The deploy is a **private patched Magma copy** (no system files touched, no Magma source
-redistributed — only our ~25-line diff): see `magma110_patch/` (`definite.m.patch`,
-`deploy_patch.sh`, `README.md`).
+`survivor=1, control=0` — a control-validated **match**. The deploy is a **private patched Magma
+copy** (no system files touched, no Magma source redistributed — only our ~25-line diff): see
+`magma110_patch/` (`definite.m.patch`, `deploy_patch.sh`, `README.md`).
+
+**The two `785473` forms (dim 55446) remain open, and the reason is operational, not mathematical.**
+Both were launched in parallel on the patched build and ran ~40 h at ~400 GB each, then were killed
+by the host's OOM reaper when an unrelated job on the same shared machine expanded to >1 TB. Because
+`kernel_torsion.m` writes nothing until the space-and-Hecke build completes, **both produced no
+output at all** — 40 h each, zero partial credit.
+
+Two lessons for anyone repeating this, both cheap to act on:
+
+- **The runs are not checkpointed.** At this scale that turns any interruption into total loss. If
+  the giants are attempted again, either checkpoint the Hecke build or accept that the whole run is
+  an all-or-nothing bet.
+- **A shared machine is part of the experiment.** The host's OOM policy here explicitly *prefers*
+  killing `magma`, so a competing job does not merely slow these runs down — it selects them for
+  termination first. Coordinate exclusive time rather than relying on there being enough headroom.
 
 ### 4e. Hecke fields of the identified forms — evidence against an elliptic-curve source
 
@@ -388,7 +414,7 @@ by itself produce Hecke cutters (min. polys of `a_P`). The 4 forms in §4/§4a (
 data in `hecke_cutters.m`) remain the explicitly-identified subset; extending *cutters* to the
 rest requires isolating each surviving eigenform, which is the expensive char-0 step. The GRH
 Faltings–Serre argument, by contrast, **does not** need that isolation — the survivor eigenvector
-supplies `a_P mod λ` directly, which is why §4b scales to 33 curves.
+supplies `a_P mod λ` directly, which is why §4b scales to 35 curves.
 
 ## 5. What this says for the collaboration
 
