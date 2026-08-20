@@ -36,9 +36,10 @@ quadratic field.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
   Because the mod-ℓ survivor eigenvector supplies `a_P mod λ` directly, the certificate needs
-  **no char-0 eigenform** and scales with the matcher: **35 GRH modularity certificates**
-  (all 27 `Q(√2)`, 8 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
-  (§4b). The remaining 4 are pending compute, not method.
+  **no char-0 eigenform** and scales with the matcher: **36 GRH modularity certificates**
+  (all 27 `Q(√2)`, 9 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
+  (§4b) — i.e. **every curve that has been matched is also certified**. The remaining 3 are the
+  giants of §4d, pending compute, not method.
 
 ## 1. Structure and fingerprint (verified)
 
@@ -151,7 +152,7 @@ Checked LMFDB: **neither form is in it** — the HMF API returns no records for 
     - `P (norm 7, (-2a - 1)):  minpoly(a_P) = y^5 - 33y^3 + 242y + 121`
     - `P (norm 121, (11)):  minpoly(a_P) = y^5 + 9y^4 - 335y^3 - 2088y^2 + 23665y + 30097`
 
-### 4b. Modularity theorems (under GRH): 35 certificates
+### 4b. Modularity theorems (under GRH): 36 certificates
 
 #### The two worked examples (char-0 route)
 
@@ -197,7 +198,7 @@ emits the full certificate from `v` alone: it finds the match level by the `e`-s
 agreement `tr σ(Frob_P) = c_P` at every good `P` up to `BOUND`. No char-0 decomposition
 anywhere, so it reaches the same levels the kernel matcher does.
 
-**Result: 35 GRH certificates — all 27 `Q(√2)` curves and 8 of the 12 `Q(√3)`.** Every one is
+**Result: 36 GRH certificates — all 27 `Q(√2)` curves and 9 of the 12 `Q(√3)`.** Every one is
 `disagree = 0` with `σ` irreducible. `BOUND` is tiered by dimension (3000 for `dim ≤ 9k`, 800
 above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(log cond)² ~ 200`.
 
@@ -224,27 +225,32 @@ above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(lo
 | 72649.1, 72649.2 | Q(√3) | 13 | 72649 | 0 | 3000 | 424 | 0 |
 | 377233.2 | Q(√3) | 11 | 377233 | 0 | 800 | 132 | 0 |
 | 472993.1 | Q(√3) | 11 | 472993 | 0 | 800 | 133 | 0 |
+| 472993.2 | Q(√3) | 11 | 472993 | 0 | 800 | 133 | 0 |
 
-> **Theorem [GRH].** For each of the 35 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
+> **Theorem [GRH].** For each of the 36 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
 > of parallel weight `[2,2]` at the stated level; hence `σ` is modular.
 
 The first two rows reproduce the char-0 theorems above (`14303.1` at `e=0`, `881.1` at `e=3`)
 from the survivor alone — the kernel route is validated against the char-0 route wherever both
 are computable.
 
-**Outstanding (4 of 39).** `472993.2` (dim 39418) is mid-verification at `BOUND=800` and will make
-it 36; it has `survivor = 1 / control = 0` with `σ` irreducible already confirmed, so only the
-trace loop remains. The other three are the §4d giants:
+**Outstanding (3 of 39).** Certification has now caught up with matching: *every* curve matched in
+§4c/§4d is certified. The only gap left is the three §4d giants:
 
 - `569399.3` — **matched** (§4d), but its certificate has never been attempted.
 - `785473.12`, `785473.5` — their matches were **lost** and must be redone from scratch (§4d).
 
-The cost split is worth recording, since it governs what the giants will take. On `472993.2`
-(dim 39418) the run spent **~6.8 h building the space and Hecke data before verification began**,
-then **~279 s per prime** for ~133 primes. The verification is thus the dominant term at these
-dimensions, and it scales with the number of primes — so `BOUND` should be chosen as the smallest
-value comfortably above the Faltings–Serre bound (`~185` for these conductors), not as large as
-convenient. `run_grh_giants.sh` already uses `BOUND=400` for exactly this reason.
+The cost split is worth recording, since it governs what the giants will take. Measured on
+`472993.2` (dim 39418): **~6.8 h building the space and Hecke data before verification began**,
+then **~340 s per prime** — 42 338 s to reach 125 of the 133 primes, ~12.5 h for the trace loop,
+~19 h in total.
+
+So verification, not the space build, dominates at these dimensions, and it scales linearly in the
+number of primes. `BOUND` should therefore be the smallest value comfortably above the
+Faltings–Serre bound (`~185` for these conductors) rather than as large as convenient: `BOUND=800`
+here bought a 4× margin over the bound at ~4× the cost of `BOUND=400`, which `run_grh_giants.sh`
+already uses for exactly this reason. The per-prime rate also gives a usable estimate for the
+giants — at dim 47 728–55 446 expect appreciably more than 340 s per prime.
 
 ### 4c. Full sweep via kernel intersection (36/39)
 
@@ -414,7 +420,7 @@ by itself produce Hecke cutters (min. polys of `a_P`). The 4 forms in §4/§4a (
 data in `hecke_cutters.m`) remain the explicitly-identified subset; extending *cutters* to the
 rest requires isolating each surviving eigenform, which is the expensive char-0 step. The GRH
 Faltings–Serre argument, by contrast, **does not** need that isolation — the survivor eigenvector
-supplies `a_P mod λ` directly, which is why §4b scales to 35 curves.
+supplies `a_P mod λ` directly, which is why §4b scales to 36 curves.
 
 ## 5. What this says for the collaboration
 
