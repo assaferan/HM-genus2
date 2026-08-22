@@ -30,9 +30,10 @@ quadratic field.
   ([Magma issue #110](https://github.com/Magma-Maths/Magma/issues/110)), **not** a mathematical
   obstruction (the census §3 proves those spaces are in reach). A one-line source patch to the
   definite Hilbert-modular-forms code (§4d) clears it: **569399.3 now matches**
-  (`dim 47728, survivor=1, control=0`), bringing the sweep to **37/39 confirmed**. The two
-  `785473` forms remain open: they ran ~40 h each on the patched build and were then lost to an
-  out-of-memory kill before producing output (§4d), so they need re-running.
+  (`dim 47728, survivor=1, control=0`). The two `785473` forms were then lost to an out-of-memory
+  kill on a contended shared machine after ~40 h each (§4d); re-run one-at-a-time on an idle host,
+  **785473.12 matches** (`dim 76606, survivor=1, control=0`, 37.8 h) — **38/39 confirmed**, with
+  `785473.5` running to close the sweep at 39/39.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
   Because the mod-ℓ survivor eigenvector supplies `a_P mod λ` directly, the certificate needs
@@ -237,8 +238,9 @@ are computable.
 **Outstanding (3 of 39).** Certification has now caught up with matching: *every* curve matched in
 §4c/§4d is certified. The only gap left is the three §4d giants:
 
-- `569399.3` — **matched** (§4d), but its certificate has never been attempted.
-- `785473.12`, `785473.5` — their matches were **lost** and must be redone from scratch (§4d).
+- `569399.3` — **matched** (§4d), certificate never attempted.
+- `785473.12` — **matched** on the re-run (§4d), certificate not yet attempted.
+- `785473.5` — match **in progress** (§4d); its certificate follows.
 
 The cost split is worth recording, since it governs what the giants will take. Measured on
 `472993.2` (dim 39418): **~6.8 h building the space and Hecke data before verification began**,
@@ -296,11 +298,18 @@ dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
 | 377233.2 | Q(√3) | 11 | 377233 | 0 | 31774 | 1 / 0 |
 | 472993.1, 472993.2 | Q(√3) | 11 | 472993 | 0 | 39418 | 1 / 0 |
 | 569399.3 | Q(√3) | 13 | 569399 | 0 | 47728 | 1 / 0 (§4d) |
-| 785473.12, 785473.5 | Q(√3) | 11 | 785473 | 0 | 55446 | *open — re-run needed (§4d)* |
+| 785473.12 | Q(√3) | 11 | 785473 | 0 | **76606** | 1 / 0 (§4d) |
+| 785473.5 | Q(√3) | 11 | 785473 | 0 | 76606 | *running (§4d)* |
 
-The last two rows use the patched build of §4d; `569399.3` is confirmed. The two `785473` forms
-are **not** confirmed: each ran ~40 h and was killed by the machine's OOM reaper before writing
-any result, so they carry no partial credit and must be re-run (§4d).
+The last three rows use the patched build of §4d. `569399.3` and `785473.12` are confirmed;
+`785473.5` is in progress, which would complete the sweep at **39/39**.
+
+**Correction to the `785473` dimension.** Earlier drafts carried `55446` for these two rows, taken
+from the §3 census while no run had ever completed. The finished `785473.12` run reports the actual
+full cusp-space dimension as **76606** — 38 % larger. (This is consistent with the note above: the
+§3 census is the prime-to-2 `NewSubspace` dimension, whereas the kernel runs on the *full* space.
+For the other levels the two happen to be close, which is why the placeholder went unnoticed.) The
+gap explains why these runs cost more than the `≈40 h` extrapolated from the interrupted attempts.
 
 ### 4d. The three `Q(√3)` giants: a one-line Magma #110 workaround
 
@@ -337,11 +346,22 @@ wherever line 1060 succeeds; it only changes the previously-crashing giants.
 copy** (no system files touched, no Magma source redistributed — only our ~25-line diff): see
 `magma110_patch/` (`definite.m.patch`, `deploy_patch.sh`, `README.md`).
 
-**The two `785473` forms (dim 55446) remain open, and the reason is operational, not mathematical.**
-Both were launched in parallel on the patched build and ran ~40 h at ~400 GB each, then were killed
-by the host's OOM reaper when an unrelated job on the same shared machine expanded to >1 TB. Because
-`kernel_torsion.m` writes nothing until the space-and-Hecke build completes, **both produced no
-output at all** — 40 h each, zero partial credit.
+**The two `785473` forms (dim 76606) were first lost for operational, not mathematical, reasons —
+and have since been recovered.** Both were originally launched *in parallel* on the patched build
+and ran ~40 h at ~400 GB each, then were killed by the host's OOM reaper when an unrelated job on
+the same shared machine expanded to >1 TB. Because `kernel_torsion.m` writes nothing until the
+space-and-Hecke build completes, **both produced no output at all** — 40 h each, zero partial credit.
+
+**Re-run and matched.** On a second, uncontended host, run **strictly one at a time**,
+`785473.12` completed:
+
+```
+785473.12   d=3 l=11  levelN=785473  e=0  dim=76606  survivor=1  control=0  MATCH   [136 001 s]
+```
+
+That is **37.8 h of CPU for a single giant** — the first completed match at this dimension, and so
+the first measured cost rather than an extrapolation. `785473.5` is running now under the same
+sequential discipline; it will bring the sweep to **39/39**.
 
 Two lessons for anyone repeating this, both cheap to act on:
 
