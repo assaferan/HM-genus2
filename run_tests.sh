@@ -69,6 +69,10 @@ echo "== Magma: self-contained gate (no CHIMP) =="
 run_magma "validate.m (dataset + 1+chi+sigma structure)" "VALIDATE: ALL PASS" validate.m
 # Kernel-intersection matcher: reproduce the known 14303.1 match (survivor=1, control=0).
 run_magma "test_kernel.m (kernel matcher: 14303.1 survivor/control)" "KERNEL TEST: PASS" test_kernel.m
+# GRH certificate from the survivor eigenvector: reproduce 14303.1 MODULAR (small bound).
+run_magma "grh_kernel.m (14303.1 GRH cert, BOUND=60)" "GRH-KERNEL CERT 14303.1: MODULAR" idx:=3 BOUND:=60 grh_kernel.m
+# Generalized-eigenspace degree bound (§4f): 14303.1 must give dim G = [E_lambda:Q_l] = 5. ~3 s.
+run_magma "ladic_degree.m (14303.1 dim G = 5)" "dimG=5 degree>=5 NOT-ELLIPTIC" idx:=3 ladic_degree.m
 
 echo
 echo "== Magma: full-pipeline gate (needs CHIMP) =="
