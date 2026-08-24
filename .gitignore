@@ -54,3 +54,9 @@ es_eig/PROGRESS.md
 
 # sweep auto-generated cutters (curated file is hecke_cutters.m)
 hecke_cutters_generated.m
+
+# Banked evidence is DATA, not build output -- exempt it from the *.out/*.log rules above.
+# (Without these, `git add evidence/` silently skips every file and only README.md lands,
+# which is exactly how the first attempt to bank it shipped an empty directory.)
+!evidence/**/*.out
+!evidence/**/*.log

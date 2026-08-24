@@ -1,0 +1,9 @@
+# kernel_torsion shard 2: 881.2 (d=2 l=13)
+  base-cond norm 881, e in [0..4]
+  14 fingerprint primes (norms): [ 9, 25, 7, 7, 121, 17, 17, 361, 23, 23, 841, 31, 31, 1369 ]
+  e=0 levelN=881 dim=37  survivor=0 control=0  no-survivor  [0.9s]
+  e=1 levelN=1762 dim=111  survivor=0 control=0  no-survivor  [0.8s]
+  e=2 levelN=3524 dim=221  survivor=0 control=0  no-survivor  [1.0s]
+  e=3 levelN=7048 dim=441  survivor=1 control=0  MATCH  [46.9s]
+881.2       d=2 l=13 levelN=7048 dim=441 survivor=1 control=0  MATCH (e=3)
+KERNEL SHARD 2 DONE

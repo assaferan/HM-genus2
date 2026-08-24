@@ -62,6 +62,23 @@ note "matches:      $nmatch/$n complete, control-validated, labels agree with to
 note "certificates: $ncert/$n MODULAR, 0 disagreements, sigma irreducible"
 if [ -n "$missing" ]; then note "not yet certified:$missing"; fi
 
+# Evidence present on disk but not committed is evidence that does not exist for anyone else.
+# .gitignore carries *.out and *.log rules for LaTeX artifacts, so `git add evidence/` silently
+# skipped all 104 files the first time and shipped an empty directory -- green locally, red in CI.
+# Check it here so that failure surfaces before the push, not after.
+if [ "${EV}" = "evidence" ] && command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+  untracked=0
+  for f in "$EV"/matches/*.out "$EV"/certificates/*.out "$EV"/ladic/*.log; do
+    [ -e "$f" ] || continue
+    git ls-files --error-unmatch "$f" >/dev/null 2>&1 || untracked=$((untracked+1))
+  done
+  if [ "$untracked" -ne 0 ]; then
+    bad "$untracked evidence file(s) exist on disk but are NOT tracked by git (check .gitignore)"
+  else
+    note "all evidence files are tracked by git"
+  fi
+fi
+
 if [ "$fail" -ne 0 ]; then echo "EVIDENCE: FAIL"; exit 1; fi
 if [ "$nmatch" -ne "$n" ]; then echo "EVIDENCE: FAIL (only $nmatch/$n matches)"; exit 1; fi
 echo "EVIDENCE: ALL PASS ($nmatch/$n matches, $ncert/$n certificates)"

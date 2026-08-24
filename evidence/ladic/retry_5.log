@@ -1,0 +1,8 @@
+Loading "torsion_data.m"
+idx 5 (20447.3) l=11; fingerprint norms [ 9, 25, 7, 169, 17, 17, 361, 23, 841, 31, 31, 1369 ]
+  e=0 dim=1023 survivor=1
+  building generalized eigenspace (nested kernels):
+    dim = 1
+  GENERALIZED-EIGENSPACE dim = [E_lambda:Q_l] = 1
+  dim G = 1 (lambda split, residue degree 1): a_P in Z_l -- generalized-eigenspace test inconclusive.
+  dim 1023 <= 2000: l-adic min-poly recognition (PREC=1200)...

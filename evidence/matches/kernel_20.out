@@ -1,0 +1,6 @@
+# kernel_torsion shard 20: 200273.1 (d=2 l=11)
+  base-cond norm 200273, e in [0..0]
+  14 fingerprint primes (norms): [ 9, 25, 7, 7, 169, 17, 17, 361, 23, 23, 841, 31, 31, 1369 ]
+  e=0 levelN=200273 dim=8345  survivor=1 control=0  MATCH  [836.3s]
+200273.1    d=2 l=11 levelN=200273 dim=8345 survivor=1 control=0  MATCH (e=0)
+KERNEL SHARD 20 DONE

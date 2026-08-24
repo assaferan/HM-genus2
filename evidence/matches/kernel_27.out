@@ -1,0 +1,6 @@
+# kernel_torsion shard 27: 478593.4 (d=2 l=11)
+  base-cond norm 478593, e in [0..0]
+  14 fingerprint primes (norms): [ 25, 7, 7, 169, 17, 17, 361, 23, 23, 841, 31, 31, 1369, 41 ]
+  e=0 levelN=478593 dim=22719  survivor=1 control=0  MATCH  [5609.9s]
+478593.4    d=2 l=11 levelN=478593 dim=22719 survivor=1 control=0  MATCH (e=0)
+KERNEL SHARD 27 DONE
