@@ -64,6 +64,18 @@ else
 fi
 
 echo
+echo "== Banked evidence (no Magma) =="
+# Checks evidence/ against torsion_data.m: every match complete and correctly labelled, every
+# certificate MODULAR with 0 disagreements. Guards against banking a stale header from a killed
+# run, or transposing a curve with its conjugate. Text-only, well under a second.
+RAN=$((RAN+1))
+if ev_out=$(./verify_evidence.sh 2>&1) && echo "$ev_out" | grep -q "EVIDENCE: ALL PASS"; then
+  pass "verify_evidence.sh ($(echo "$ev_out" | sed -n 's/^EVIDENCE: ALL PASS (\(.*\))$/\1/p'))"
+else
+  fail "verify_evidence.sh"; echo "$ev_out" | sed 's/^/      | /'
+fi
+
+echo
 echo "== Magma: self-contained gate (no CHIMP) =="
 # Dataset structure + conductor-norm validation over all 39 curves.
 run_magma "validate.m (dataset + 1+chi+sigma structure)" "VALIDATE: ALL PASS" validate.m
