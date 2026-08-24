@@ -32,8 +32,9 @@ quadratic field.
   definite Hilbert-modular-forms code (§4d) clears it: **569399.3 now matches**
   (`dim 47728, survivor=1, control=0`). The two `785473` forms were then lost to an out-of-memory
   kill on a contended shared machine after ~40 h each (§4d); re-run one-at-a-time on an idle host,
-  **785473.12 matches** (`dim 76606, survivor=1, control=0`, 37.8 h) — **38/39 confirmed**, with
-  `785473.5` running to close the sweep at 39/39.
+  **both `785473` forms match** (`dim 76606, survivor=1, control=0`; 37.8 h and 35.8 h) — so the
+  sweep is **complete at 39/39: every curve in the dataset is matched to a Hilbert newform**,
+  each control-validated.
 - Under **GRH**, each match upgrades to a theorem via an effective Faltings–Serre /
   Chebotarev prime bound `O((log cond)²)` — a few-hundred-prime check, as in the idx-33 work.
   Because the mod-ℓ survivor eigenvector supplies `a_P mod λ` directly, the certificate needs
@@ -299,10 +300,10 @@ dims of §3; `e>0` only for `881` and `4057`, via mod-ℓ level-lowering.)
 | 472993.1, 472993.2 | Q(√3) | 11 | 472993 | 0 | 39418 | 1 / 0 |
 | 569399.3 | Q(√3) | 13 | 569399 | 0 | 47728 | 1 / 0 (§4d) |
 | 785473.12 | Q(√3) | 11 | 785473 | 0 | **76606** | 1 / 0 (§4d) |
-| 785473.5 | Q(√3) | 11 | 785473 | 0 | 76606 | *running (§4d)* |
+| 785473.5 | Q(√3) | 11 | 785473 | 0 | 76606 | 1 / 0 (§4d) |
 
-The last three rows use the patched build of §4d. `569399.3` and `785473.12` are confirmed;
-`785473.5` is in progress, which would complete the sweep at **39/39**.
+The last three rows use the patched build of §4d. All three are now confirmed, so **every curve in
+the dataset is matched: 39/39**, each with `survivor = 1` and the discrimination control at `0`.
 
 **Correction to the `785473` dimension.** Earlier drafts carried `55446` for these two rows, taken
 from the §3 census while no run had ever completed. The finished `785473.12` run reports the actual
@@ -360,8 +361,15 @@ space-and-Hecke build completes, **both produced no output at all** — 40 h eac
 ```
 
 That is **37.8 h of CPU for a single giant** — the first completed match at this dimension, and so
-the first measured cost rather than an extrapolation. `785473.5` is running now under the same
-sequential discipline; it will bring the sweep to **39/39**.
+the first measured cost rather than an extrapolation. `785473.5` then completed under the same sequential discipline:
+
+```
+785473.5    d=3 l=11  levelN=785473  e=0  dim=76606  survivor=1  control=0  MATCH   [128 937 s]
+```
+
+35.8 h, closing the sweep at **39/39 — every curve in the dataset matched**. The two conjugates
+cost 37.8 h and 35.8 h respectively, so ~36–38 h is the reliable figure for a single dim-76606
+match on an uncontended host.
 
 Two lessons for anyone repeating this, both cheap to act on:
 
