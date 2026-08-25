@@ -1,0 +1,16 @@
+# grh_kernel idx 36: 472993.2 (d=3 l=11), BOUND=800
+  match level: e=0 levelN=472993 dim=39418 survivor=1 control=0
+  sigma irreducible: true
+  verifying trace agreement, good primes N(P) <= 800 ...
+    ... up to 83: 23 primes, 0 disagreements (3095.7 s)
+    ... up to 163: 33 primes, 0 disagreements (5466.4 s)
+    ... up to 241: 51 primes, 0 disagreements (10448.9 s)
+    ... up to 331: 61 primes, 0 disagreements (13702.3 s)
+    ... up to 401: 75 primes, 0 disagreements (18822.5 s)
+    ... up to 487: 93 primes, 0 disagreements (26091.9 s)
+    ... up to 563: 101 primes, 0 disagreements (29772.3 s)
+    ... up to 641: 111 primes, 0 disagreements (34791.1 s)
+    ... up to 727: 125 primes, 0 disagreements (42337.9 s)
+  TOTAL: 133 good primes N(P) <= 800; DISAGREEMENTS: 0
+472993.2    d=3 l=11 levelN=472993 e=0 primes=133 disagree=0 irred  GRH-KERNEL CERT 472993.2: MODULAR
+GRH-KERNEL DONE 36

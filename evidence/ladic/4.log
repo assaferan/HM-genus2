@@ -1,0 +1,29 @@
+Magma V2.29-9     Tue Aug 18 2026 14:40:15 on lovelace [Seed = 2388673897]
+
++-------------------------------------------------------------------+
+|       This copy of Magma has been made available through a        |
+|                   generous initiative of the                      |
+|                                                                   |
+|                         Simons Foundation                         |
+|                                                                   |
+| covering U.S. Colleges, Universities, Nonprofit Research entities,|
+|               and their students, faculty, and staff              |
++-------------------------------------------------------------------+
+
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "ladic_degree.m"
+Loading "torsion_data.m"
+idx 4 (14303.2) l=11; fingerprint norms [ 9, 25, 7, 7, 169, 17 ]
+  e=0 dim=595 survivor=1
+  building generalized eigenspace (nested kernels):
+    dim = 2
+    dim = 3
+    dim = 4
+    dim = 5
+    dim = 5
+  GENERALIZED-EIGENSPACE dim = [E_lambda:Q_l] = 5
+  RESULT: [E:Q] >= 5 > 1  =>  matched newform NOT rational; sigma does not arise from an elliptic curve.
+LADIC-DEG 14303.2     idx=4 l=11 e=0 dim=595 dimG=5 degree>=5 NOT-ELLIPTIC
+
+Total time: 4.960 seconds, Total memory usage: 248.78MB

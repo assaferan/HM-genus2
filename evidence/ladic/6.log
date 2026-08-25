@@ -1,0 +1,27 @@
+Magma V2.29-9     Tue Aug 18 2026 14:40:25 on lovelace [Seed = 801236190]
+
++-------------------------------------------------------------------+
+|       This copy of Magma has been made available through a        |
+|                   generous initiative of the                      |
+|                                                                   |
+|                         Simons Foundation                         |
+|                                                                   |
+| covering U.S. Colleges, Universities, Nonprofit Research entities,|
+|               and their students, faculty, and staff              |
++-------------------------------------------------------------------+
+
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "ladic_degree.m"
+Loading "torsion_data.m"
+idx 6 (20447.6) l=11; fingerprint norms [ 9, 25, 7, 169, 17, 17 ]
+  e=0 dim=1023 survivor=1
+  building generalized eigenspace (nested kernels):
+    dim = 1
+  GENERALIZED-EIGENSPACE dim = [E_lambda:Q_l] = 1
+  dim G = 1 (lambda split, residue degree 1): a_P in Z_l -- generalized-eigenspace test inconclusive.
+  dim 1023 <= 2000: l-adic min-poly recognition (PREC=400)...
+  RESULT: max recovered [Q(a_P):Q] = 1  =>  [E:Q] >= 1.  (inconclusive: more primes/precision)
+LADIC-DEG 20447.6     idx=6 l=11 e=0 dim=1023 dimG=1 degree>=1 INCONCLUSIVE-RECOG
+
+Total time: 1107.509 seconds, Total memory usage: 357.62MB

@@ -1,0 +1,9 @@
+# grh_kernel idx 13: 113609.1 (d=2 l=13), BOUND=3000
+  match level: e=0 levelN=113609 dim=4783 survivor=1 control=0
+  sigma irreducible: true
+  verifying trace agreement, good primes N(P) <= 3000 ...
+    ... up to 1009: 169 primes, 0 disagreements (5123.3 s)
+    ... up to 2003: 298 primes, 0 disagreements (15306.4 s)
+  TOTAL: 426 good primes N(P) <= 3000; DISAGREEMENTS: 0
+113609.1    d=2 l=13 levelN=113609 e=0 primes=426 disagree=0 irred  GRH-KERNEL CERT 113609.1: MODULAR
+GRH-KERNEL DONE 13

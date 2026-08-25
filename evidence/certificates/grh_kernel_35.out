@@ -1,0 +1,7 @@
+# grh_kernel idx 35: 472993.1 (d=3 l=11), BOUND=800
+  match level: e=0 levelN=472993 dim=39418 survivor=1 control=0
+  sigma irreducible: true
+  verifying trace agreement, good primes N(P) <= 800 ...
+  TOTAL: 133 good primes N(P) <= 800; DISAGREEMENTS: 0
+472993.1    d=3 l=11 levelN=472993 e=0 primes=133 disagree=0 irred  GRH-KERNEL CERT 472993.1: MODULAR
+GRH-KERNEL DONE 35

@@ -1,0 +1,4 @@
+# Do NOT commit Magma's proprietary package source (verbatim or patched copies).
+# Only our diff (definite.m.patch), the deploy script, and the README are tracked.
+definite.m
+definite.m.orig

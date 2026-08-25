@@ -64,11 +64,27 @@ else
 fi
 
 echo
+echo "== Banked evidence (no Magma) =="
+# Checks evidence/ against torsion_data.m: every match complete and correctly labelled, every
+# certificate MODULAR with 0 disagreements. Guards against banking a stale header from a killed
+# run, or transposing a curve with its conjugate. Text-only, well under a second.
+RAN=$((RAN+1))
+if ev_out=$(./verify_evidence.sh 2>&1) && echo "$ev_out" | grep -q "EVIDENCE: ALL PASS"; then
+  pass "verify_evidence.sh ($(echo "$ev_out" | sed -n 's/^EVIDENCE: ALL PASS (\(.*\))$/\1/p'))"
+else
+  fail "verify_evidence.sh"; echo "$ev_out" | sed 's/^/      | /'
+fi
+
+echo
 echo "== Magma: self-contained gate (no CHIMP) =="
 # Dataset structure + conductor-norm validation over all 39 curves.
 run_magma "validate.m (dataset + 1+chi+sigma structure)" "VALIDATE: ALL PASS" validate.m
 # Kernel-intersection matcher: reproduce the known 14303.1 match (survivor=1, control=0).
 run_magma "test_kernel.m (kernel matcher: 14303.1 survivor/control)" "KERNEL TEST: PASS" test_kernel.m
+# GRH certificate from the survivor eigenvector: reproduce 14303.1 MODULAR (small bound).
+run_magma "grh_kernel.m (14303.1 GRH cert, BOUND=60)" "GRH-KERNEL CERT 14303.1: MODULAR" idx:=3 BOUND:=60 grh_kernel.m
+# Generalized-eigenspace degree bound (§4f): 14303.1 must give dim G = [E_lambda:Q_l] = 5. ~3 s.
+run_magma "ladic_degree.m (14303.1 dim G = 5)" "dimG=5 degree>=5 NOT-ELLIPTIC" idx:=3 ladic_degree.m
 
 echo
 echo "== Magma: full-pipeline gate (needs CHIMP) =="
