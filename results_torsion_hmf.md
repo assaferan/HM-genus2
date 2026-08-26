@@ -285,16 +285,17 @@ eigenvalues satisfy `a_P ≡ c_P (mod λ)` at every prime we tested. Attaching `
 standard (Blasius–Rogawski, Carayol, Deligne, Saito, Taylor, Wiles), and `ρ̄_{f,λ}` has the traces the
 certificate verifies against.
 
-**Three honest qualifications.**
+**Two qualifications.**
 
 - The survivor lives in the *full* cusp space, so the lifted eigenform need not be new at `N`; its
   associated newform has level **dividing** `N`, with the same Galois representation away from `N`.
   The theorem is stated that way above.
 - The lemma produces eigenvalues in a finite extension `R'`, not in `Z_ℓ`. That is expected here —
   the Hecke fields we identified explicitly have degrees 5 and 18 (§4e).
-- Deligne–Serre is a paper about weight 1, but Lemme 6.11 is a general statement about modules over
-  a DVR and carries no weight hypothesis. The lemma number should be confirmed against the original;
-  it is quoted here from secondary sources.
+
+(Deligne–Serre is a paper about weight 1, but Lemme 6.11 is a general statement about modules over
+a DVR and carries no weight hypothesis, so nothing about weight 1 is being imported here. The
+reference has been checked against the original paper.)
 
 **Outstanding (2 of 39).** All 39 curves are matched (§4c/§4d) and 37 are certified; only the
 `785473` pair (`785473.12`, `785473.5`, dim 76606) lacks a certificate. `569399.3` was certified
