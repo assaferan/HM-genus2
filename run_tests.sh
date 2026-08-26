@@ -64,6 +64,22 @@ else
 fi
 
 echo
+echo "== Dataset transcription (no Magma) =="
+# torsion_data.m vs the source examples.json. Skips when the dataset is not present locally
+# (it is collaborators' data and is not committed); everything downstream depends on this
+# transcription being faithful, so check it whenever the file is available.
+if [ -x ./verify_transcription.py ] && command -v python3 >/dev/null 2>&1; then
+  tr_out=$(./verify_transcription.py 2>&1)
+  case "$tr_out" in
+    *"TRANSCRIPTION: ALL PASS"*) RAN=$((RAN+1)); pass "verify_transcription.py ($(echo "$tr_out" | sed -n 's/^TRANSCRIPTION: ALL PASS (\(.*\))$/\1/p'))" ;;
+    *"TRANSCRIPTION: SKIP"*)     skip "verify_transcription.py -- examples.json not present" ;;
+    *)                           RAN=$((RAN+1)); fail "verify_transcription.py"; echo "$tr_out" | sed 's/^/      | /' ;;
+  esac
+else
+  skip "verify_transcription.py -- needs python3"
+fi
+
+echo
 echo "== Banked evidence (no Magma) =="
 # Checks evidence/ against torsion_data.m: every match complete and correctly labelled, every
 # certificate MODULAR with 0 disagreements. Guards against banking a stale header from a killed
