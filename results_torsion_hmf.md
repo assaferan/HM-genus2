@@ -1,8 +1,11 @@
 # Matching Hugo Nartz's torsion-type mod-ℓ representations to Hilbert modular forms
 
 *Working notes for the collaboration. Dataset: `examples.json` (Hugo Nartz, via Ariel) —
-genus-2 curves over `Q(√2)`, `Q(√3)`, `Q(√5)` whose mod-ℓ Galois representation (`ℓ ≥ 11`)
-contains an irreducible 2-dimensional sub coming from a torsion point.*
+genus-2 curves over real quadratic fields whose mod-ℓ Galois representation (`ℓ ≥ 11`)
+contains an irreducible 2-dimensional sub coming from a torsion point. The file supplied
+holds **two** fields — `Q(√2)` (27 curves) and `Q(√3)` (12) — for **39 in total**, which is
+exactly the set treated here. (Earlier drafts also named `Q(√5)`; no `Q(√5)` candidates are
+present in the dataset, so nothing here covers that field.)*
 
 ## 0. Summary
 
@@ -14,7 +17,7 @@ so `σ` is a candidate for a **parallel weight-`[2,2]`, trivial-nebentypus Hilbe
 form over `F`**. This is a direct (non-induced) test of Serre's conjecture over a real
 quadratic field.
 
-**Findings (this file covers `Q(√2)` and `Q(√3)`; the JSON has 28 + 12 candidates there):**
+**Findings (all 39 curves in the dataset: 27 over `Q(√2)`, 12 over `Q(√3)`):**
 - The whole list is **computationally easy**: because `ℓ ∈ {11,13}` does not divide any
   conductor, the Hilbert level is (essentially) the conductor, with **no `ℓ`-power blow-up**
   — unlike the `p=5` non-base-change family, whose `5⁴`-inflated levels reach dim `10⁵–10⁶`.
@@ -93,8 +96,9 @@ dim 2.25M).
 | 72649 | 13 | 6056 | 785473 | 11 | 55446 |
 | 377233 | 11 | 31102 | | | |
 
-All ≤ 55 446 (larger per unit norm since `ζ_{Q(√3)}(−1) = 1/6` vs `1/12` for `Q(√2)`;
-`Q(√5)` would be `≈ 0.4×` the `Q(√2)` size).
+All ≤ 55 446 (larger per unit norm since `ζ_{Q(√3)}(−1) = 1/6` vs `1/12` for `Q(√2)`). For
+reference, were `Q(√5)` candidates ever supplied, its spaces would be `≈ 0.4×` the `Q(√2)`
+size — i.e. the cheapest of the three to run.
 
 ## 4. Matches
 
