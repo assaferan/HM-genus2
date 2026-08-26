@@ -58,7 +58,10 @@ for i in $IDXS; do
   else
     # Same guard as run_giants_sequential.sh: a vanished process is not a finished one.
     echo "=== idx $i : ENDED WITHOUT A CERT (rc=$rc, avail $(avail)G) ==="
-    echo "    No sentinel in grh_kernel_$i.out -- most likely OOM-killed."
+    # Don't guess at the cause: rc and free RAM together identify it. rc=137 (SIGKILL) with low
+    # avail is an OOM; rc=143 (SIGTERM) with plenty free is something/someone killing the job --
+    # on a shared CI host, plausibly a cleanup step that reaps processes by name.
+    echo "    No sentinel in grh_kernel_$i.out. rc=$rc ($([ $rc -eq 137 ] && echo SIGKILL; [ $rc -eq 143 ] && echo SIGTERM; [ $rc -ne 137 ] && [ $rc -ne 143 ] && echo "exit $rc")), $(avail)G free at exit."
     echo "    STOPPING rather than feeding another multi-day run into the same conditions."
     tail -3 "grhshards/grh_giant_$i.log" 2>/dev/null | sed 's/^/    | /'
     exit 1
