@@ -41,6 +41,11 @@ quadratic field.
   **no char-0 eigenform** and scales with the matcher: **37 GRH modularity certificates**
   (all 27 `Q(√2)`, 10 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
   (§4b). The 2 outstanding are the `785473` pair, pending compute, not method.
+- Working with the mod-ℓ eigenvector costs nothing in strength: the space is characteristic 0 to
+  begin with, and the Hecke matrices are ℓ-integral (checked, `verify_lattice.m`), so the
+  **Deligne–Serre lifting lemma** produces a characteristic-0 Hilbert newform of the same weight
+  and level dividing `N`. Getting from the certificate to the word *newform* needs that 1974 lemma
+  about lattices — **not** a modularity lifting theorem (§4b).
 
 ## 1. Structure and fingerprint (verified)
 
@@ -229,12 +234,63 @@ above); both tiers are far beyond the GRH effective Faltings–Serre bound `~(lo
 | 472993.2 | Q(√3) | 11 | 472993 | 0 | 800 | 133 | 0 |
 | 569399.3 | Q(√3) | 13 | 569399 | 0 | 400 | 74 | 0 |
 
-> **Theorem [GRH].** For each of the 37 curves above, `σ ≅ ρ̄_{f,λ}` for the Hilbert newform `f`
-> of parallel weight `[2,2]` at the stated level; hence `σ` is modular.
+> **Theorem [GRH].** For each of the 37 curves above, `σ ≅ ρ̄_{f,λ}` for a Hilbert modular newform
+> `f` of parallel weight `[2,2]` and level dividing the stated level; hence `σ` is modular.
 
 The first two rows reproduce the char-0 theorems above (`14303.1` at `e=0`, `881.1` at `e=3`)
 from the survivor alone — the kernel route is validated against the char-0 route wherever both
 are computable.
+
+#### From a mod-ℓ eigenvector to a characteristic-0 form
+
+The certificate above is computed entirely with the mod-ℓ survivor `v`, so it is worth being
+precise about what licenses the word *newform* in the theorem. The step is **not** a modularity
+lifting theorem — no `R = T`, no deformation theory. It is a 1974 lemma about lattices:
+
+> **Lemma** (Deligne–Serre, *Formes modulaires de poids 1*, Ann. Sci. ÉNS (4) **7** (1974),
+> 507–530, Lemme 6.11). Let `M` be a free module of finite rank over a discrete valuation ring `R`
+> with maximal ideal `𝔪`, and let `S` be a set of commuting `R`-endomorphisms of `M`. If
+> `0 ≠ v ∈ M` satisfies `Tv ≡ c_T v (mod 𝔪M)` for all `T ∈ S`, then there is a DVR `R' ⊇ R`, finite
+> over `R`, with maximal ideal `𝔪' ⊇ 𝔪`, and a nonzero `v' ∈ R' ⊗_R M` with `Tv' = c'_T v'` and
+> `c'_T ≡ c_T (mod 𝔪')`.
+
+**Why it applies here.** The essential point is that we never left characteristic 0:
+`HilbertCuspForms(F, N, [2,2])` *is* a characteristic-0 Hecke module, and only the Hecke **matrices**
+are reduced mod ℓ. So the lemma needs just one thing — a Hecke-stable lattice.
+
+That is not quite automatic. Magma's Hecke matrices on this space are rational and, for most of our
+levels, **not integral**. But their denominators are prime to ℓ, so the `Z_(ℓ)`-span of Magma's basis
+*is* Hecke-stable, and the lemma applies with `R = Z_(ℓ)`. This is checkable rather than assumed, and
+`verify_lattice.m` checks it (it is in the test gate):
+
+| curve | ℓ | `T_P` checked | non-integral | max `v_ℓ(denominator)` |
+|---|--:|--:|--:|--:|
+| 881.1 | 13 | 11 | 0 | 0 |
+| 4057.1 | Q(√3), 11 | 10 | **10** | **0** |
+| 24889.1 | 13 | 11 | **11** | **0** |
+| 65209.2 | Q(√3), 13 | 10 | **10** | **0** |
+
+Note `4057.1`, `24889.1` and `65209.2`: *every* Hecke matrix is non-integral, yet every denominator
+is prime to ℓ. This is the same ℓ-integrality that makes the reduction `T_P ↦ T_P mod ℓ` well defined
+in `kernel_torsion.m` and `grh_kernel.m` — so a failure here would break the certificates and the
+lifting argument together, which is why it is worth a gate rather than a remark.
+
+Applying the lemma with `M` = that lattice, `S = {T_P}`, and `v` = our survivor yields a
+characteristic-0 Hilbert cusp eigenform of the **same level and parallel weight `[2,2]`** whose
+eigenvalues satisfy `a_P ≡ c_P (mod λ)` at every prime we tested. Attaching `ρ_{f,λ}` to it is then
+standard (Blasius–Rogawski, Carayol, Deligne, Saito, Taylor, Wiles), and `ρ̄_{f,λ}` has the traces the
+certificate verifies against.
+
+**Three honest qualifications.**
+
+- The survivor lives in the *full* cusp space, so the lifted eigenform need not be new at `N`; its
+  associated newform has level **dividing** `N`, with the same Galois representation away from `N`.
+  The theorem is stated that way above.
+- The lemma produces eigenvalues in a finite extension `R'`, not in `Z_ℓ`. That is expected here —
+  the Hecke fields we identified explicitly have degrees 5 and 18 (§4e).
+- Deligne–Serre is a paper about weight 1, but Lemme 6.11 is a general statement about modules over
+  a DVR and carries no weight hypothesis. The lemma number should be confirmed against the original;
+  it is quoted here from secondary sources.
 
 **Outstanding (2 of 39).** All 39 curves are matched (§4c/§4d) and 37 are certified; only the
 `785473` pair (`785473.12`, `785473.5`, dim 76606) lacks a certificate. `569399.3` was certified

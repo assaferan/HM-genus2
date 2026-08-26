@@ -85,6 +85,10 @@ run_magma "test_kernel.m (kernel matcher: 14303.1 survivor/control)" "KERNEL TES
 run_magma "grh_kernel.m (14303.1 GRH cert, BOUND=60)" "GRH-KERNEL CERT 14303.1: MODULAR" idx:=3 BOUND:=60 grh_kernel.m
 # Generalized-eigenspace degree bound (§4f): 14303.1 must give dim G = [E_lambda:Q_l] = 5. ~3 s.
 run_magma "ladic_degree.m (14303.1 dim G = 5)" "dimG=5 degree>=5 NOT-ELLIPTIC" idx:=3 ladic_degree.m
+# Hecke matrices must be l-INTEGRAL. This underwrites two things at once: the reduction
+# T_P -> T_P mod l that every certificate depends on, and the Hecke-stable Z_(l)-lattice that
+# lets Deligne-Serre lift the survivor to a characteristic-0 newform (§4b). ~35 s.
+run_magma "verify_lattice.m (Hecke matrices l-integral)" "LATTICE: ALL PASS" verify_lattice.m
 
 echo
 echo "== Magma: full-pipeline gate (needs CHIMP) =="
