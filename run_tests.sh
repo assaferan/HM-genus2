@@ -105,6 +105,9 @@ run_magma "ladic_degree.m (14303.1 dim G = 5)" "dimG=5 degree>=5 NOT-ELLIPTIC" i
 # T_P -> T_P mod l that every certificate depends on, and the Hecke-stable Z_(l)-lattice that
 # lets Deligne-Serre lift the survivor to a characteristic-0 newform (§4b). ~35 s.
 run_magma "verify_lattice.m (Hecke matrices l-integral)" "LATTICE: ALL PASS" verify_lattice.m
+# Image probe (§4b): sigma must look large-image, not dihedral -- the check that rules out the
+# easy unconditional (GRH-free) route. One curve at a small bound; instant.
+run_magma "image_probe.m (14303.1 not dihedral)" "IMAGE PROBE: DONE" idx:=3 BOUND:=200 image_probe.m
 
 echo
 echo "== Magma: full-pipeline gate (needs CHIMP) =="

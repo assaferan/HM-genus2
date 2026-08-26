@@ -303,6 +303,56 @@ certificate verifies against.
 a DVR and carries no weight hypothesis, so nothing about weight 1 is being imported here. The
 reference has been checked against the original paper.)
 
+#### Can the GRH hypothesis be removed?
+
+It is worth being precise about how little GRH is doing. It enters in **exactly one place**: bounding
+how many primes must be checked. `σ` and `ρ̄_{f,λ}` are semisimple, so by Brauer–Nesbitt they are
+isomorphic as soon as their traces agree at *all* Frobenius; GRH makes "all" finite via effective
+Chebotarev, `~(log cond)² ≈ 200`. Everything else — the match, the survivor, the lifting lemma, and
+the observed agreement at 400–3000 primes with zero disagreements — is unconditional.
+
+Two routes could in principle replace it.
+
+- **Unconditional effective Chebotarev** (Lagarias–Odlyzko, Zaman). The field cut out by the pair
+  `(σ, ρ̄_{f,λ})` has degree up to `|GL₂(F_ℓ)|²` and an enormous discriminant, so the unconditional
+  bounds are astronomically beyond reach. Not viable.
+- **Make `σ` modular by other means.** GRH is needed only because `σ` is not *a priori* modular. If
+  it were known to be, then `σ` and `ρ̄_{f,λ}` would be two mod-ℓ eigenvalue systems in the *same*
+  finite-dimensional Hecke module, and separating them needs only a **Sturm bound** — finite,
+  explicit, unconditional linear algebra. The whole GRH dependence collapses to: *can `σ` be shown
+  modular?*
+
+Serre's conjecture over real quadratic fields is open, so in general it cannot. But there is one
+classical case needing no conjecture: if `σ` is **dihedral** — induced from a character of a
+quadratic extension — it is automorphic by automorphic induction, a theta series. Those examples
+would be unconditionally modular.
+
+**This is cheap to test, and we tested it.** A dihedral `σ` has `tr σ(Frob_P) = 0` for exactly the
+primes inert in the quadratic field — density `1/2`. An image containing `SL₂(F_ℓ)` gives roughly
+equidistributed traces, so density `1/ℓ` (9% at `ℓ=11`, 8% at `ℓ=13`). The predictions differ
+sixfold. Using the fingerprint `t_P = −#C(𝔽_P) mod ℓ` we already trust, `image_probe.m` measured this
+over ~160 good primes `N(P) ≤ 1000` for **all 39 curves**:
+
+| | |
+|---|---|
+| trace-zero frequency, observed range | **0.049 – 0.136** (predicted `1/ℓ` = 0.077 / 0.091) |
+| curves near the dihedral prediction 0.5 | **none** — the closest is `9.3σ` away |
+| curves where **all** `ℓ` trace values occur | **39 of 39** |
+
+> **No example is dihedral.** Every `σ` behaves like a representation with full image, so none of
+> them is automorphic by induction, and the easy unconditional route is unavailable.
+
+The same measurement closes off the remaining option. A genuine Faltings–Serre / Livné deviation
+argument replaces Chebotarev with a finite group-theoretic covering condition and *is* how
+unconditional results of this shape are usually obtained — but its cost is governed by the image,
+and an image containing `SL₂(F_ℓ)` means covering a group of order `~10⁶–10⁷`. Not practical here.
+
+So the GRH hypothesis stands, and it is worth stating in the paper *why* it stands: not for want of
+trying, but because these `σ` are large-image and therefore miss every classical unconditional
+shortcut. That every one of the ℓ possible traces occurs for every curve is also independent evidence
+that the images are genuinely full — it is not what the exceptional projective images (`A₄`, `S₄`,
+`A₅`) would typically produce. (Raw output: `evidence/image/image_probe_bound1000.txt`.)
+
 **Outstanding (2 of 39).** All 39 curves are matched (§4c/§4d) and 37 are certified; only the
 `785473` pair (`785473.12`, `785473.5`, dim 76606) lacks a certificate. `569399.3` was certified
 at `BOUND=400` in ~14 h. The `785473.12` attempt reached 27 of its 74 primes with 0 disagreements

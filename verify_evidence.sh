@@ -68,7 +68,9 @@ if [ -n "$missing" ]; then note "not yet certified:$missing"; fi
 # Check it here so that failure surfaces before the push, not after.
 if [ "${EV}" = "evidence" ] && command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
   untracked=0
-  for f in "$EV"/matches/*.out "$EV"/certificates/*.out "$EV"/ladic/*.log; do
+  # Every evidence subdirectory, not just the three checked above -- an untracked file in a
+  # directory this loop forgets is exactly the blind spot that shipped an empty evidence/ once.
+  for f in "$EV"/matches/*.out "$EV"/certificates/*.out "$EV"/ladic/*.log "$EV"/image/*.txt; do
     [ -e "$f" ] || continue
     git ls-files --error-unmatch "$f" >/dev/null 2>&1 || untracked=$((untracked+1))
   done
