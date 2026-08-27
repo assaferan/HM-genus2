@@ -44,6 +44,12 @@ quadratic field.
   **no char-0 eigenform** and scales with the matcher: **37 GRH modularity certificates**
   (all 27 `Q(√2)`, 10 of 12 `Q(√3)`), every one with 0 trace disagreements and `σ` irreducible
   (§4b). The 2 outstanding are the `785473` pair, pending compute, not method.
+- **"Not from an elliptic curve" is established for 5 of the 39, and open for the rest.** Where we
+  have the char-0 eigenform the Hecke field is large — degree 18 for `881`, 5 for `14303` (§4e) —
+  and a scalable mod-ℓ test adds `145161.2` with `[E:Q] ≥ 2` (§4f). That test is **one-sided**: it
+  is silent whenever `ℓ` has a degree-1 prime in the Hecke field, as it did for 22 of the 27 curves
+  tried, and `881` (`[E:Q] = 18`, test silent) shows an inconclusive result carries no information.
+  This is a limit of the method, not of compute.
 - Working with the mod-ℓ eigenvector costs nothing in strength: the space is characteristic 0 to
   begin with, and the Hecke matrices are ℓ-integral (checked, `verify_lattice.m`), so the
   **Deligne–Serre lifting lemma** produces a characteristic-0 Hilbert newform of the same weight
@@ -519,11 +525,10 @@ and `881.2` share the same degree-18 field; the `14303` field is `Q(ζ₁₁)⁺
 `≫ 1`, so `σ ≅ ρ̄_{f,λ}` comes from an abelian variety of dimension 18 (resp. 5), **confirming
 these mod-ℓ representations do not arise from elliptic curves** — the "not dimension 1" point.
 
-**Scope / open item.** This is established only for the four isolated forms. The remaining 34
-kernel matches (§4c, including the three giants) are *certificates*: the mod-ℓ survivor
-eigenvalues lie in `F_ℓ`, which does **not** by itself pin `[E:Q]`. Extending the
-"not-dimension-1" statement to the giants needs either eigenform isolation (the expensive char-0
-step) or a degree lower bound argued directly from the survivor data — the method of §4f.
+**Scope.** This argument needs the Hecke field, and the Hecke field needs the char-0 eigenform. We
+have that for exactly these **four** curves. For the other **35** the match is a *certificate*: the
+survivor eigenvalues lie in `F_ℓ`, which does not by itself pin `[E:Q]`. §4f develops a test that
+avoids eigenform isolation; §4f also reports, honestly, how far it actually got.
 
 ### 4f. A cheap degree lower bound from the survivor (mod-ℓ generalized eigenspace)
 
@@ -545,21 +550,60 @@ E₁ = survivor,   E_{k+1} = { w : w·(T_i − c_i) ∈ E_k  for all i },   G = 
 i.e. the **same `F_ℓ` linear algebra as the survivor** — so it **scales to the giant dimensions**
 (unlike any char-0 lift). Validated (`ladic_degree.m`):
 
-| form | ℓ | `dim G = [E_λ:Q_ℓ]` | certificate | known `[E:Q]` |
+| form | ℓ | `dim G = [E_λ:Q_ℓ]` | what it certifies | known `[E:Q]` |
 |---|--:|--:|---|--:|
-| 14303 | 11 | **5** (chain `1→2→3→4→5`) | `[E:Q] ≥ 5` — **scalable** | 5 |
-| 881 | 13 | 1 (`λ` split, residue deg 1) | falls back to recognition | 18 |
+| 14303 | 11 | **5** (chain `1→2→3→4→5`) | `[E:Q] ≥ 5` | 5 |
+| 881 | 13 | **1** (`λ` split, residue deg 1) | **nothing** | **18** |
 
-When `dim G = 1` (λ split, residue degree 1) we have `a_P ∈ Z_ℓ` and the generalized-eigenspace
-test is inconclusive. A fallback then reconstructs `a_P`'s minimal polynomial from an ℓ-adic Hensel
-lift of `v` (LLL, find-at-half / verify-at-full) — for 881 it recovers the **degree-18** field,
-isomorphic to the known Hecke field. But that lift is `O(dim³)` and is used **only at small
-dimension**; it does **not** scale to `dim ≈ 55000`.
+**The test is one-sided, and the `881` row is the proof.** There the Hecke field is known to have
+degree 18, and `dim G` is nevertheless 1. So `dim G = 1` is not weak evidence for `[E:Q] = 1`; it is
+*no* evidence either way. It says only that `ℓ` happens to have a degree-1 unramified prime in `E`,
+which is a fact about how `ℓ` splits, not about how big `E` is. Any reading of an inconclusive result
+as "probably an elliptic curve" would be wrong.
 
-**For the giants**, then, we compute `dim G` by nested kernels (reusing the patched build of §4d,
-and only ~6 fingerprint primes — the survivor is 1-dimensional after 2): if `dim G > 1`, `[E:Q] > 1`
-is certified and the computation scales, closing the "not-dimension-1" gap for that curve; if
-`dim G = 1`, its `λ` is split and we would need eigenform isolation.
+#### What the sweep actually found
+
+We ran `ladic_degree.m` over the **27** curves of dimension `≤ 8345` (`run_ladic_shards.sh`; the
+12 larger ones, idx 22–27 and 34–39, were never attempted). Results:
+
+| outcome | curves | |
+|---|--:|---|
+| `dim G > 1` — `[E:Q] > 1` **certified** | **3** | `14303.1`, `14303.2` (`dim G = 5`); **`145161.2` (`dim G = 2`)** |
+| `dim G = 1`, recovered by the ℓ-adic fallback | **2** | `881.1`, `881.2` (degree 18, at dim 441) |
+| `dim G = 1`, fallback out of reach (`dim > 2000`) | 18 | inconclusive |
+| `dim G = 1`, fallback ran and **failed** | 4 | `20447.3/.6`, `24889.1/.2` |
+
+So the scalable test certified **3 of 27**, and only **one new curve** beyond what §4e already knew:
+`145161.2`, with `[E:Q] ≥ 2`. That is a much weaker statement than the degrees 18 and 5 of §4e — it
+rules out an elliptic curve and nothing more — and it should be quoted as such.
+
+**The ℓ-adic fallback is exhausted, not merely slow.** When `dim G = 1` we have `a_P ∈ Z_ℓ` and can
+try to reconstruct `a_P`'s minimal polynomial from a Hensel lift of `v` (LLL, find-at-half /
+verify-at-full). This is what recovers degree 18 for `881` at dim 441. But it is `O(dim³)`, and on
+`24889.1` (dim 1038) it returned **no relation at all for any of 12 primes**, even after raising the
+precision from 400 to 1200 and the degree cap from 25 to 40. A diagnostic added for this run
+distinguishes "recovered degree 1" from "found nothing" — the four curves in the last row are the
+latter, so they carry no information about `[E:Q]` either.
+
+#### Where this leaves the claim
+
+> **"σ does not arise from an elliptic curve" is established for 5 of the 39 curves:** `881.1`,
+> `881.2` (`[E:Q] = 18`), `14303.1`, `14303.2` (`[E:Q] = 5`) — all four by explicit Hecke field,
+> §4e — and `145161.2` (`[E:Q] ≥ 2`, §4f). For the other 34 it is **open**, in the strict sense
+> that we have no evidence in either direction.
+
+This is a limitation of the method, not of the computation, and more machine time will not move it.
+`dim G = [E_λ:Q_ℓ]` is bounded by the residue degree of `λ`, so whenever `ℓ` has a degree-1 prime in
+`E` — which was the case for 22 of the 27 we tested — the test is silent no matter how large `[E:Q]`
+really is. Closing the gap needs the char-0 eigenform, i.e. the `NewformDecomposition` step that is
+already known to be intractable past dim ≈ 700 (§4c).
+
+Two things are worth saying alongside the negative result, without overselling either. First, the
+five curves where we *do* know the degree span both residual primes and give degrees 18, 5 and ≥ 2 —
+there is no case in the dataset where a Hecke field turned out to be rational. Second, a rational
+Hecke field would be a strong coincidence at these conductor sizes, so the expectation is that the
+remaining 34 behave like the five. That is an expectation, not a theorem, and the write-up should
+not dress it as more.
 
 **Caveat — certificates vs. cutters.** The kernel method yields a *match certificate*
 (1-dim surviving mod-ℓ eigenspace + control), not the char-0 eigenform, so it does **not**
@@ -571,13 +615,74 @@ supplies `a_P mod λ` directly, which is why §4b scales to 37 curves.
 
 ## 5. What this says for the collaboration
 
-- **Feasibility: easy for the bulk.** The small-conductor majority match in seconds–minutes;
-  the fingerprint is trivial; the only real step is pinning the 2-part by level-lowering
-  (cheap — bounded by `Conductor(C)`).
-- **GRH** enters only for *certification*: an effective bound on the least distinguishing
-  prime, independent of the (huge) splitting field. Finding the form is unconditional.
-- **Scaling.** The handful of larger-conductor curves (dim `> ~few·10³`) use the
-  kernel-intersection matcher (no `NewformDecomposition`) already developed for Goal 1.
+### What is established
+
+**Every curve in the dataset is matched to a Hilbert modular newform, and 37 of the 39 carry a
+GRH-conditional modularity theorem.** Both numbers are complete statements rather than progress
+reports: the sweep is finished, and the two missing certificates are missing for want of machine
+access, not method (§4b).
+
+Two features make the statements worth trusting independently of the code:
+
+- **Every match carries its own control.** The wrong-fingerprint system `t_P → t_P + 1` is run
+  alongside the real one and must collapse the surviving eigenspace to `0`. A match is reported
+  only as `survivor = 1, control = 0`. This is what separates "a form exists with these
+  eigenvalues" from "the eigenvalue system is a coincidence of a large space".
+- **The raw output is banked and self-checking.** `evidence/` holds all 39 match records and 37
+  certificates, and `verify_evidence.sh` re-checks each against `torsion_data.m` by index — the
+  completion sentinel, the label, `survivor = 1 / control = 0`, and `disagree = 0` — in under a
+  second, with no Magma. `verify_transcription.py` separately checks that `torsion_data.m` is a
+  faithful transcription of Hugo's `examples.json`; all 39 curves agree exactly.
+
+### What is conditional, and how narrowly
+
+GRH does **one** job: bounding how many primes must be checked before Brauer–Nesbitt applies. The
+match, the survivor, the Deligne–Serre lifting step, and the observed agreement (0 disagreements at
+400–3000 primes per curve) are all unconditional.
+
+We tried to remove it and could not, for a reason worth stating in any write-up: the hypothesis
+disappears if `σ` is modular by some independent route, and the classical no-conjecture case is a
+**dihedral** `σ`. Measuring the trace-zero frequency across all 39 (§4b) puts every one of them at
+`≈ 1/ℓ` rather than `1/2`, at least `9.3σ` from the dihedral prediction, with all `ℓ` trace values
+occurring. These `σ` are large-image and miss every classical shortcut. GRH stays, and now we can say
+why.
+
+### What is open
+
+- **Two certificates** — the `785473` pair. Each needs ~40 h including a ~37 h space build, on a
+  machine that will tolerate a 400–600 GB job for two days. Purely an access problem.
+- **"Not from an elliptic curve"** — established for 5 of the 39 (§4e, §4f) and genuinely open for
+  the other 34, in the strict sense of no evidence either way. This one is **not** an access problem:
+  the scalable test is one-sided and silent whenever `ℓ` has a degree-1 prime in the Hecke field,
+  which was the case for 22 of the 27 curves tried. Closing it needs the char-0 eigenform, i.e. the
+  `NewformDecomposition` step that is intractable past dim ≈ 700. More compute will not help.
+
+### What it costs, for anyone planning follow-on work
+
+The point of the kernel-intersection method is that `NewformDecomposition` is not merely slow here
+but unusable — it reached only the four smallest curves and ran >10 h with no output at dim 2525.
+Working with the mod-ℓ survivor instead, the measured costs are:
+
+| regime | dim | match | certificate |
+|---|--:|---|---|
+| small | ≤ 10³ | seconds–minutes | minutes |
+| mid | 10³–10⁴ | minutes–hours | hours |
+| large | ~4×10⁴ | hours | ~19 h at `BOUND=400` |
+| giants | 76 606 | **37.8 h / 35.8 h** | ~37 h build, then ~340 s per prime |
+
+Two practical lessons cost us real time and are cheap to inherit. **The runs are not checkpointed**:
+an interruption is total loss, and `kernel_torsion.m` writes nothing until the space build finishes,
+so a 40 h job can die having produced an empty file. And **the host matters as much as its memory**:
+we lost two giant runs (~40 h each) to an OOM reaper on a shared machine, and a later certificate to
+a `SIGTERM` on a box that turned out to run CI for Magma itself. Run giants strictly one at a time,
+on a machine you know is yours.
+
+### What would extend it
+
+The dataset supplied covers `Q(√2)` and `Q(√3)` only. `Q(√5)` candidates would be the cheapest
+possible extension — its spaces are `≈ 0.4×` the `Q(√2)` size, so the whole pipeline would run in
+hours on the small-job path — but no such curves are in `examples.json`, so this needs data from
+Hugo rather than compute from us.
 
 ## Reproduce
 
