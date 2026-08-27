@@ -615,13 +615,74 @@ supplies `a_P mod λ` directly, which is why §4b scales to 37 curves.
 
 ## 5. What this says for the collaboration
 
-- **Feasibility: easy for the bulk.** The small-conductor majority match in seconds–minutes;
-  the fingerprint is trivial; the only real step is pinning the 2-part by level-lowering
-  (cheap — bounded by `Conductor(C)`).
-- **GRH** enters only for *certification*: an effective bound on the least distinguishing
-  prime, independent of the (huge) splitting field. Finding the form is unconditional.
-- **Scaling.** The handful of larger-conductor curves (dim `> ~few·10³`) use the
-  kernel-intersection matcher (no `NewformDecomposition`) already developed for Goal 1.
+### What is established
+
+**Every curve in the dataset is matched to a Hilbert modular newform, and 37 of the 39 carry a
+GRH-conditional modularity theorem.** Both numbers are complete statements rather than progress
+reports: the sweep is finished, and the two missing certificates are missing for want of machine
+access, not method (§4b).
+
+Two features make the statements worth trusting independently of the code:
+
+- **Every match carries its own control.** The wrong-fingerprint system `t_P → t_P + 1` is run
+  alongside the real one and must collapse the surviving eigenspace to `0`. A match is reported
+  only as `survivor = 1, control = 0`. This is what separates "a form exists with these
+  eigenvalues" from "the eigenvalue system is a coincidence of a large space".
+- **The raw output is banked and self-checking.** `evidence/` holds all 39 match records and 37
+  certificates, and `verify_evidence.sh` re-checks each against `torsion_data.m` by index — the
+  completion sentinel, the label, `survivor = 1 / control = 0`, and `disagree = 0` — in under a
+  second, with no Magma. `verify_transcription.py` separately checks that `torsion_data.m` is a
+  faithful transcription of Hugo's `examples.json`; all 39 curves agree exactly.
+
+### What is conditional, and how narrowly
+
+GRH does **one** job: bounding how many primes must be checked before Brauer–Nesbitt applies. The
+match, the survivor, the Deligne–Serre lifting step, and the observed agreement (0 disagreements at
+400–3000 primes per curve) are all unconditional.
+
+We tried to remove it and could not, for a reason worth stating in any write-up: the hypothesis
+disappears if `σ` is modular by some independent route, and the classical no-conjecture case is a
+**dihedral** `σ`. Measuring the trace-zero frequency across all 39 (§4b) puts every one of them at
+`≈ 1/ℓ` rather than `1/2`, at least `9.3σ` from the dihedral prediction, with all `ℓ` trace values
+occurring. These `σ` are large-image and miss every classical shortcut. GRH stays, and now we can say
+why.
+
+### What is open
+
+- **Two certificates** — the `785473` pair. Each needs ~40 h including a ~37 h space build, on a
+  machine that will tolerate a 400–600 GB job for two days. Purely an access problem.
+- **"Not from an elliptic curve"** — established for 5 of the 39 (§4e, §4f) and genuinely open for
+  the other 34, in the strict sense of no evidence either way. This one is **not** an access problem:
+  the scalable test is one-sided and silent whenever `ℓ` has a degree-1 prime in the Hecke field,
+  which was the case for 22 of the 27 curves tried. Closing it needs the char-0 eigenform, i.e. the
+  `NewformDecomposition` step that is intractable past dim ≈ 700. More compute will not help.
+
+### What it costs, for anyone planning follow-on work
+
+The point of the kernel-intersection method is that `NewformDecomposition` is not merely slow here
+but unusable — it reached only the four smallest curves and ran >10 h with no output at dim 2525.
+Working with the mod-ℓ survivor instead, the measured costs are:
+
+| regime | dim | match | certificate |
+|---|--:|---|---|
+| small | ≤ 10³ | seconds–minutes | minutes |
+| mid | 10³–10⁴ | minutes–hours | hours |
+| large | ~4×10⁴ | hours | ~19 h at `BOUND=400` |
+| giants | 76 606 | **37.8 h / 35.8 h** | ~37 h build, then ~340 s per prime |
+
+Two practical lessons cost us real time and are cheap to inherit. **The runs are not checkpointed**:
+an interruption is total loss, and `kernel_torsion.m` writes nothing until the space build finishes,
+so a 40 h job can die having produced an empty file. And **the host matters as much as its memory**:
+we lost two giant runs (~40 h each) to an OOM reaper on a shared machine, and a later certificate to
+a `SIGTERM` on a box that turned out to run CI for Magma itself. Run giants strictly one at a time,
+on a machine you know is yours.
+
+### What would extend it
+
+The dataset supplied covers `Q(√2)` and `Q(√3)` only. `Q(√5)` candidates would be the cheapest
+possible extension — its spaces are `≈ 0.4×` the `Q(√2)` size, so the whole pipeline would run in
+hours on the small-job path — but no such curves are in `examples.json`, so this needs data from
+Hugo rather than compute from us.
 
 ## Reproduce
 
